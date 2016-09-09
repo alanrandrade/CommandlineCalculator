@@ -1,0 +1,16 @@
+# Use wildcards as well
+*~
+*.iml
+*.eml
+
+# IDE
+.idea
+build
+.classpath
+.settings
+.project
+target
+dist
+external_libs
+node_modules
+.tmp
