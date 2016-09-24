@@ -1,0 +1,38 @@
+* Overall
+  - Comments only in util/BigFunctions.java
+* Expression that crash
+  should the program CRASH on wrong input?
+  - 1/0
+  - log(-1)
+  - \phi = 7
+  - Using TABS in any expression
+  - using arrow keys,
+
+  The program crashes on some but not all wrong input.
+  - seven + eight does not crash.
+* Expression with a wrong result
+  - (1 / 300) * 300 = 0.9999999999999900. should be 1
+  - 2^(-1) = 0. should be 0.5
+  - log( 10 ^ 1234) outputs an intermediate result, then crashes. should output 1234
+  - 0^0 return 1, is undefined
+
+* Other
+  - Input reading is primitive, cant go back without deleting.
+  - ln(log( 10^e )) throws an error Could not convert bigInteger into long, but still gives the correct answer
+  - 1 Banana \phi = 1
+  - Control + \ gives a lot of debugging information
+  - x=7
+    7(x) gives 7, not 49
+  - f(x):=7, works fine
+    f(x):=f(x)+1, work if the function f has previously been defined
+    f(1) crashed due to an infinite loop
+  - Using 9999 character variable names gives an exception, 999 characters is fine.
+  - x(z):=z
+    f(x):=x()
+    f(7)
+    crashes
+  - f(x):=1
+    f(x):=f(2)
+    f(3), crashes, expected 1
+  - Equality?, can either return -1,0, or 1
+  - Z=7 \ne 7=z
