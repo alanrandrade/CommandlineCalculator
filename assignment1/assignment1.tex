@@ -1,4 +1,4 @@
-% Created 2016-09-26 Mon 10:37
+% Created 2016-09-26 Mon 12:12
 \documentclass[11pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 %\usepackage[T1]{fontenc}
@@ -20,11 +20,11 @@
 \usepackage{tikz}
 \usepackage{circuitikz}
 \usetikzlibrary{tikzmark,decorations.pathmorphing}
-\author{Sasja LASTNAME?, Martin LASTNMAME?, Martijn Terpstra}
+\author{Sasja Gillissen, Martin Huijben, Martijn Terpstra}
 \date{\today}
 \title{Title}
 \hypersetup{
- pdfauthor={Sasja LASTNAME?, Martin LASTNMAME?, Martijn Terpstra},
+ pdfauthor={Sasja Gillissen, Martin Huijben, Martijn Terpstra},
  pdftitle={Title},
  pdfkeywords={},
  pdfsubject={},
@@ -109,7 +109,7 @@ Expression \(\rightarrow\) PrefixFunction Seperator (Expression)
 
 Expression \(\rightarrow\) Expression Seperator InfixFunction Seperator Expression
 
-Seperator \(\rightarrow\) SPACE | \(\empty\) | Seperator Seperator
+Seperator \(\rightarrow\) SPACE | \(\phi\) | Seperator Seperator
 
 Number \(\rightarrow\) 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | Number Number
 
@@ -124,6 +124,8 @@ SmallLetter \(\rightarrow\) a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z
 CapticalLetter \(\rightarrow\) A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z
 
 InfixFunction \(\rightarrow\) / | * | - | + | \^{}
+
+\emph{variable names have a max length}
 
 
 \subsubsection{Variable assignments}
