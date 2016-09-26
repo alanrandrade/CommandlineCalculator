@@ -1,5 +1,5 @@
 #+title: Title
-#+author: Sasja LASTNAME?, Martin LASTNMAME?, Martijn Terpstra
+#+author: Sasja Gillissen, Martin Huijben, Martijn Terpstra
 #+date: \today
 #+OPTIONS: toc:t
 #+LATEX_CLASS: article
@@ -73,7 +73,7 @@
 
       Expression \rightarrow Expression Seperator InfixFunction Seperator Expression
 
-      Seperator \rightarrow SPACE | \empty | Seperator Seperator
+      Seperator \rightarrow SPACE | \phi | Seperator Seperator
 
       Number \rightarrow 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | Number Number
 
@@ -88,6 +88,8 @@
       CapticalLetter \rightarrow A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z
 
       InfixFunction \rightarrow / | * | - | + | ^
+
+      /variable names have a max length/
 
 
 ***** Variable assignments
