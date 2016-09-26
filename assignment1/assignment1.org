@@ -200,21 +200,21 @@
 
 *** Other
     - Input reading is primitive, cant go back without deleting.
-    - $ln(log( 10^e ))$ throws an error Could not convert bigInteger into long, but still gives the correct answer
-    - $1 Banana \phi = 1$
+    - =ln(log( 10^e ))= throws an error Could not convert bigInteger into long, but still gives the correct answer
+    - =1 Banana \phi = 1=
     - Control + \ gives a lot of debugging information
-    - $x=7$
-      $7(x)$ gives $7$, not $49$
-    - $f(x):=7$, works fine
-      $f(x):=f(x)+1$, work if the function f has previously been defined
-      $f(1)$ crashed due to an infinite loop
+    - =x=7=
+      =7(x)= gives =7=, not =49=
+    - =f(x):=7=, works fine
+      =f(x):=f(x)+1=, work if the function f has previously been defined
+      =f(1)= crashed due to an infinite loop
     - Using 9999 character variable names gives an exception, 999 characters is fine.
-    - $x(z):=z$
-      $f(x):=x()$
-      $f(7)$
+    - =x(z):=z=
+      =f(x):=x()=
+      =f(7)=
       crashes
-    - $f(x):=1$
-      $f(x):=f(2)$
-      $f(3)$, crashes, expected $1$
+    - =f(x):=1=
+      =f(x):=f(2)=
+      =f(3)=, crashes, expected =1=
     - Equality?, can either return -1,0, or 1
-    - $z=7 \ne 7=z$
+    - =z=7= \ne =7=z=

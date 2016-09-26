@@ -1,4 +1,4 @@
-% Created 2016-09-26 Mon 10:19
+% Created 2016-09-26 Mon 10:37
 \documentclass[11pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -279,23 +279,23 @@ The program crashes on some but not all wrong input.
 \label{sec:orgheadline36}
 \begin{itemize}
 \item Input reading is primitive, cant go back without deleting.
-\item \(ln(log( 10^e ))\) throws an error Could not convert bigInteger into long, but still gives the correct answer
-\item \(1 Banana \phi = 1\)
+\item \texttt{ln(log( 10\textasciicircum{}e ))} throws an error Could not convert bigInteger into long, but still gives the correct answer
+\item \texttt{1 Banana \textbackslash{}phi = 1}
 \item Control + $\backslash$ gives a lot of debugging information
-\item \(x=7\)
-      \(7(x)\) gives \(7\), not \(49\)
-\item \(f(x):=7\), works fine
-\(f(x):=f(x)+1\), work if the function f has previously been defined
-\(f(1)\) crashed due to an infinite loop
+\item \texttt{x=7}
+      \texttt{7(x)} gives \texttt{7}, not \texttt{49}
+\item \texttt{f(x):=7}, works fine
+\texttt{f(x):=f(x)+1}, work if the function f has previously been defined
+\texttt{f(1)} crashed due to an infinite loop
 \item Using 9999 character variable names gives an exception, 999 characters is fine.
-\item \(x(z):=z\)
-      \(f(x):=x()\)
-      \(f(7)\)
+\item \texttt{x(z):=z}
+      \texttt{f(x):=x()}
+      \texttt{f(7)}
       crashes
-\item \(f(x):=1\)
-      \(f(x):=f(2)\)
-      \(f(3)\), crashes, expected \(1\)
+\item \texttt{f(x):=1}
+      \texttt{f(x):=f(2)}
+      \texttt{f(3)}, crashes, expected \texttt{1}
 \item Equality?, can either return -1,0, or 1
-\item \(z=7 \ne 7=z\)
+\item \texttt{z=7} \(\ne\) \texttt{7=z}
 \end{itemize}
 \end{document}
