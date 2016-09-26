@@ -41,8 +41,10 @@ stakeholders, i.e., for whom are you doing it, applicable laws and (internationa
 Identification of the SUT: What is the product (SUT – System Under Test) being tested, its
 version, its operation context, required platform, its interfaces, and how is it executed.
 \section{TERPSTRA The Specification}
-What is the test basis, i.e., its specification, and all documentation describing what the SUT
-shall do. (Do not include specification documents, but refer to them.)
+The full specification is in included in appendix\ref{app:specification}
+
+%% What is the test basis, i.e., its specification, and all documentation describing what the SUT
+%% shall do. (Do not include specification documents, but refer to them.)
 \section{MARTIN Risks}
 What are the risks of the product (at a high level), of the development process, and of the
 test process. How are risks handled and mitigated.
@@ -82,8 +84,7 @@ Which test products are recorded, consolidated, and kept for reuse.
 How are issues (defects) registered, analysed, reported, and handled.
 
 \appendix
-\section{Tasks}
-\section{Write requirements}
+\section{Specification} \label{app:specification}
 \subsection{Overall use of the program}
 the program will continuously prompt the user for input. It will
 continue to prompt the user for input until it receives the
@@ -180,73 +181,73 @@ A function assignment is in the form
 \subsection{Expression parsing}
 Intermediate steps and calculations are show
 The result of the expression is shown
-\section{Design test cases}
-\subsection{Functions assignments}
-\subsection{Variable assignments}
-\subsection{Equality tests}
-\subsection{Expression parsing}
-\section{Assign Test cases}
-\section{Execute test cases (automation?)}
-\section{Short requirements}
-\begin{quote}
-From this description we can deduce that a test approach must at least describe:
-\begin{itemize}
-\item the product that will be tested,
-\item the controlled environment in which it will be tested,
-\item the specified procedure following which it will be tested,
-\item the quality characteristics that will be tested, and
-\item the specification.
-\end{itemize}
-\end{quote}
+%% \section{Design test cases}
+%% \subsection{Functions assignments}
+%% \subsection{Variable assignments}
+%% \subsection{Equality tests}
+%% \subsection{Expression parsing}
+%% \section{Assign Test cases}
+%% \section{Execute test cases (automation?)}
+%% \section{Short requirements}
+%% \begin{quote}
+%% From this description we can deduce that a test approach must at least describe:
+%% \begin{itemize}
+%% \item the product that will be tested,
+%% \item the controlled environment in which it will be tested,
+%% \item the specified procedure following which it will be tested,
+%% \item the quality characteristics that will be tested, and
+%% \item the specification.
+%% \end{itemize}
+%% \end{quote}
 
-\section{Observations TERPSTRA}
-\section{Overall}
-\begin{itemize}
-\item Comments only in util/BigFunctions.java
-\end{itemize}
-\section{Expression that crash}
-should the program CRASH on wrong input?
-\begin{itemize}
-\item \(1/0\)
-\item \(log(-1)\)
-\item \(\phi = 7\)
-\item Using TABS in any expression
-\item using arrow keys
-\end{itemize}
+%% \section{Observations TERPSTRA}
+%% \section{Overall}
+%% \begin{itemize}
+%% \item Comments only in util/BigFunctions.java
+%% \end{itemize}
+%% \section{Expression that crash}
+%% should the program CRASH on wrong input?
+%% \begin{itemize}
+%% \item \(1/0\)
+%% \item \(log(-1)\)
+%% \item \(\phi = 7\)
+%% \item Using TABS in any expression
+%% \item using arrow keys
+%% \end{itemize}
 
-The program crashes on some but not all wrong input.
-\begin{itemize}
-\item \(seven + eight\) does not crash.
-\end{itemize}
-\section{Expression with a wrong result}
-\begin{itemize}
-\item \((1 / 300) * 300 = 0.9999999999999900\). should be \(1\)
-\item \(2^(-1) = 0\). should be \(0.5\)
-\item \(log( 10 ^ 1234)\) outputs an intermediate result, then crashes. should output \(1234\)
-\item \(0^0\) return \(1\), is undefined
-\end{itemize}
+%% The program crashes on some but not all wrong input.
+%% \begin{itemize}
+%% \item \(seven + eight\) does not crash.
+%% \end{itemize}
+%% \section{Expression with a wrong result}
+%% \begin{itemize}
+%% \item \((1 / 300) * 300 = 0.9999999999999900\). should be \(1\)
+%% \item \(2^(-1) = 0\). should be \(0.5\)
+%% \item \(log( 10 ^ 1234)\) outputs an intermediate result, then crashes. should output \(1234\)
+%% \item \(0^0\) return \(1\), is undefined
+%% \end{itemize}
 
-\section{Other}
-\begin{itemize}
-\item Input reading is primitive, cant go back without deleting.
-\item \texttt{ln(log( 10\textasciicircum{}e ))} throws an error Could not convert bigInteger into long, but still gives the correct answer
-\item \texttt{1 Banana \textbackslash{}phi = 1}
-\item Control + $\backslash$ gives a lot of debugging information
-\item \texttt{x=7}
-      \texttt{7(x)} gives \texttt{7}, not \texttt{49}
-\item \texttt{f(x):=7}, works fine
-\texttt{f(x):=f(x)+1}, work if the function f has previously been defined
-\texttt{f(1)} crashed due to an infinite loop
-\item Using 9999 character variable names gives an exception, 999 characters is fine.
-\item \texttt{x(z):=z}
-      \texttt{f(x):=x()}
-      \texttt{f(7)}
-      crashes
-\item \texttt{f(x):=1}
-      \texttt{f(x):=f(2)}
-      \texttt{f(3)}, crashes, expected \texttt{1}
-\item Equality?, can either return -1,0, or 1
-\item \texttt{z=7} \(\ne\) \texttt{7=z}
-\end{itemize}
+%% \section{Other}
+%% \begin{itemize}
+%% \item Input reading is primitive, cant go back without deleting.
+%% \item \texttt{ln(log( 10\textasciicircum{}e ))} throws an error Could not convert bigInteger into long, but still gives the correct answer
+%% \item \texttt{1 Banana \textbackslash{}phi = 1}
+%% \item Control + $\backslash$ gives a lot of debugging information
+%% \item \texttt{x=7}
+%%       \texttt{7(x)} gives \texttt{7}, not \texttt{49}
+%% \item \texttt{f(x):=7}, works fine
+%% \texttt{f(x):=f(x)+1}, work if the function f has previously been defined
+%% \texttt{f(1)} crashed due to an infinite loop
+%% \item Using 9999 character variable names gives an exception, 999 characters is fine.
+%% \item \texttt{x(z):=z}
+%%       \texttt{f(x):=x()}
+%%       \texttt{f(7)}
+%%       crashes
+%% \item \texttt{f(x):=1}
+%%       \texttt{f(x):=f(2)}
+%%       \texttt{f(3)}, crashes, expected \texttt{1}
+%% \item Equality?, can either return -1,0, or 1
+%% \item \texttt{z=7} \(\ne\) \texttt{7=z}
+%% \end{itemize}
 
 \end{document}
