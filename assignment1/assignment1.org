@@ -24,11 +24,16 @@
 
 * Tasks
 *** Write requirements
+***** Memory
+***** Functions assignments
+***** Variable assignments
+***** Equality tests
+***** Expression parsing
 *** Design test cases
 ***** Functions assignments
 ***** Variable assignments
 ***** Equality tests
-***** Expression aprsing
+***** Expression parsing
 *** Assign Test cases
 *** Execute test cases (automation?)
 * Short requirements
