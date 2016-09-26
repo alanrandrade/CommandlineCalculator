@@ -24,11 +24,94 @@
 
 * Tasks
 *** Write requirements
+***** Overall use of the program
+      the program will continuously prompt the user for input. It will
+      continue to prompt the user for input until it receives the
+      =exit()= function as input and then terminates.
+
+      On invalid input the program the program will show an error
+      indicating the nature of the invalid input, but will not terminate.
+
+      Valid input is on of the following
+      - A function assignment
+      - A variables assignment
+      - An expression
+      - An equality test
 ***** Memory
-***** Functions assignments
+      The program will keep defined variables and function in memory
+      until the program terminates.
+
+
+      The program will be initialized with the following variables
+      - =pi=, whose value is =3.141592653589793=
+      - =e=, whose value is =2.718281828459045=
+
+      The program will be initialized with the following functions
+      - =floor=, which rounds down
+      - =ceil=, which rounds up
+      - =round=, which rounds to the nearest  whole number.
+      - =log=
+      - =ln=, which
+      - =sqrt=, which returns the square root of its
+      - =root=, which returns the Nth root of it first argument.  (WARNING: does not work properly)
+      - =exit= , which will terminate the program
+
+
+      /BTW floor,ceil and round work incorrectly for NEGATIVE numbers/
+***** Expression
+      A valid expression is defined using Context-free Grammar
+
+      Expression \rightarrow Seperator Expression Seperator
+
+      Expression \rightarrow (Expression)
+
+      Expression \rightarrow Number
+
+      Expression \rightarrow Variable
+
+      Expression \rightarrow PrefixFunction Seperator (Expression)
+
+      Expression \rightarrow Expression Seperator InfixFunction Seperator Expression
+
+      Seperator \rightarrow SPACE | \empty | Seperator Seperator
+
+      Number \rightarrow 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | Number Number
+
+      Variable \rightarrow Name
+
+      PrefixFunction \rightarrow Name
+
+      Name \rightarrow SmallLetter | CapitalLetter | NameName
+
+      SmallLetter \rightarrow a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z
+
+      CapticalLetter \rightarrow A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z
+
+      InfixFunction \rightarrow / | * | - | + | ^
+
+
 ***** Variable assignments
+      A variable assignment is in the form
+
+      =VARIABLENAME = EXPRESSION=
+
+      Where a valid =VARIABLENAME= is a string of 1 or more letters and
+      is case-sensitive.
 ***** Equality tests
+      An equality test is in the form
+
+      =EXPRESSION1 = EXPRESSION2=
+
+      Where =EXPRESSION1= and =EXPRESSION2= are valid expressions and
+      =EXPRESSION1= is *not* the name of a variable
+
+***** Functions assignments
+      A function assignment is in the form
+
+      =FUNCTIONNAME(ARGUMENT):=EXPRESSION=
 ***** Expression parsing
+      Intermediate steps and calculations are show
+      The result of the expression is shown
 *** Design test cases
 ***** Functions assignments
 ***** Variable assignments
