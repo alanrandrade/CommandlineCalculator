@@ -15,3 +15,7 @@ external_libs
 node_modules
 .tmp
 /TAGS
+/assignment1/assignment1.out
+/assignment1/assignment1.log
+/assignment1/assignment1.aux
+/assignment1/assignment1.toc

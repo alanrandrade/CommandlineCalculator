@@ -16,7 +16,6 @@
 \usepackage{amssymb}
 \usepackage{hyperref}
 \tolerance=1000
-\usepackage{minted}
 \bibliographystyle{plain}
 \usepackage{microtype}
 \usepackage{tikz}
@@ -37,267 +36,221 @@
 \maketitle
 \tableofcontents
 
-%% Ik heb dit document in Emacs met org-mode gemaakt en het vervolgens
-%% naar latex geexporteerd. Het orginele bestand is het bestand met de
-%% .org extensie.
-
-%% Ikzelf vind org-mode bestanden makkelijkere te lezen maar als dit voor
-%% jullie lastig is, is het waarschijnlijk makkelijker om alles gelijk in
-%% LateX te scrijven.
-
-%% Martijn
-
-\section{Tasks}
-\label{sec:orgheadline16}
-\subsection{Write requirements}
-\label{sec:orgheadline8}
-\subsubsection{Overall use of the program}
-\label{sec:orgheadline1}
-the program will continuously prompt the user for input. It will
-continue to prompt the user for input until it receives the
-\texttt{exit()} function as input and then terminates.
-
-On invalid input the program the program will show an error
-indicating the nature of the invalid input, but will not terminate.
-
-Valid input is on of the following
-\begin{itemize}
-\item A function assignment
-\item A variables assignment
-\item An expression
-\item An equality test
-\end{itemize}
-\subsubsection{Memory}
-\label{sec:orgheadline2}
-The program will keep defined variables and function in memory
-until the program terminates.
-
-
-The program will be initialized with the following variables
-\begin{itemize}
-\item \texttt{pi}, whose value is \texttt{3.141592653589793}
-\item \texttt{e}, whose value is \texttt{2.718281828459045}
-\end{itemize}
-
-The program will be initialized with the following functions
-\begin{itemize}
-\item \texttt{floor}, which rounds down
-\item \texttt{ceil}, which rounds up
-\item \texttt{round}, which rounds to the nearest  whole number.
-\item \texttt{log}
-\item \texttt{ln}, which
-\item \texttt{sqrt}, which returns the square root of its
-\item \texttt{root}, which returns the Nth root of it first argument.  (WARNING: does not work properly)
-\item \texttt{exit} , which will terminate the program
-\end{itemize}
-
-
-\emph{BTW floor,ceil and round work incorrectly for NEGATIVE numbers}
-\subsubsection{Expression}
-\label{sec:orgheadline3}
-A valid expression is defined using Context-free Grammar
-
-Expression \(\rightarrow\) Seperator Expression Seperator
-
-Expression \(\rightarrow\) (Expression)
-
-Expression \(\rightarrow\) Number
-
-Expression \(\rightarrow\) Variable
-
-Expression \(\rightarrow\) PrefixFunction Seperator (Expression)
-
-Expression \(\rightarrow\) Expression Seperator InfixFunction Seperator Expression
-
-Seperator \(\rightarrow\) SPACE | \(\phi\) | Seperator Seperator
-
-Number \(\rightarrow\) 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | Number Number
-
-Variable \(\rightarrow\) Name
-
-PrefixFunction \(\rightarrow\) Name
-
-Name \(\rightarrow\) SmallLetter | CapitalLetter | NameName
-
-SmallLetter \(\rightarrow\) a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z
-
-CapticalLetter \(\rightarrow\) A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z
-
-InfixFunction \(\rightarrow\) / | * | - | + | \^{}
-
-\emph{variable names have a max length}
-
-
-\subsubsection{Variable assignments}
-\label{sec:orgheadline4}
-A variable assignment is in the form
-
-\texttt{VARIABLENAME = EXPRESSION}
-
-Where a valid \texttt{VARIABLENAME} is a string of 1 or more letters and
-is case-sensitive.
-\subsubsection{Equality tests}
-\label{sec:orgheadline5}
-An equality test is in the form
-
-\texttt{EXPRESSION1 = EXPRESSION2}
-
-Where \texttt{EXPRESSION1} and \texttt{EXPRESSION2} are valid expressions and
-\texttt{EXPRESSION1} is \textbf{not} the name of a variable
-
-\subsubsection{Functions assignments}
-\label{sec:orgheadline6}
-A function assignment is in the form
-
-\texttt{FUNCTIONNAME(ARGUMENT):=EXPRESSION}
-\subsubsection{Expression parsing}
-\label{sec:orgheadline7}
-Intermediate steps and calculations are show
-The result of the expression is shown
-\subsection{Design test cases}
-\label{sec:orgheadline13}
-\subsubsection{Functions assignments}
-\label{sec:orgheadline9}
-\subsubsection{Variable assignments}
-\label{sec:orgheadline10}
-\subsubsection{Equality tests}
-\label{sec:orgheadline11}
-\subsubsection{Expression parsing}
-\label{sec:orgheadline12}
-\subsection{Assign Test cases}
-\label{sec:orgheadline14}
-\subsection{Execute test cases (automation?)}
-\label{sec:orgheadline15}
-\section{Short requirements}
-\label{sec:orgheadline17}
-\begin{quote}
-From this description we can deduce that a test approach must at least describe:
-\begin{itemize}
-\item the product that will be tested,
-\item the controlled environment in which it will be tested,
-\item the specified procedure following which it will be tested,
-\item the quality characteristics that will be tested, and
-\item the specification.
-\end{itemize}
-\end{quote}
-
-\section{Template}
-\label{sec:orgheadline32}
-\subsection{Introduction}
-\label{sec:orgheadline18}
+\section{MARTIN Introduction}
 State the objectives and overview of the document at a high-level.
-\subsection{Test Goal}
-\label{sec:orgheadline19}
+\section{SASJA Test Goal}
 What is the overall goal of the testing effort, what are the final deliverables, who are the
 stakeholders, i.e., for whom are you doing it, applicable laws and (international) standards.
-\subsection{The Product}
-\label{sec:orgheadline20}
+\section{SASJA The Product}
 Identification of the SUT: What is the product (SUT – System Under Test) being tested, its
 version, its operation context, required platform, its interfaces, and how is it executed.
-\subsection{The Specification}
-\label{sec:orgheadline21}
+\section{TERPSTRA The Specification}
 What is the test basis, i.e., its specification, and all documentation describing what the SUT
 shall do. (Do not include specification documents, but refer to them.)
-\subsection{Risks}
-\label{sec:orgheadline22}
+\section{MARTIN Risks}
 What are the risks of the product (at a high level), of the development process, and of the
 test process. How are risks handled and mitigated.
-\subsection{Test Environment}
-\label{sec:orgheadline23}
+\section{SASJA Test Environment}
 What is the (controlled) environment in which experiments are performed, what is the test
 architecture, i.e., how are SUT and test system positioned and connected, which environment
 and infrastructure (hardware, software, middleware, databases, libraries, . . .) are required for
 testing, how to access the SUT and its interfaces, which stubs and drivers are needed, are
 tests performed in a laboratory, production, or user environment.
-\subsection{Quality Characteristics}
-\label{sec:orgheadline24}
+\section{MARTIN Quality Characteristics}
 Which quality characteristics are tested (IS 9126 or other quality model: functionality, reli-
 ability, usability, . . .),
-\subsection{Levels and Types of Testing}
-\label{sec:orgheadline25}
+\section{MARTIN Levels and Types of Testing}
 Which levels and types of tests are performed: (V-model: unit, integration, module, sys-
 tem, acceptance, . . .), which units, components, subsystems, . . . are tested and for what,
 accessibility (white/black box), verification vs. validation tests, . . ..
-\subsection{Who will do the Testing}
-\label{sec:orgheadline26}
+\section{TERPSTRA Who will do the Testing}
 Who tests what, and what are the roles: developer, (independent) tester, user, alpha, certi-
 fication, . . .),
-\subsection{Test Generation Techniques}
-\label{sec:orgheadline27}
+\section{SASJA Test Generation Techniques}
 As far as already known or required, e.g., by applicable standards: black-box (equivalence
 partitioning, boundary value analysis, error guessing, cause-effect graphing, decision tables,
 state transitions, use case testing, exploratory testing, . . .), white-box (path, statement,
 (multiple) condition, decision/branch, function, call, loop, MC/DC coverage, . . .), mutation
 testing, combinatorial testing, . . ..
-\subsection{Test Automation}
-\label{sec:orgheadline28}
+\section{TERPSTRA Test Automation}
 As far as applicable, which parts of the testing will be automated, which test tools will be
 used in the various phases of the testing process (planning, preparation, test generation, test
 execution, completion), which tests are performed manually, what is automated, and which
 tools have to be obtained or developed.
-\subsection{Exit Criteria}
-\label{sec:orgheadline29}
+\section{MARTIN Exit Criteria}
 What are the criteria for going from one test phase to the next, when is testing finished,
 when is the product considered sufficiently tested, what are the (final) evaluation criteria.
-\subsection{Testware}
-\label{sec:orgheadline30}
+\section{TERPSTRA Testware}
 Which test products are recorded, consolidated, and kept for reuse.
-\subsection{Issue Registration}
-\label{sec:orgheadline31}
+\section{TERPSTRA Issue Registration}
 How are issues (defects) registered, analysed, reported, and handled.
 
-\section{Observations martijn}
-\label{sec:orgheadline37}
-\subsection{Overall}
-\label{sec:orgheadline33}
-\begin{itemize}
-\item Comments only in util/BigFunctions.java
-\end{itemize}
-\subsection{Expression that crash}
-\label{sec:orgheadline34}
-should the program CRASH on wrong input?
-\begin{itemize}
-\item \(1/0\)
-\item \(log(-1)\)
-\item \(\phi = 7\)
-\item Using TABS in any expression
-\item using arrow keys
-\end{itemize}
+%% \section{comments}
+%% \section{Observations TERPSTRA}
+%% \section{Overall}
+%% \begin{itemize}
+%% \item Comments only in util/BigFunctions.java
+%% \end{itemize}
+%% \section{Expression that crash}
+%% should the program CRASH on wrong input?
+%% \begin{itemize}
+%% \item \(1/0\)
+%% \item \(log(-1)\)
+%% \item \(\phi = 7\)
+%% \item Using TABS in any expression
+%% \item using arrow keys
+%% \end{itemize}
 
-The program crashes on some but not all wrong input.
-\begin{itemize}
-\item \(seven + eight\) does not crash.
-\end{itemize}
-\subsection{Expression with a wrong result}
-\label{sec:orgheadline35}
-\begin{itemize}
-\item \((1 / 300) * 300 = 0.9999999999999900\). should be \(1\)
-\item \(2^(-1) = 0\). should be \(0.5\)
-\item \(log( 10 ^ 1234)\) outputs an intermediate result, then crashes. should output \(1234\)
-\item \(0^0\) return \(1\), is undefined
-\end{itemize}
+%% The program crashes on some but not all wrong input.
+%% \begin{itemize}
+%% \item \(seven + eight\) does not crash.
+%% \end{itemize}
+%% \section{Expression with a wrong result}
+%% \begin{itemize}
+%% \item \((1 / 300) * 300 = 0.9999999999999900\). should be \(1\)
+%% \item \(2^(-1) = 0\). should be \(0.5\)
+%% \item \(log( 10 ^ 1234)\) outputs an intermediate result, then crashes. should output \(1234\)
+%% \item \(0^0\) return \(1\), is undefined
+%% \end{itemize}
 
-\subsection{Other}
-\label{sec:orgheadline36}
-\begin{itemize}
-\item Input reading is primitive, cant go back without deleting.
-\item \texttt{ln(log( 10\textasciicircum{}e ))} throws an error Could not convert bigInteger into long, but still gives the correct answer
-\item \texttt{1 Banana \textbackslash{}phi = 1}
-\item Control + $\backslash$ gives a lot of debugging information
-\item \texttt{x=7}
-      \texttt{7(x)} gives \texttt{7}, not \texttt{49}
-\item \texttt{f(x):=7}, works fine
-\texttt{f(x):=f(x)+1}, work if the function f has previously been defined
-\texttt{f(1)} crashed due to an infinite loop
-\item Using 9999 character variable names gives an exception, 999 characters is fine.
-\item \texttt{x(z):=z}
-      \texttt{f(x):=x()}
-      \texttt{f(7)}
-      crashes
-\item \texttt{f(x):=1}
-      \texttt{f(x):=f(2)}
-      \texttt{f(3)}, crashes, expected \texttt{1}
-\item Equality?, can either return -1,0, or 1
-\item \texttt{z=7} \(\ne\) \texttt{7=z}
-\end{itemize}
+%% \section{Other}
+%% \begin{itemize}
+%% \item Input reading is primitive, cant go back without deleting.
+%% \item \texttt{ln(log( 10\textasciicircum{}e ))} throws an error Could not convert bigInteger into long, but still gives the correct answer
+%% \item \texttt{1 Banana \textbackslash{}phi = 1}
+%% \item Control + $\backslash$ gives a lot of debugging information
+%% \item \texttt{x=7}
+%%       \texttt{7(x)} gives \texttt{7}, not \texttt{49}
+%% \item \texttt{f(x):=7}, works fine
+%% \texttt{f(x):=f(x)+1}, work if the function f has previously been defined
+%% \texttt{f(1)} crashed due to an infinite loop
+%% \item Using 9999 character variable names gives an exception, 999 characters is fine.
+%% \item \texttt{x(z):=z}
+%%       \texttt{f(x):=x()}
+%%       \texttt{f(7)}
+%%       crashes
+%% \item \texttt{f(x):=1}
+%%       \texttt{f(x):=f(2)}
+%%       \texttt{f(3)}, crashes, expected \texttt{1}
+%% \item Equality?, can either return -1,0, or 1
+%% \item \texttt{z=7} \(\ne\) \texttt{7=z}
+%% \end{itemize}
+
+%% \section{Tasks}
+%% \section{Write requirements}
+%% \subsection{Overall use of the program}
+%% the program will continuously prompt the user for input. It will
+%% continue to prompt the user for input until it receives the
+%% \texttt{exit()} function as input and then terminates.
+
+%% On invalid input the program the program will show an error
+%% indicating the nature of the invalid input, but will not terminate.
+
+%% Valid input is on of the following
+%% \begin{itemize}
+%% \item A function assignment
+%% \item A variables assignment
+%% \item An expression
+%% \item An equality test
+%% \end{itemize}
+%% \subsection{Memory}
+%% The program will keep defined variables and function in memory
+%% until the program terminates.
+
+
+%% The program will be initialized with the following variables
+%% \begin{itemize}
+%% \item \texttt{pi}, whose value is \texttt{3.141592653589793}
+%% \item \texttt{e}, whose value is \texttt{2.718281828459045}
+%% \end{itemize}
+
+%% The program will be initialized with the following functions
+%% \begin{itemize}
+%% \item \texttt{floor}, which rounds down
+%% \item \texttt{ceil}, which rounds up
+%% \item \texttt{round}, which rounds to the nearest  whole number.
+%% \item \texttt{log}
+%% \item \texttt{ln}, which
+%% \item \texttt{sqrt}, which returns the square root of its
+%% \item \texttt{root}, which returns the Nth root of it first argument.  (WARNING: does not work properly)
+%% \item \texttt{exit} , which will terminate the program
+%% \end{itemize}
+
+
+%% \emph{BTW floor,ceil and round work incorrectly for NEGATIVE numbers}
+%% \subsection{Expression}
+%% A valid expression is defined using Context-free Grammar
+
+%% Expression \(\rightarrow\) Seperator Expression Seperator
+
+%% Expression \(\rightarrow\) (Expression)
+
+%% Expression \(\rightarrow\) Number
+
+%% Expression \(\rightarrow\) Variable
+
+%% Expression \(\rightarrow\) PrefixFunction Seperator (Expression)
+
+%% Expression \(\rightarrow\) Expression Seperator InfixFunction Seperator Expression
+
+%% Seperator \(\rightarrow\) SPACE | \(\phi\) | Seperator Seperator
+
+%% Number \(\rightarrow\) 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | Number Number
+
+%% Variable \(\rightarrow\) Name
+
+%% PrefixFunction \(\rightarrow\) Name
+
+%% Name \(\rightarrow\) SmallLetter | CapitalLetter | NameName
+
+%% SmallLetter \(\rightarrow\) a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z
+
+%% CapticalLetter \(\rightarrow\) A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z
+
+%% InfixFunction \(\rightarrow\) / | * | - | + | \^{}
+
+%% \emph{variable names have a max length}
+
+
+%% \subsection{Variable assignments}
+%% A variable assignment is in the form
+
+%% \texttt{VARIABLENAME = EXPRESSION}
+
+%% Where a valid \texttt{VARIABLENAME} is a string of 1 or more letters and
+%% is case-sensitive.
+%% \subsection{Equality tests}
+%% An equality test is in the form
+
+%% \texttt{EXPRESSION1 = EXPRESSION2}
+
+%% Where \texttt{EXPRESSION1} and \texttt{EXPRESSION2} are valid expressions and
+%% \texttt{EXPRESSION1} is \textbf{not} the name of a variable
+
+%% \subsection{Functions assignments}
+%% A function assignment is in the form
+
+%% \texttt{FUNCTIONNAME(ARGUMENT):=EXPRESSION}
+%% \subsection{Expression parsing}
+%% Intermediate steps and calculations are show
+%% The result of the expression is shown
+%% \section{Design test cases}
+%% \subsection{Functions assignments}
+%% \subsection{Variable assignments}
+%% \subsection{Equality tests}
+%% \subsection{Expression parsing}
+%% \section{Assign Test cases}
+%% \section{Execute test cases (automation?)}
+%% \section{Short requirements}
+%% \begin{quote}
+%% From this description we can deduce that a test approach must at least describe:
+%% \begin{itemize}
+%% \item the product that will be tested,
+%% \item the controlled environment in which it will be tested,
+%% \item the specified procedure following which it will be tested,
+%% \item the quality characteristics that will be tested, and
+%% \item the specification.
+%% \end{itemize}
+%% \end{quote}
+
 \end{document}
