@@ -81,172 +81,172 @@ Which test products are recorded, consolidated, and kept for reuse.
 \section{TERPSTRA Issue Registration}
 How are issues (defects) registered, analysed, reported, and handled.
 
-%% \section{comments}
-%% \section{Observations TERPSTRA}
-%% \section{Overall}
-%% \begin{itemize}
-%% \item Comments only in util/BigFunctions.java
-%% \end{itemize}
-%% \section{Expression that crash}
-%% should the program CRASH on wrong input?
-%% \begin{itemize}
-%% \item \(1/0\)
-%% \item \(log(-1)\)
-%% \item \(\phi = 7\)
-%% \item Using TABS in any expression
-%% \item using arrow keys
-%% \end{itemize}
+\appendix
+\section{Tasks}
+\section{Write requirements}
+\subsection{Overall use of the program}
+the program will continuously prompt the user for input. It will
+continue to prompt the user for input until it receives the
+\texttt{exit()} function as input and then terminates.
 
-%% The program crashes on some but not all wrong input.
-%% \begin{itemize}
-%% \item \(seven + eight\) does not crash.
-%% \end{itemize}
-%% \section{Expression with a wrong result}
-%% \begin{itemize}
-%% \item \((1 / 300) * 300 = 0.9999999999999900\). should be \(1\)
-%% \item \(2^(-1) = 0\). should be \(0.5\)
-%% \item \(log( 10 ^ 1234)\) outputs an intermediate result, then crashes. should output \(1234\)
-%% \item \(0^0\) return \(1\), is undefined
-%% \end{itemize}
+On invalid input the program the program will show an error
+indicating the nature of the invalid input, but will not terminate.
 
-%% \section{Other}
-%% \begin{itemize}
-%% \item Input reading is primitive, cant go back without deleting.
-%% \item \texttt{ln(log( 10\textasciicircum{}e ))} throws an error Could not convert bigInteger into long, but still gives the correct answer
-%% \item \texttt{1 Banana \textbackslash{}phi = 1}
-%% \item Control + $\backslash$ gives a lot of debugging information
-%% \item \texttt{x=7}
-%%       \texttt{7(x)} gives \texttt{7}, not \texttt{49}
-%% \item \texttt{f(x):=7}, works fine
-%% \texttt{f(x):=f(x)+1}, work if the function f has previously been defined
-%% \texttt{f(1)} crashed due to an infinite loop
-%% \item Using 9999 character variable names gives an exception, 999 characters is fine.
-%% \item \texttt{x(z):=z}
-%%       \texttt{f(x):=x()}
-%%       \texttt{f(7)}
-%%       crashes
-%% \item \texttt{f(x):=1}
-%%       \texttt{f(x):=f(2)}
-%%       \texttt{f(3)}, crashes, expected \texttt{1}
-%% \item Equality?, can either return -1,0, or 1
-%% \item \texttt{z=7} \(\ne\) \texttt{7=z}
-%% \end{itemize}
-
-%% \section{Tasks}
-%% \section{Write requirements}
-%% \subsection{Overall use of the program}
-%% the program will continuously prompt the user for input. It will
-%% continue to prompt the user for input until it receives the
-%% \texttt{exit()} function as input and then terminates.
-
-%% On invalid input the program the program will show an error
-%% indicating the nature of the invalid input, but will not terminate.
-
-%% Valid input is on of the following
-%% \begin{itemize}
-%% \item A function assignment
-%% \item A variables assignment
-%% \item An expression
-%% \item An equality test
-%% \end{itemize}
-%% \subsection{Memory}
-%% The program will keep defined variables and function in memory
-%% until the program terminates.
+Valid input is on of the following
+\begin{itemize}
+\item A function assignment
+\item A variables assignment
+\item An expression
+\item An equality test
+\end{itemize}
+\subsection{Memory}
+The program will keep defined variables and function in memory
+until the program terminates.
 
 
-%% The program will be initialized with the following variables
-%% \begin{itemize}
-%% \item \texttt{pi}, whose value is \texttt{3.141592653589793}
-%% \item \texttt{e}, whose value is \texttt{2.718281828459045}
-%% \end{itemize}
+The program will be initialized with the following variables
+\begin{itemize}
+\item \texttt{pi}, whose value is \texttt{3.141592653589793}
+\item \texttt{e}, whose value is \texttt{2.718281828459045}
+\end{itemize}
 
-%% The program will be initialized with the following functions
-%% \begin{itemize}
-%% \item \texttt{floor}, which rounds down
-%% \item \texttt{ceil}, which rounds up
-%% \item \texttt{round}, which rounds to the nearest  whole number.
-%% \item \texttt{log}
-%% \item \texttt{ln}, which
-%% \item \texttt{sqrt}, which returns the square root of its
-%% \item \texttt{root}, which returns the Nth root of it first argument.  (WARNING: does not work properly)
-%% \item \texttt{exit} , which will terminate the program
-%% \end{itemize}
-
-
-%% \emph{BTW floor,ceil and round work incorrectly for NEGATIVE numbers}
-%% \subsection{Expression}
-%% A valid expression is defined using Context-free Grammar
-
-%% Expression \(\rightarrow\) Seperator Expression Seperator
-
-%% Expression \(\rightarrow\) (Expression)
-
-%% Expression \(\rightarrow\) Number
-
-%% Expression \(\rightarrow\) Variable
-
-%% Expression \(\rightarrow\) PrefixFunction Seperator (Expression)
-
-%% Expression \(\rightarrow\) Expression Seperator InfixFunction Seperator Expression
-
-%% Seperator \(\rightarrow\) SPACE | \(\phi\) | Seperator Seperator
-
-%% Number \(\rightarrow\) 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | Number Number
-
-%% Variable \(\rightarrow\) Name
-
-%% PrefixFunction \(\rightarrow\) Name
-
-%% Name \(\rightarrow\) SmallLetter | CapitalLetter | NameName
-
-%% SmallLetter \(\rightarrow\) a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z
-
-%% CapticalLetter \(\rightarrow\) A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z
-
-%% InfixFunction \(\rightarrow\) / | * | - | + | \^{}
-
-%% \emph{variable names have a max length}
+The program will be initialized with the following functions
+\begin{itemize}
+\item \texttt{floor}, which rounds down
+\item \texttt{ceil}, which rounds up
+\item \texttt{round}, which rounds to the nearest  whole number.
+\item \texttt{log}
+\item \texttt{ln}, which
+\item \texttt{sqrt}, which returns the square root of its
+\item \texttt{root}, which returns the Nth root of it first argument.  (WARNING: does not work properly)
+\item \texttt{exit} , which will terminate the program
+\end{itemize}
 
 
-%% \subsection{Variable assignments}
-%% A variable assignment is in the form
+\emph{BTW floor,ceil and round work incorrectly for NEGATIVE numbers}
+\subsection{Expression}
+A valid expression is defined using Context-free Grammar
 
-%% \texttt{VARIABLENAME = EXPRESSION}
+Expression \(\rightarrow\) Seperator Expression Seperator
 
-%% Where a valid \texttt{VARIABLENAME} is a string of 1 or more letters and
-%% is case-sensitive.
-%% \subsection{Equality tests}
-%% An equality test is in the form
+Expression \(\rightarrow\) (Expression)
 
-%% \texttt{EXPRESSION1 = EXPRESSION2}
+Expression \(\rightarrow\) Number
 
-%% Where \texttt{EXPRESSION1} and \texttt{EXPRESSION2} are valid expressions and
-%% \texttt{EXPRESSION1} is \textbf{not} the name of a variable
+Expression \(\rightarrow\) Variable
 
-%% \subsection{Functions assignments}
-%% A function assignment is in the form
+Expression \(\rightarrow\) PrefixFunction Seperator (Expression)
 
-%% \texttt{FUNCTIONNAME(ARGUMENT):=EXPRESSION}
-%% \subsection{Expression parsing}
-%% Intermediate steps and calculations are show
-%% The result of the expression is shown
-%% \section{Design test cases}
-%% \subsection{Functions assignments}
-%% \subsection{Variable assignments}
-%% \subsection{Equality tests}
-%% \subsection{Expression parsing}
-%% \section{Assign Test cases}
-%% \section{Execute test cases (automation?)}
-%% \section{Short requirements}
-%% \begin{quote}
-%% From this description we can deduce that a test approach must at least describe:
-%% \begin{itemize}
-%% \item the product that will be tested,
-%% \item the controlled environment in which it will be tested,
-%% \item the specified procedure following which it will be tested,
-%% \item the quality characteristics that will be tested, and
-%% \item the specification.
-%% \end{itemize}
-%% \end{quote}
+Expression \(\rightarrow\) Expression Seperator InfixFunction Seperator Expression
+
+Seperator \(\rightarrow\) SPACE | \(\phi\) | Seperator Seperator
+
+Number \(\rightarrow\) 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | Number Number
+
+Variable \(\rightarrow\) Name
+
+PrefixFunction \(\rightarrow\) Name
+
+Name \(\rightarrow\) SmallLetter | CapitalLetter | NameName
+
+SmallLetter \(\rightarrow\) a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z
+
+CapticalLetter \(\rightarrow\) A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z
+
+InfixFunction \(\rightarrow\) / | * | - | + | \^{}
+
+\emph{variable names have a max length}
+
+
+\subsection{Variable assignments}
+A variable assignment is in the form
+
+\texttt{VARIABLENAME = EXPRESSION}
+
+Where a valid \texttt{VARIABLENAME} is a string of 1 or more letters and
+is case-sensitive.
+\subsection{Equality tests}
+An equality test is in the form
+
+\texttt{EXPRESSION1 = EXPRESSION2}
+
+Where \texttt{EXPRESSION1} and \texttt{EXPRESSION2} are valid expressions and
+\texttt{EXPRESSION1} is \textbf{not} the name of a variable
+
+\subsection{Functions assignments}
+A function assignment is in the form
+
+\texttt{FUNCTIONNAME(ARGUMENT):=EXPRESSION}
+\subsection{Expression parsing}
+Intermediate steps and calculations are show
+The result of the expression is shown
+\section{Design test cases}
+\subsection{Functions assignments}
+\subsection{Variable assignments}
+\subsection{Equality tests}
+\subsection{Expression parsing}
+\section{Assign Test cases}
+\section{Execute test cases (automation?)}
+\section{Short requirements}
+\begin{quote}
+From this description we can deduce that a test approach must at least describe:
+\begin{itemize}
+\item the product that will be tested,
+\item the controlled environment in which it will be tested,
+\item the specified procedure following which it will be tested,
+\item the quality characteristics that will be tested, and
+\item the specification.
+\end{itemize}
+\end{quote}
+
+\section{Observations TERPSTRA}
+\section{Overall}
+\begin{itemize}
+\item Comments only in util/BigFunctions.java
+\end{itemize}
+\section{Expression that crash}
+should the program CRASH on wrong input?
+\begin{itemize}
+\item \(1/0\)
+\item \(log(-1)\)
+\item \(\phi = 7\)
+\item Using TABS in any expression
+\item using arrow keys
+\end{itemize}
+
+The program crashes on some but not all wrong input.
+\begin{itemize}
+\item \(seven + eight\) does not crash.
+\end{itemize}
+\section{Expression with a wrong result}
+\begin{itemize}
+\item \((1 / 300) * 300 = 0.9999999999999900\). should be \(1\)
+\item \(2^(-1) = 0\). should be \(0.5\)
+\item \(log( 10 ^ 1234)\) outputs an intermediate result, then crashes. should output \(1234\)
+\item \(0^0\) return \(1\), is undefined
+\end{itemize}
+
+\section{Other}
+\begin{itemize}
+\item Input reading is primitive, cant go back without deleting.
+\item \texttt{ln(log( 10\textasciicircum{}e ))} throws an error Could not convert bigInteger into long, but still gives the correct answer
+\item \texttt{1 Banana \textbackslash{}phi = 1}
+\item Control + $\backslash$ gives a lot of debugging information
+\item \texttt{x=7}
+      \texttt{7(x)} gives \texttt{7}, not \texttt{49}
+\item \texttt{f(x):=7}, works fine
+\texttt{f(x):=f(x)+1}, work if the function f has previously been defined
+\texttt{f(1)} crashed due to an infinite loop
+\item Using 9999 character variable names gives an exception, 999 characters is fine.
+\item \texttt{x(z):=z}
+      \texttt{f(x):=x()}
+      \texttt{f(7)}
+      crashes
+\item \texttt{f(x):=1}
+      \texttt{f(x):=f(2)}
+      \texttt{f(3)}, crashes, expected \texttt{1}
+\item Equality?, can either return -1,0, or 1
+\item \texttt{z=7} \(\ne\) \texttt{7=z}
+\end{itemize}
 
 \end{document}
