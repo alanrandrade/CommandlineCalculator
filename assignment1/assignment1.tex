@@ -22,35 +22,165 @@
 \usetikzlibrary{tikzmark,decorations.pathmorphing}
 \author{Sasja Gillissen, Martin Huijben, Martijn Terpstra}
 \date{\today}
-\title{Title}
+\title{Testing Techniques\\
+  \textbf{Assignment 1}}
 \hypersetup{
  pdfauthor={Sasja Gillissen, Martin Huijben, Martijn Terpstra},
- pdftitle={Title},
- pdfkeywords={},
- pdfsubject={},
- pdfcreator={Emacs 25.1.1 (Org mode 8.2.10)},
  pdflang={English}}
 \begin{document}
 
 \maketitle
-\tableofcontents
+%\tableofcontents
 
-%% Ik heb dit document in Emacs met org-mode gemaakt en het vervolgens
-%% naar latex geexporteerd. Het orginele bestand is het bestand met de
-%% .org extensie.
+\section{Introduction}
+% Martin Huijben
 
-%% Ikzelf vind org-mode bestanden makkelijkere te lezen maar als dit voor
-%% jullie lastig is, is het waarschijnlijk makkelijker om alles gelijk in
-%% LateX te scrijven.
+%% State the objectives and overview of the document at a high-level.
 
-%% Martijn
+\section{Test Goal}
+% Sasja Gillissen
 
-\section{Tasks}
-\label{sec:orgheadline16}
-\subsection{Write requirements}
-\label{sec:orgheadline8}
-\subsubsection{Overall use of the program}
-\label{sec:orgheadline1}
+%% What is the overall goal of the testing effort, what are the final deliverables, who are the
+%% stakeholders, i.e., for whom are you doing it, applicable laws and (international) standards.
+
+\section{The Product}
+% Sasja Gillissen
+
+%% Identification of the SUT: What is the product (SUT – System Under Test) being tested, its
+%% version, its operation context, required platform, its interfaces, and how is it executed.
+
+\section{The Specification}
+% Martijn Terpstra
+
+%% What is the test basis, i.e., its specification, and all documentation describing what the SUT
+%% shall do. (Do not include specification documents, but refer to them.)
+
+the program will continuously prompt the user for input. It will
+continue to prompt the user for input until it receives the exit
+function as input and then terminates.
+
+Depending on the input given the program will either
+
+\begin{itemize}
+\item Evaluate an expression
+\item Assign a value to a variable and store it in memory
+\item Assign a value to a function and store it in memory
+\end{itemize}
+The full specification is included in appendix\ref{app:specification}
+
+%% What is the test basis, i.e., its specification, and all documentation describing what the SUT
+%% shall do. (Do not include specification documents, but refer to them.)
+\section{Risks}
+% Martin Huijben
+
+%% What are the risks of the product (at a high level), of the development process, and of the
+%% test process. How are risks handled and mitigated.
+
+\section{Test Environment}
+% Sasja Gillissen
+
+%% What is the (controlled) environment in which experiments are performed, what is the test
+%% architecture, i.e., how are SUT and test system positioned and connected, which environment
+%% and infrastructure (hardware, software, middleware, databases, libraries, . . .) are required for
+%% testing, how to access the SUT and its interfaces, which stubs and drivers are needed, are
+%% tests performed in a laboratory, production, or user environment.
+
+\section{Quality Characteristics}
+% Martin Huijben
+
+%% Which quality characteristics are tested (IS 9126 or other quality model: functionality, reli-
+%% ability, usability, . . .),
+
+\section{Levels and Types of Testing}
+% Martin Huijben
+
+%% Which levels and types of tests are performed: (V-model: unit, integration, module, sys-
+%% tem, acceptance, . . .), which units, components, subsystems, . . . are tested and for what,
+%% accessibility (white/black box), verification vs. validation tests, . . ..
+
+\section{Who will do the Testing}
+% Martijn Terpstra
+
+Test will be performed by independent testers. This is because little
+knowledge is needed to preform the test and those already familiar
+with the program may be biased.
+
+%% Who tests what, and what are the roles: developer, (independent)
+%% tester, user, alpha, certification, . . .),
+
+\section{Test Generation Techniques}
+% Sasja Gillissen
+
+%% As far as already known or required, e.g., by applicable standards: black-box (equivalence
+%% partitioning, boundary value analysis, error guessing, cause-effect graphing, decision tables,
+%% state transitions, use case testing, exploratory testing, . . .), white-box (path, statement,
+%% (multiple) condition, decision/branch, function, call, loop, MC/DC coverage, . . .), mutation
+%% testing, combinatorial testing, . . ..
+
+\section{Test Automation}\label{sec:test-automation}
+% Martijn Terpstra
+
+Tests will be done manually. Each test is described in a spreadsheet.
+
+To start a test, a new spreadsheet is copied from a template.
+
+This template contains:
+
+\begin{itemize}
+\item One or more lines of input to be entered in the program
+\item A description of the expected output
+\item A field to insert the resulting output after entering the input.
+\end{itemize}
+
+The template is updated if and only if the tests  changed.
+
+If the resulting output is equal to the expected output, the test is
+successful. If not the test is unsuccessful.
+
+The results of the test are recorded in the the spreadsheet. A new
+spreadsheet is created for each testing session.
+
+After the testing session is over, the resulting spreadsheet shall be
+send via email to the developer team for review.
+
+%% As far as applicable, which parts of the testing will be automated, which test tools will be
+%% used in the various phases of the testing process (planning, preparation, test generation, test
+%% execution, completion), which tests are performed manually, what is automated, and which
+%% tools have to be obtained or developed.
+
+\section{Exit Criteria}
+% Martin Huijben
+
+%% What are the criteria for going from one test phase to the next, when is testing finished,
+%% when is the product considered sufficiently tested, what are the (final) evaluation criteria.
+
+\section{Testware}
+% Martijn Terpstra
+
+As described in section \ref{sec:test-automation}, the results, with
+the description of the test are written to a spreadsheet. The
+resulting spreadsheet is the test product and shall be stored in a
+digital format.
+
+%% Which test products are recorded, consolidated, and kept for reuse.
+
+\section{Issue Registration}
+% Martijn Terpstra
+
+After a testing as described in section \ref{sec:test-automation} the
+developer team receives an email with a spreadsheet attached.
+
+This spreadsheet will inform the developer if any tests have failed
+and if so what tests have failed and what happened when they failed.
+
+The developer then can make bug reports based on unsuccessful test and
+fix them in the future.
+
+%% How are issues (defects) registered, analysed, reported, and handled.
+
+\appendix
+\section{Specification} \label{app:specification}
+\subsection{Overall use of the program}
 the program will continuously prompt the user for input. It will
 continue to prompt the user for input until it receives the
 \texttt{exit()} function as input and then terminates.
@@ -65,8 +195,7 @@ Valid input is on of the following
 \item An expression
 \item An equality test
 \end{itemize}
-\subsubsection{Memory}
-\label{sec:orgheadline2}
+\subsection{Memory}
 The program will keep defined variables and function in memory
 until the program terminates.
 
@@ -93,8 +222,7 @@ The program will be initialized with the following functions
 
 
 \emph{BTW floor,ceil and round work incorrectly for NEGATIVE numbers}
-\subsubsection{Expression}
-\label{sec:orgheadline3}
+\subsection{Expression}
 A valid expression is defined using Context-free Grammar
 
 Expression \(\rightarrow\) Seperator Expression Seperator
@@ -128,16 +256,14 @@ InfixFunction \(\rightarrow\) / | * | - | + | \^{}
 \emph{variable names have a max length}
 
 
-\subsubsection{Variable assignments}
-\label{sec:orgheadline4}
+\subsection{Variable assignments}
 A variable assignment is in the form
 
 \texttt{VARIABLENAME = EXPRESSION}
 
 Where a valid \texttt{VARIABLENAME} is a string of 1 or more letters and
 is case-sensitive.
-\subsubsection{Equality tests}
-\label{sec:orgheadline5}
+\subsection{Equality tests}
 An equality test is in the form
 
 \texttt{EXPRESSION1 = EXPRESSION2}
@@ -145,159 +271,23 @@ An equality test is in the form
 Where \texttt{EXPRESSION1} and \texttt{EXPRESSION2} are valid expressions and
 \texttt{EXPRESSION1} is \textbf{not} the name of a variable
 
-\subsubsection{Functions assignments}
-\label{sec:orgheadline6}
+\subsection{Functions assignments}
 A function assignment is in the form
 
 \texttt{FUNCTIONNAME(ARGUMENT):=EXPRESSION}
-\subsubsection{Expression parsing}
-\label{sec:orgheadline7}
+\subsection{Expression parsing}
 Intermediate steps and calculations are show
 The result of the expression is shown
-\subsection{Design test cases}
-\label{sec:orgheadline13}
-\subsubsection{Functions assignments}
-\label{sec:orgheadline9}
-\subsubsection{Variable assignments}
-\label{sec:orgheadline10}
-\subsubsection{Equality tests}
-\label{sec:orgheadline11}
-\subsubsection{Expression parsing}
-\label{sec:orgheadline12}
-\subsection{Assign Test cases}
-\label{sec:orgheadline14}
-\subsection{Execute test cases (automation?)}
-\label{sec:orgheadline15}
-\section{Short requirements}
-\label{sec:orgheadline17}
-\begin{quote}
-From this description we can deduce that a test approach must at least describe:
-\begin{itemize}
-\item the product that will be tested,
-\item the controlled environment in which it will be tested,
-\item the specified procedure following which it will be tested,
-\item the quality characteristics that will be tested, and
-\item the specification.
-\end{itemize}
-\end{quote}
 
-\section{Template}
-\label{sec:orgheadline32}
-\subsection{Introduction}
-\label{sec:orgheadline18}
-State the objectives and overview of the document at a high-level.
-\subsection{Test Goal}
-\label{sec:orgheadline19}
-What is the overall goal of the testing effort, what are the final deliverables, who are the
-stakeholders, i.e., for whom are you doing it, applicable laws and (international) standards.
-\subsection{The Product}
-\label{sec:orgheadline20}
-Identification of the SUT: What is the product (SUT – System Under Test) being tested, its
-version, its operation context, required platform, its interfaces, and how is it executed.
-\subsection{The Specification}
-\label{sec:orgheadline21}
-What is the test basis, i.e., its specification, and all documentation describing what the SUT
-shall do. (Do not include specification documents, but refer to them.)
-\subsection{Risks}
-\label{sec:orgheadline22}
-What are the risks of the product (at a high level), of the development process, and of the
-test process. How are risks handled and mitigated.
-\subsection{Test Environment}
-\label{sec:orgheadline23}
-What is the (controlled) environment in which experiments are performed, what is the test
-architecture, i.e., how are SUT and test system positioned and connected, which environment
-and infrastructure (hardware, software, middleware, databases, libraries, . . .) are required for
-testing, how to access the SUT and its interfaces, which stubs and drivers are needed, are
-tests performed in a laboratory, production, or user environment.
-\subsection{Quality Characteristics}
-\label{sec:orgheadline24}
-Which quality characteristics are tested (IS 9126 or other quality model: functionality, reli-
-ability, usability, . . .),
-\subsection{Levels and Types of Testing}
-\label{sec:orgheadline25}
-Which levels and types of tests are performed: (V-model: unit, integration, module, sys-
-tem, acceptance, . . .), which units, components, subsystems, . . . are tested and for what,
-accessibility (white/black box), verification vs. validation tests, . . ..
-\subsection{Who will do the Testing}
-\label{sec:orgheadline26}
-Who tests what, and what are the roles: developer, (independent) tester, user, alpha, certi-
-fication, . . .),
-\subsection{Test Generation Techniques}
-\label{sec:orgheadline27}
-As far as already known or required, e.g., by applicable standards: black-box (equivalence
-partitioning, boundary value analysis, error guessing, cause-effect graphing, decision tables,
-state transitions, use case testing, exploratory testing, . . .), white-box (path, statement,
-(multiple) condition, decision/branch, function, call, loop, MC/DC coverage, . . .), mutation
-testing, combinatorial testing, . . ..
-\subsection{Test Automation}
-\label{sec:orgheadline28}
-As far as applicable, which parts of the testing will be automated, which test tools will be
-used in the various phases of the testing process (planning, preparation, test generation, test
-execution, completion), which tests are performed manually, what is automated, and which
-tools have to be obtained or developed.
-\subsection{Exit Criteria}
-\label{sec:orgheadline29}
-What are the criteria for going from one test phase to the next, when is testing finished,
-when is the product considered sufficiently tested, what are the (final) evaluation criteria.
-\subsection{Testware}
-\label{sec:orgheadline30}
-Which test products are recorded, consolidated, and kept for reuse.
-\subsection{Issue Registration}
-\label{sec:orgheadline31}
-How are issues (defects) registered, analysed, reported, and handled.
+For instance an expression in the form \texttt{(1 + 2) * 4} will require the following actions.
 
-\section{Observations martijn}
-\label{sec:orgheadline37}
-\subsection{Overall}
-\label{sec:orgheadline33}
 \begin{itemize}
-\item Comments only in util/BigFunctions.java
-\end{itemize}
-\subsection{Expression that crash}
-\label{sec:orgheadline34}
-should the program CRASH on wrong input?
-\begin{itemize}
-\item \(1/0\)
-\item \(log(-1)\)
-\item \(\phi = 7\)
-\item Using TABS in any expression
-\item using arrow keys
+\item Evaluate \texttt{1 + 2} and print its result, (\texttt{3} in this case).
+\item Evaluate \texttt{3 * 4} and print its result, the \texttt{3} being the result of the previous evaluation.
+\item Print the results of the entire expression, \texttt{12 in this case}, after all intermediate calculations have been done.
 \end{itemize}
 
-The program crashes on some but not all wrong input.
-\begin{itemize}
-\item \(seven + eight\) does not crash.
-\end{itemize}
-\subsection{Expression with a wrong result}
-\label{sec:orgheadline35}
-\begin{itemize}
-\item \((1 / 300) * 300 = 0.9999999999999900\). should be \(1\)
-\item \(2^(-1) = 0\). should be \(0.5\)
-\item \(log( 10 ^ 1234)\) outputs an intermediate result, then crashes. should output \(1234\)
-\item \(0^0\) return \(1\), is undefined
-\end{itemize}
-
-\subsection{Other}
-\label{sec:orgheadline36}
-\begin{itemize}
-\item Input reading is primitive, cant go back without deleting.
-\item \texttt{ln(log( 10\textasciicircum{}e ))} throws an error Could not convert bigInteger into long, but still gives the correct answer
-\item \texttt{1 Banana \textbackslash{}phi = 1}
-\item Control + $\backslash$ gives a lot of debugging information
-\item \texttt{x=7}
-      \texttt{7(x)} gives \texttt{7}, not \texttt{49}
-\item \texttt{f(x):=7}, works fine
-\texttt{f(x):=f(x)+1}, work if the function f has previously been defined
-\texttt{f(1)} crashed due to an infinite loop
-\item Using 9999 character variable names gives an exception, 999 characters is fine.
-\item \texttt{x(z):=z}
-      \texttt{f(x):=x()}
-      \texttt{f(7)}
-      crashes
-\item \texttt{f(x):=1}
-      \texttt{f(x):=f(2)}
-      \texttt{f(3)}, crashes, expected \texttt{1}
-\item Equality?, can either return -1,0, or 1
-\item \texttt{z=7} \(\ne\) \texttt{7=z}
-\end{itemize}
 \end{document}
+
+%%  LocalWords:  Terpstra Sasja Gillissen Huijben tikzmark pdfauthor
+%%  LocalWords:  pdflang
