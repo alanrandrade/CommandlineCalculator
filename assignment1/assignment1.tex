@@ -23,7 +23,8 @@
 \usetikzlibrary{tikzmark,decorations.pathmorphing}
 \author{Sasja Gillissen, Martin Huijben, Martijn Terpstra}
 \date{\today}
-\title{Title}
+\title{Testing Techniques\\
+  \textbf{Assignment 1}}
 \hypersetup{
  pdfauthor={Sasja Gillissen, Martin Huijben, Martijn Terpstra},
  pdflang={English}}
@@ -33,7 +34,7 @@
 %\tableofcontents
 
 \section{Introduction}
-% Martin Hijben
+% Martin Huijben
 
 %% State the objectives and overview of the document at a high-level.
 
@@ -71,7 +72,7 @@ The full specification is included in appendix\ref{app:specification}
 %% What is the test basis, i.e., its specification, and all documentation describing what the SUT
 %% shall do. (Do not include specification documents, but refer to them.)
 \section{Risks}
-% Martin Hijben
+% Martin Huijben
 
 %% What are the risks of the product (at a high level), of the development process, and of the
 %% test process. How are risks handled and mitigated.
@@ -86,13 +87,13 @@ The full specification is included in appendix\ref{app:specification}
 %% tests performed in a laboratory, production, or user environment.
 
 \section{Quality Characteristics}
-% Martin Hijben
+% Martin Huijben
 
 %% Which quality characteristics are tested (IS 9126 or other quality model: functionality, reli-
 %% ability, usability, . . .),
 
 \section{Levels and Types of Testing}
-% Martin Hijben
+% Martin Huijben
 
 %% Which levels and types of tests are performed: (V-model: unit, integration, module, sys-
 %% tem, acceptance, . . .), which units, components, subsystems, . . . are tested and for what,
@@ -101,8 +102,12 @@ The full specification is included in appendix\ref{app:specification}
 \section{Who will do the Testing}
 % Martijn Terpstra
 
-%% Who tests what, and what are the roles: developer, (independent) tester, user, alpha, certi-
-%% fication, . . .),
+Test will be performed by independent testers. This is because little
+knowledge is needed to preform the test and those already familiar
+with the program may be biased.
+
+%% Who tests what, and what are the roles: developer, (independent)
+%% tester, user, alpha, certification, . . .),
 
 \section{Test Generation Techniques}
 % Sasja Gillissen
@@ -113,8 +118,31 @@ The full specification is included in appendix\ref{app:specification}
 %% (multiple) condition, decision/branch, function, call, loop, MC/DC coverage, . . .), mutation
 %% testing, combinatorial testing, . . ..
 
-\section{Test Automation}
+\section{Test Automation}\label{sec:test-automation}
 % Martijn Terpstra
+
+Tests will be done manually. Each test is described in a spreadsheet.
+
+To start a test, a new spreadsheet is copied from a template.
+
+This template contains:
+
+\begin{itemize}
+\item One or more lines of input to be entered in the program
+\item A description of the expected output
+\item A field to insert the resulting output after entering the input.
+\end{itemize}
+
+The template is updated if and only if the tests  changed.
+
+If the resulting output is equal to the expected output, the test is
+successful. If not the test is unsuccessful.
+
+The results of the test are recorded in the the spreadsheet. A new
+spreadsheet is created for each testing session.
+
+After the testing session is over, the resulting spreadsheet shall be
+send via email to the developer team for review.
 
 %% As far as applicable, which parts of the testing will be automated, which test tools will be
 %% used in the various phases of the testing process (planning, preparation, test generation, test
@@ -122,7 +150,7 @@ The full specification is included in appendix\ref{app:specification}
 %% tools have to be obtained or developed.
 
 \section{Exit Criteria}
-% Martin Hijben
+% Martin Huijben
 
 %% What are the criteria for going from one test phase to the next, when is testing finished,
 %% when is the product considered sufficiently tested, what are the (final) evaluation criteria.
@@ -130,10 +158,24 @@ The full specification is included in appendix\ref{app:specification}
 \section{Testware}
 % Martijn Terpstra
 
+As described in section \ref{sec:test-automation}, the results, with
+the description of the test are written to a spreadsheet. The
+resulting spreadsheet is the test product and shall be stored in a
+digital format.
+
 %% Which test products are recorded, consolidated, and kept for reuse.
 
 \section{Issue Registration}
 % Martijn Terpstra
+
+After a testing as described in section \ref{sec:test-automation} the
+developer team receives an email with a spreadsheet attached.
+
+This spreadsheet will inform the developer if any tests have failed
+and if so what tests have failed and what happened when they failed.
+
+The developer then can make bug reports based on unsuccessful test and
+fix them in the future.
 
 %% How are issues (defects) registered, analysed, reported, and handled.
 
@@ -245,3 +287,6 @@ For instance an expression in the form \texttt{(1 + 2) * 4} will require the fol
 \end{itemize}
 
 \end{document}
+
+%%  LocalWords:  Terpstra Sasja Gillissen Huijben tikzmark pdfauthor
+%%  LocalWords:  pdflang
