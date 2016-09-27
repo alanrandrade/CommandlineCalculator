@@ -34,7 +34,8 @@
 
 \section{Introduction}
 % Martin Huijben
-
+In this document we will describe 
+bla bla intro
 %% State the objectives and overview of the document at a high-level.
 
 \section{Test Goal}
@@ -72,7 +73,17 @@ The full specification is included in appendix\ref{app:specification}
 %% shall do. (Do not include specification documents, but refer to them.)
 \section{Risks}
 % Martin Huijben
+This product is advertised as a working calculator with function and variable memory. Every time the product does not comply with these expectations, this causes a risk, since people might not double check the answers, have another calculator or have a backup of the inserted data. This makes the following scenarios risks:
+\begin{itemize}
+	\item The calculator gives a wrong answer. A risk since the user might not notice this.
+	\item The calculator crashes. A risk since valuable function and variable memory can be deleted.
+	\item The calculator gives an error. A minor risk since the user knows the product can not comply, no data is lost and often there is another calculator.
+\end{itemize}
+Finding those scenarios will be a main focus in our testing.
 
+There are no risks in the development process. The development process is already finished.
+
+Risks in the test process are scenarios which will make the test process to lengthy. Since we know an average test case will not take long (typing a few lines), the only risky scenario is when we have too many test cases. If this happens we will either start automating or lower our goal of testing every part. That being said, we do not expect this to happen.
 %% What are the risks of the product (at a high level), of the development process, and of the
 %% test process. How are risks handled and mitigated.
 
@@ -91,8 +102,22 @@ The full specification is included in appendix\ref{app:specification}
 %% Which quality characteristics are tested (IS 9126 or other quality model: functionality, reli-
 %% ability, usability, . . .),
 
-\section{Levels and Types of Testing}
+If we follow the quality characteristics of ISO 9126, then functionality and reliability would be our main focus. Here follows a per characteristic description of if we need testing for it:
+\begin{description}
+	\item[Functionality] will be tested thoroughly. We have a complete and detailed specification of the SUT, to which the SUT should comply.	
+	\item[Reliability] will be a key point. Fault tolerance and recoverability are important to us, for the reason that on this area the SUT does not comply with our initial expectations. Some simple experimenting showed that our SUT could crash at some input, instead of just giving an error. We want to test in which cases this happens.
+	\item[Usability] is of little concern to us. Since the SUT is meant as a commandline calculator and is not meant for the larger public, the usability expectations are low. The SUT already surpasses our expectations.
+	\item[Efficiency] will not be tested. The SUT is so small that to the user every calculation will seem as instantaneous, regardless of the actual efficiency.
+	\item[Maintainability] will not be tested. The difficulty to adapt the SUT does not interest us.
+	\item[Portability], the last characteristic. This will also not be tested. The reason for this is because we already know the portability. Every computer with command line can use the SUT.
+\end{description}
+
+\section{Levels and Types of Testing} \label{levels}
 % Martin Huijben
+
+The SUT can be split into clear units. There is one unit for each predefined variable and function. Furthermore we have units for new variables, equality tests, new functions and expression parsing. These units can be tested separately and in combinations. Together they form the system, with its specification as counterpart.
+
+We are only interested in the capabilities of our SUT, not in how one would fix found shortcomings. Therefore we do not test white box. We will be doing validation testing, using the specification.
 
 %% Which levels and types of tests are performed: (V-model: unit, integration, module, sys-
 %% tem, acceptance, . . .), which units, components, subsystems, . . . are tested and for what,
@@ -150,6 +175,8 @@ send via email to the developer team for review.
 
 \section{Exit Criteria}
 % Martin Huijben
+
+In the section \ref{levels} we told about the units our SUT could be split in. We consider every combination of units as a part that should be tested. Per such a part we will consider ourselves finished if we feel certain that we can predict every outcome for every input. Since the SUT is defined in a context-free grammar, this certainty can be achieved. When all parts have been tested in such a way, we consider ourselves finished.
 
 %% What are the criteria for going from one test phase to the next, when is testing finished,
 %% when is the product considered sufficiently tested, what are the (final) evaluation criteria.
