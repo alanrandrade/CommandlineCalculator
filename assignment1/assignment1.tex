@@ -32,55 +32,80 @@
 \maketitle
 %\tableofcontents
 
-\section{MARTIN Introduction}
+\section{Introduction}
+% Martin Hijben
 State the objectives and overview of the document at a high-level.
-\section{SASJA Test Goal}
+\section{Test Goal}
+% Sasja Gillissen
 What is the overall goal of the testing effort, what are the final deliverables, who are the
 stakeholders, i.e., for whom are you doing it, applicable laws and (international) standards.
-\section{SASJA The Product}
+\section{The Product}
+% Sasja Gillissen
 Identification of the SUT: What is the product (SUT – System Under Test) being tested, its
 version, its operation context, required platform, its interfaces, and how is it executed.
-\section{TERPSTRA The Specification}
-The full specification is in included in appendix\ref{app:specification}
+\section{The Specification}
+% Martijn Terpstra
+the program will continuously prompt the user for input. It will
+continue to prompt the user for input until it receives the exit
+function as input and then terminates.
+
+Depending on the input given the program will either
+
+\begin{itemize}
+\item Evaluate an expression
+\item Assign a value to a variable and store it in memory
+\item Assign a value to a function and store it in memory
+\end{itemize}
+The full specification is included in appendix\ref{app:specification}
 
 %% What is the test basis, i.e., its specification, and all documentation describing what the SUT
 %% shall do. (Do not include specification documents, but refer to them.)
-\section{MARTIN Risks}
+\section{Risks}
+% Martin Hijben
 What are the risks of the product (at a high level), of the development process, and of the
 test process. How are risks handled and mitigated.
-\section{SASJA Test Environment}
+\section{Test Environment}
+% Sasja Gillissen
 What is the (controlled) environment in which experiments are performed, what is the test
 architecture, i.e., how are SUT and test system positioned and connected, which environment
 and infrastructure (hardware, software, middleware, databases, libraries, . . .) are required for
 testing, how to access the SUT and its interfaces, which stubs and drivers are needed, are
 tests performed in a laboratory, production, or user environment.
-\section{MARTIN Quality Characteristics}
+\section{Quality Characteristics}
+% Martin Hijben
 Which quality characteristics are tested (IS 9126 or other quality model: functionality, reli-
 ability, usability, . . .),
-\section{MARTIN Levels and Types of Testing}
+\section{Levels and Types of Testing}
+% Martin Hijben
 Which levels and types of tests are performed: (V-model: unit, integration, module, sys-
 tem, acceptance, . . .), which units, components, subsystems, . . . are tested and for what,
 accessibility (white/black box), verification vs. validation tests, . . ..
-\section{TERPSTRA Who will do the Testing}
+\section{Who will do the Testing}
+% Martijn Terpstra
 Who tests what, and what are the roles: developer, (independent) tester, user, alpha, certi-
 fication, . . .),
-\section{SASJA Test Generation Techniques}
+\section{Test Generation Techniques}
+% Sasja Gillissen
 As far as already known or required, e.g., by applicable standards: black-box (equivalence
 partitioning, boundary value analysis, error guessing, cause-effect graphing, decision tables,
 state transitions, use case testing, exploratory testing, . . .), white-box (path, statement,
 (multiple) condition, decision/branch, function, call, loop, MC/DC coverage, . . .), mutation
 testing, combinatorial testing, . . ..
-\section{TERPSTRA Test Automation}
+\section{Test Automation}
+% Martijn Terpstra
 As far as applicable, which parts of the testing will be automated, which test tools will be
 used in the various phases of the testing process (planning, preparation, test generation, test
 execution, completion), which tests are performed manually, what is automated, and which
 tools have to be obtained or developed.
-\section{MARTIN Exit Criteria}
+\section{Exit Criteria}
+% Martin Hijben
 What are the criteria for going from one test phase to the next, when is testing finished,
 when is the product considered sufficiently tested, what are the (final) evaluation criteria.
-\section{TERPSTRA Testware}
+\section{Testware}
+% Martijn Terpstra
 Which test products are recorded, consolidated, and kept for reuse.
-\section{TERPSTRA Issue Registration}
+\section{Issue Registration}
+% Martijn Terpstra
 How are issues (defects) registered, analysed, reported, and handled.
 
 \appendix
