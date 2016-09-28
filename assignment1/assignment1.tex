@@ -47,7 +47,7 @@ bla bla intro
 
 \section{The Product}
 % Sasja Gillissen
-The system under test is a calculator with a command line interface (cli). This system is developed in Java and has no external dependencies. This product can be executed on all platforms supported by the Java Virtual Machine (JVM). The user can interface with the program using the command line, upon executing the program, it will show a prompt in which the user can type expressions or define variables and functions. The input will be parsed, evaluated and the result will be printed. This process repeats itself until te user quits the program.
+The system under test is a calculator with a command line interface (cli). This system is developed in Java and has no external dependencies. This product can be executed on all platforms supported by the Java Virtual Machine (JVM). The user can interface with the program using the command line, upon executing the program, it will show a prompt in which the user can type expressions or define variables and functions. The input will be parsed, evaluated and the result will be printed. This process repeats itself until the user quits the program.
 
 %% Identification of the SUT: What is the product (SUT - System Under Test) being tested, its
 %% version, its operation context, required platform, its interfaces, and how is it executed.
@@ -58,7 +58,7 @@ The system under test is a calculator with a command line interface (cli). This 
 %% What is the test basis, i.e., its specification, and all documentation describing what the SUT
 %% shall do. (Do not include specification documents, but refer to them.)
 
-the program will continuously prompt the user for input. It will
+The program will continuously prompt the user for input. It will
 continue to prompt the user for input until it receives the exit
 function as input and then terminates.
 
@@ -79,7 +79,7 @@ This product is advertised as a working calculator with function and variable me
 \begin{itemize}
 	\item The calculator gives a wrong answer. A risk since the user might not notice this.
 	\item The calculator crashes. A risk since valuable function and variable memory can be deleted.
-	\item The calculator gives an error. A minor risk since the user knows the product can not comply, no data is lost and often there is another calculator.
+	\item The calculator gives an error when it shouldn't. A minor risk since the user knows the product can not comply, no data is lost and often there is another calculator.
 \end{itemize}
 Finding those scenarios will be a main focus in our testing.
 
@@ -111,15 +111,19 @@ If we follow the quality characteristics of ISO 9126, then functionality and rel
 	\item[Usability] is of little concern to us. Since the SUT is meant as a commandline calculator and is not meant for the larger public, the usability expectations are low. The SUT already surpasses our expectations.
 	\item[Efficiency] will not be tested. The SUT is so small that to the user every calculation will seem as instantaneous, regardless of the actual efficiency.
 	\item[Maintainability] will not be tested. The difficulty to adapt the SUT does not interest us.
-	\item[Portability], the last characteristic. This will also not be tested. The reason for this is because we already know the portability. Every computer with command line can use the SUT.
+	\item[Portability], the last characteristic. This will also not be tested. The reason for this is because we already know the portability. Every computer with command line and Java 1.8 can use the SUT.
 \end{description}
 
 \section{Levels and Types of Testing} \label{levels}
 % Martin Huijben
 
+\if{false}
 The SUT can be split into clear units. There is one unit for each predefined variable and function. Furthermore we have units for new variables, equality tests, new functions and expression parsing. These units can be tested separately and in combinations. Together they form the system, with its specification as counterpart.
+\fi
 
 We are only interested in the capabilities of our SUT, not in how one would fix found shortcomings. Therefore we do not test white box. We will be doing validation testing, using the specification.
+
+We do not split the system into modules or units. We will stay on the system level.
 
 %% Which levels and types of tests are performed: (V-model: unit, integration, module, sys-
 %% tem, acceptance, . . .), which units, components, subsystems, . . . are tested and for what,
@@ -301,10 +305,10 @@ An equality test is in the form
 Where \texttt{EXPRESSION1} and \texttt{EXPRESSION2} are valid expressions and
 \texttt{EXPRESSION1} is \textbf{not} the name of a variable
 
-\subsection{Functions assignments}
+\subsection{Function assignments}
 A function assignment is in the form
 
-\texttt{FUNCTIONNAME(ARGUMENT):=EXPRESSION}
+\texttt{FUNCTIONNAME(ARGUMENTS):=EXPRESSION}
 \subsection{Expression parsing}
 Intermediate steps and calculations are show
 The result of the expression is shown
