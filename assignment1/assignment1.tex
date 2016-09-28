@@ -267,6 +267,10 @@ Expression \(\rightarrow\) PrefixFunction Separator (ArgumentList)
 
 Expression \(\rightarrow\) Expression Separator InfixFunction Separator Expression
 
+ArgumentList \(\rightarrow\) \(\phi\) $\mid$  NonEmptyArgumentList
+
+NonEmptyArgumentList  \(\rightarrow\)  Expression $\mid$ Expression , NonEmptyArgumentList
+
 Separator \(\rightarrow\) SPACE $\mid$ \(\phi\) $\mid$ Separator Separator
 
 Number \(\rightarrow\) 0 $\mid$ 1 $\mid$ 2 $\mid$ 3 $\mid$ 4 $\mid$ 5 $\mid$ 6 $\mid$ 7 $\mid$ 8 $\mid$ 9 $\mid$ Number Number
@@ -304,7 +308,9 @@ Where \texttt{EXPRESSION1} and \texttt{EXPRESSION2} are valid expressions and
 \subsection{Functions assignments}
 A function assignment is in the form
 
-\texttt{FUNCTIONNAME(ARGUMENT):=EXPRESSION}
+\texttt{FUNCTIONNAME(ARGUMENTS):=EXPRESSION}
+
+where ARGUMENTS is an ArgumentList.
 \subsection{Expression parsing}
 Intermediate steps and calculations are show
 The result of the expression is shown
@@ -322,4 +328,4 @@ For instance an expression in the form \texttt{(1 + 2) * 4} will require the fol
 %%  LocalWords:  Terpstra Sasja Gillissen Huijben tikzmark pdfauthor
 %%  LocalWords:  pdflang PrefixFunction SmallLetter CapitalLetter
 %%  LocalWords:  NameName CapticalLetter VARIABLENAME FUNCTIONNAME
-%%  LocalWords:  ArgumentList
+%%  LocalWords:  ArgumentList NonEmptyArgumentList
