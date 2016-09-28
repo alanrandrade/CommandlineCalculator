@@ -43,6 +43,7 @@ bla bla intro
 % Sasja Gillissen
 The goal of the tests is to compare the specification of the program to the implementation. The result of these tests is a list of issues, which may be empty. This list will be delivered to the developers. The software is licensed under GNU General Public Licence (GPLv3).
 
+
 %% What is the overall goal of the testing effort, what are the final deliverables, who are the
 %% stakeholders, i.e., for whom are you doing it, applicable laws and (international) standards.
 
@@ -59,7 +60,7 @@ The system under test is a calculator with a command line interface (cli). This 
 %% What is the test basis, i.e., its specification, and all documentation describing what the SUT
 %% shall do. (Do not include specification documents, but refer to them.)
 
-the program will continuously prompt the user for input. It will
+The program will continuously prompt the user for input. It will
 continue to prompt the user for input until it receives the exit
 function as input and then terminates.
 
@@ -80,7 +81,7 @@ This product is advertised as a working calculator with function and variable me
 \begin{itemize}
 	\item The calculator gives a wrong answer. A risk since the user might not notice this.
 	\item The calculator crashes. A risk since valuable function and variable memory can be deleted.
-	\item The calculator gives an error. A minor risk since the user knows the product can not comply, no data is lost and often there is another calculator.
+	\item The calculator gives an error when it shouldn't. A minor risk since the user knows the product can not comply, no data is lost and often there is another calculator.
 \end{itemize}
 Finding those scenarios will be a main focus in our testing.
 
@@ -91,8 +92,8 @@ Risks in the test process are scenarios which will make the test process to leng
 %% test process. How are risks handled and mitigated.
 
 \section{Test Environment}
-% Sasja Gillissen
-The tests will be performed on a single PC with JRE 1.8. The SUT will be tested using manual tests. No other software is required. The internal state of the program is not persisted between executions, this allows the tests to be repeated as often as possible.
+% Sasja Gillissen                                                                                                                  The internal state of the program is not persisted between executions, this allows the tests to be repeated as often as possible.
+The tests will be performed on a single PC with JRE 1.8. The SUT will be tested using manual tests. No other software is required. 
 %% What is the (controlled) environment in which experiments are performed, what is the test
 %% architecture, i.e., how are SUT and test system positioned and connected, which environment
 %% and infrastructure (hardware, software, middleware, databases, libraries, . . .) are required for
@@ -112,15 +113,23 @@ If we follow the quality characteristics of ISO 9126, then functionality and rel
 	\item[Usability] is of little concern to us. Since the SUT is meant as a commandline calculator and is not meant for the larger public, the usability expectations are low. The SUT already surpasses our expectations.
 	\item[Efficiency] will not be tested. The SUT is so small that to the user every calculation will seem as instantaneous, regardless of the actual efficiency.
 	\item[Maintainability] will not be tested. The difficulty to adapt the SUT does not interest us.
-	\item[Portability], the last characteristic. This will also not be tested. The reason for this is because we already know the portability. Every computer with command line can use the SUT.
+	\item[Portability], the last characteristic. This will also not be tested. The reason for this is because we already know the portability. Every computer with command line and Java 1.8 can use the SUT.
 \end{description}
 
 \section{Levels and Types of Testing} \label{levels}
 % Martin Huijben
+\if{false}
 
 The SUT can be split into clear units. There is one unit for each predefined variable and function. Furthermore we have units for new variables, equality tests, new functions and expression parsing. These units can be tested separately and in combinations. Together they form the system, with its specification as counterpart.
 
+\fi
+
+
+
+
 We are only interested in the capabilities of our SUT, not in how one would fix found shortcomings. Therefore we do not test white box. We will be doing validation testing, using the specification.
+
+We do not split the system into modules or units. We will stay on the system level.
 
 %% Which levels and types of tests are performed: (V-model: unit, integration, module, sys-
 %% tem, acceptance, . . .), which units, components, subsystems, . . . are tested and for what,
@@ -131,16 +140,18 @@ We are only interested in the capabilities of our SUT, not in how one would fix 
 
 Test will be performed by independent testers. This is because little
 knowledge is needed to preform the test and those already familiar
-with the program may be biased.
+with the program may be biased.     \label{sec:test-generation}
 
 %% Who tests what, and what are the roles: developer, (independent)
 %% tester, user, alpha, certification, . . .),
+% could be expanded by explaining the different partitions. e.g. Functions assignments, variable assignments, expressions, equivalence.
 
-\section{Test Generation Techniques}\label{sec:test-generation}
+
+
+
+\section{Test Generation Techniques}
 % Sasja Gillissen
 The Black-Box tests will first be generated by error guessing based on the specification. The test suite will be expanded using partitioning of the input values, and applying boundary value analysis on these partitions.
-
-% could be expanded by explaining the different partitions. e.g. Functions assignments, variable assignments, expressions, equivalence.
 
 %% As far as already known or required, e.g., by applicable standards: black-box (equivalence
 %% partitioning, boundary value analysis, error guessing, cause-effect graphing, decision tables,
@@ -151,21 +162,9 @@ The Black-Box tests will first be generated by error guessing based on the speci
 \section{Test Automation}\label{sec:test-automation}
 % Martijn Terpstra
 
-%planning
-The test will be planned at the earliest convenient time for the
-tester.
+Tests will be done manually. Each test is described in a spreadsheet.
 
-%preparation
-To prepare for the test new computers shall be purchased for the
-testers and the application shall be installed.
-
-%test generation
-Tests will be generated as describe is section \ref{sec:test-generation}
-%test execution
-
-The execution of tests will be done manually. Each test is described
-in a spreadsheet. To start a test, a new spreadsheet is copied from a
-template.
+To start a test, a new spreadsheet is copied from a template.
 
 This template contains:
 
@@ -183,19 +182,21 @@ successful. If not the test is unsuccessful.
 The results of the test are recorded in the the spreadsheet. A new
 spreadsheet is created for each testing session.
 
-%completion
-During the completion, after the testing session is over, the resulting spreadsheet shall be
+After the testing session is over, the resulting spreadsheet shall be
 send via email to the developer team for review.
 
 %% As far as applicable, which parts of the testing will be automated, which test tools will be
-%% used in the various phases of the testing process (planning, preparation, test generation, test
-%% execution, completion), which tests are performed manually, what is automated, and which
-%% tools have to be obtained or developed.
-
+%% used in the various phases of the testing process (planning, preparation, test geIn the section \ref{levels} we told about the units our SUT could be split in. We consider every combination of unitneraation, test
+%% execution, completion), which tests are performed manualpart that should be tested. Per such a part we will consider ourselves finished if we feel certain that we can predict every outcome for every input. Since the SUT is definedly, whaat is automated, and which
+%% tools have to be obtained or developed.                            , this certainty can be achieved. When all parts have been tested in such a way, we consid
+rselves finished.
 \section{Exit Criteria}
 % Martin Huijben
 
-In the section \ref{levels} we told about the units our SUT could be split in. We consider every combination of units as a part that should be tested. Per such a part we will consider ourselves finished if we feel certain that we can predict every outcome for every input. Since the SUT is defined in a context-free grammar, this certainty can be achieved. When all parts have been tested in such a way, we consider ourselves finished.
+The context-free grammar is a real help by deciding when tests are finished. It gives us a way to do exhaustive test generation and test execution.
+Test generation is finished when for every discernable case in the context-free grammar has a test case connected to it.
+Test execution is finished when we feel certain that we can predict every outcome for every input in such a case.
+
 
 %% What are the criteria for going from one test phase to the next, when is testing finished,
 %% when is the product considered sufficiently tested, what are the (final) evaluation criteria.
@@ -264,44 +265,40 @@ The program will be initialized with the following functions
 \item \texttt{root}, which returns the Nth root of it first argument.  (WARNING: does not work properly)
 \item \texttt{exit} , which will terminate the program
 \end{itemize}
-
+                               a                     a
 
 
 \emph{BTW floor,ceil and round work incorrectly for NEGATIVE numbers}
 \subsection{Expression}
 A valid expression is defined using Context-free Grammar
 
-Expression \(\rightarrow\) Separator Expression Separator
-
+Expression \(\rightarrow\) Seperator Expression Seperator
+                                              a                 ArgumentList
 Expression \(\rightarrow\) (Expression)
-
+                                          a
 Expression \(\rightarrow\) Number
-
+    a                             $\mid$           $\mid$     a          a
 Expression \(\rightarrow\) Variable
+                                                              $\mid$ 1 $\mid$ 2 $\mid$ 3 $\mid$ 4 $\mid$ 5 $\mid$ 6 $\mid$ 7 $\mid$ 8 $\mid$ 9 $\mid$
+Expression \(\rightarrow\) PrefixFunction Seperator (Expression)
 
-Expression \(\rightarrow\) PrefixFunction Separator (ArgumentList)
+Expression \(\rightarrow\) Expression Seperator InfixFunction Seperator Expression
 
-Expression \(\rightarrow\) Expression Separator InfixFunction Separator Expression
-
-ArgumentList \(\rightarrow\) \(\phi\) $\mid$  NonEmptyArgumentList
-
-NonEmptyArgumentList  \(\rightarrow\)  Expression $\mid$ Expression , NonEmptyArgumentList
-
-Separator \(\rightarrow\) SPACE $\mid$ \(\phi\) $\mid$ Separator Separator
-
-Number \(\rightarrow\) 0 $\mid$ 1 $\mid$ 2 $\mid$ 3 $\mid$ 4 $\mid$ 5 $\mid$ 6 $\mid$ 7 $\mid$ 8 $\mid$ 9 $\mid$ Number Number
+Seperator \(\rightarrow\) SPACE | \(\phi\) | Seperator Seperator
+                                  $\mid$                $\mid$
+Number \(\rightarrow\) 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | Number Number
 
 Variable \(\rightarrow\) Name
 
 PrefixFunction \(\rightarrow\) Name
+                                             $\mid$ * $\mid$ - $\mid$ + $\mid$
+Name \(\rightarrow\) SmallLetter | CapitalLetter | NameName
 
-Name \(\rightarrow\) SmallLetter $\mid$ CapitalLetter $\mid$ NameName
+SmallLetter \(\rightarrow\) a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z
 
-SmallLetter \(\rightarrow\) a$\mid$b$\mid$c$\mid$d$\mid$e$\mid$f$\mid$g$\mid$h$\mid$i$\mid$j$\mid$k$\mid$l$\mid$m$\mid$n$\mid$o$\mid$p$\mid$q$\mid$r$\mid$s$\mid$t$\mid$u$\mid$v$\mid$w$\mid$x$\mid$y$\mid$z
+CapticalLetter \(\rightarrow\) A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z
 
-CapticalLetter \(\rightarrow\) A$\mid$B$\mid$C$\mid$D$\mid$E$\mid$F$\mid$G$\mid$H$\mid$I$\mid$J$\mid$K$\mid$L$\mid$M$\mid$N$\mid$O$\mid$P$\mid$Q$\mid$R$\mid$S$\mid$T$\mid$U$\mid$V$\mid$W$\mid$X$\mid$Y$\mid$Z
-
-InfixFunction \(\rightarrow\) / $\mid$ * $\mid$ - $\mid$ + $\mid$ \^{}
+InfixFunction \(\rightarrow\) / | * | - | + | \^{}
 
 \emph{variable names have a max length}
 
@@ -312,33 +309,30 @@ A variable assignment is in the form
 \texttt{VARIABLENAME = EXPRESSION}
 
 Where a valid \texttt{VARIABLENAME} is a string of 1 or more letters and
-is case-sensitive.
+ is case-sensitive.
 \subsection{Equality tests}
 An equality test is in the form
+
 \texttt{EXPRESSION1 = EXPRESSION2}
 
+Where \texttt{EXPRESSION1} and \texttt{EXPRESSION2} are valid expressions and
+\texttt{EXPRESSION1} is \textbf{not} the name of a variable
 
-Here \texttt{EXPRESSION1} and \texttt{EXPRESSION2} are valid
-expressions and \texttt{EXPRESSION1} is \textbf{not} the name of a
-variable The resulting value will either be \texttt{-1}, \texttt{0} or
-\texttt{1}. depending on the type of equality.
-
-\begin{itemize}
-\item \texttt{-1} if \texttt{EXPRESSION1 < EXPRESSION2}
-\item \texttt{0} if \texttt{EXPRESSION1 = EXPRESSION2}
-\item \texttt{1} if \texttt{EXPRESSION1 > EXPRESSION2}
-\end{itemize}
-
-\subsection{Functions assignments}
+\subsection{Function assignments}
 A function assignment is in the form
 
 \texttt{FUNCTIONNAME(ARGUMENTS):=EXPRESSION}
 
-where ARGUMENTS is an ArgumentList.
+where \texttt{ARGUMENTS} is an ArgumentList.
+
 \subsection{Expression parsing}
 Intermediate steps and calculations are show
 The result of the expression is shown
+                         PrefixFunction SmallLetter CapitalLetter
 
+%%  LocalWords:  NameName CapticalLetter VARIABLENAME FUNCTIONNAME
+
+%%  LocalWords:  ArgumentList NonEmptyArgumentList
 For instance an expression in the form \texttt{(1 + 2) * 4} will require the following actions.
 
 \begin{itemize}
@@ -350,6 +344,4 @@ For instance an expression in the form \texttt{(1 + 2) * 4} will require the fol
 \end{document}
 
 %%  LocalWords:  Terpstra Sasja Gillissen Huijben tikzmark pdfauthor
-%%  LocalWords:  pdflang PrefixFunction SmallLetter CapitalLetter
-%%  LocalWords:  NameName CapticalLetter VARIABLENAME FUNCTIONNAME
-%%  LocalWords:  ArgumentList NonEmptyArgumentList
+%%  LocalWords:  pdflang
