@@ -91,7 +91,7 @@ Risks in the test process are scenarios which will make the test process to leng
 
 \section{Test Environment}
 % Sasja Gillissen
-The tests will be performed on a single PC with JRE 1.8. The SUT will be tested using manual tests. No other software is required. 
+The tests will be performed on a single PC with JRE 1.8. The SUT will be tested using manual tests. No other software is required.
 %% What is the (controlled) environment in which experiments are performed, what is the test
 %% architecture, i.e., how are SUT and test system positioned and connected, which environment
 %% and infrastructure (hardware, software, middleware, databases, libraries, . . .) are required for
@@ -267,21 +267,21 @@ Expression \(\rightarrow\) PrefixFunction Seperator (Expression)
 
 Expression \(\rightarrow\) Expression Seperator InfixFunction Seperator Expression
 
-Seperator \(\rightarrow\) SPACE | \(\phi\) | Seperator Seperator
+Seperator \(\rightarrow\) SPACE $\mid$ \(\phi\) $\mid$ Seperator Seperator
 
-Number \(\rightarrow\) 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | Number Number
+Number \(\rightarrow\) 0 $\mid$ 1 $\mid$ 2 $\mid$ 3 $\mid$ 4 $\mid$ 5 $\mid$ 6 $\mid$ 7 $\mid$ 8 $\mid$ 9 $\mid$ Number Number
 
 Variable \(\rightarrow\) Name
 
 PrefixFunction \(\rightarrow\) Name
 
-Name \(\rightarrow\) SmallLetter | CapitalLetter | NameName
+Name \(\rightarrow\) SmallLetter $\mid$ CapitalLetter $\mid$ NameName
 
-SmallLetter \(\rightarrow\) a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z
+SmallLetter \(\rightarrow\) a$\mid$b$\mid$c$\mid$d$\mid$e$\mid$f$\mid$g$\mid$h$\mid$i$\mid$j$\mid$k$\mid$l$\mid$m$\mid$n$\mid$o$\mid$p$\mid$q$\mid$r$\mid$s$\mid$t$\mid$u$\mid$v$\mid$w$\mid$x$\mid$y$\mid$z
 
-CapticalLetter \(\rightarrow\) A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z
+CapticalLetter \(\rightarrow\) A$\mid$B$\mid$C$\mid$D$\mid$E$\mid$F$\mid$G$\mid$H$\mid$I$\mid$J$\mid$K$\mid$L$\mid$M$\mid$N$\mid$O$\mid$P$\mid$Q$\mid$R$\mid$S$\mid$T$\mid$U$\mid$V$\mid$W$\mid$X$\mid$Y$\mid$Z
 
-InfixFunction \(\rightarrow\) / | * | - | + | \^{}
+InfixFunction \(\rightarrow\) / $\mid$ * $\mid$ - $\mid$ + $\mid$ \^{}
 
 \emph{variable names have a max length}
 
