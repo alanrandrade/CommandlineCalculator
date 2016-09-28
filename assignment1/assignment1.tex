@@ -255,7 +255,7 @@ The program will be initialized with the following functions
 \subsection{Expression}
 A valid expression is defined using Context-free Grammar
 
-Expression \(\rightarrow\) Seperator Expression Seperator
+Expression \(\rightarrow\) Separator Expression Separator
 
 Expression \(\rightarrow\) (Expression)
 
@@ -263,11 +263,11 @@ Expression \(\rightarrow\) Number
 
 Expression \(\rightarrow\) Variable
 
-Expression \(\rightarrow\) PrefixFunction Seperator (Expression)
+Expression \(\rightarrow\) PrefixFunction Separator (Expression)
 
-Expression \(\rightarrow\) Expression Seperator InfixFunction Seperator Expression
+Expression \(\rightarrow\) Expression Separator InfixFunction Separator Expression
 
-Seperator \(\rightarrow\) SPACE $\mid$ \(\phi\) $\mid$ Seperator Seperator
+Separator \(\rightarrow\) SPACE $\mid$ \(\phi\) $\mid$ Separator Separator
 
 Number \(\rightarrow\) 0 $\mid$ 1 $\mid$ 2 $\mid$ 3 $\mid$ 4 $\mid$ 5 $\mid$ 6 $\mid$ 7 $\mid$ 8 $\mid$ 9 $\mid$ Number Number
 
@@ -320,4 +320,5 @@ For instance an expression in the form \texttt{(1 + 2) * 4} will require the fol
 \end{document}
 
 %%  LocalWords:  Terpstra Sasja Gillissen Huijben tikzmark pdfauthor
-%%  LocalWords:  pdflang
+%%  LocalWords:  pdflang PrefixFunction SmallLetter CapitalLetter
+%%  LocalWords:  NameName CapticalLetter VARIABLENAME FUNCTIONNAME
