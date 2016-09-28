@@ -299,11 +299,19 @@ Where a valid \texttt{VARIABLENAME} is a string of 1 or more letters and
 is case-sensitive.
 \subsection{Equality tests}
 An equality test is in the form
-
 \texttt{EXPRESSION1 = EXPRESSION2}
 
-Where \texttt{EXPRESSION1} and \texttt{EXPRESSION2} are valid expressions and
-\texttt{EXPRESSION1} is \textbf{not} the name of a variable
+
+Here \texttt{EXPRESSION1} and \texttt{EXPRESSION2} are valid
+expressions and \texttt{EXPRESSION1} is \textbf{not} the name of a
+variable The resulting value will either be \texttt{-1}, \texttt{0} or
+\texttt{1}. depending on the type of equality.
+
+\begin{itemize}
+\item \texttt{-1} if \texttt{EXPRESSION1 < EXPRESSION2}
+\item \texttt{0} if \texttt{EXPRESSION1 = EXPRESSION2}
+\item \texttt{1} if \texttt{EXPRESSION1 > EXPRESSION2}
+\end{itemize}
 
 \subsection{Functions assignments}
 A function assignment is in the form
