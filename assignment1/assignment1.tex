@@ -41,6 +41,8 @@ bla bla intro
 
 \section{Test Goal}
 % Sasja Gillissen
+The goal of the tests is to compare the specification of the program to the implementation. The result of these tests is a list of issues, which may be empty. This list will be delivered to the developers. The software is licensed under GNU General Public Licence (GPLv3).
+
 
 %% What is the overall goal of the testing effort, what are the final deliverables, who are the
 %% stakeholders, i.e., for whom are you doing it, applicable laws and (international) standards.
@@ -90,7 +92,7 @@ Risks in the test process are scenarios which will make the test process to leng
 %% test process. How are risks handled and mitigated.
 
 \section{Test Environment}
-% Sasja Gillissen
+% Sasja Gillissen                                                                                                                  The internal state of the program is not persisted between executions, this allows the tests to be repeated as often as possible.
 The tests will be performed on a single PC with JRE 1.8. The SUT will be tested using manual tests. No other software is required. 
 %% What is the (controlled) environment in which experiments are performed, what is the test
 %% architecture, i.e., how are SUT and test system positioned and connected, which environment
@@ -116,10 +118,14 @@ If we follow the quality characteristics of ISO 9126, then functionality and rel
 
 \section{Levels and Types of Testing} \label{levels}
 % Martin Huijben
-
 \if{false}
+
 The SUT can be split into clear units. There is one unit for each predefined variable and function. Furthermore we have units for new variables, equality tests, new functions and expression parsing. These units can be tested separately and in combinations. Together they form the system, with its specification as counterpart.
+
 \fi
+
+
+
 
 We are only interested in the capabilities of our SUT, not in how one would fix found shortcomings. Therefore we do not test white box. We will be doing validation testing, using the specification.
 
@@ -134,10 +140,14 @@ We do not split the system into modules or units. We will stay on the system lev
 
 Test will be performed by independent testers. This is because little
 knowledge is needed to preform the test and those already familiar
-with the program may be biased.
+with the program may be biased.     \label{sec:test-generation}
 
 %% Who tests what, and what are the roles: developer, (independent)
 %% tester, user, alpha, certification, . . .),
+% could be expanded by explaining the different partitions. e.g. Functions assignments, variable assignments, expressions, equivalence.
+
+
+
 
 \section{Test Generation Techniques}
 % Sasja Gillissen
@@ -176,14 +186,17 @@ After the testing session is over, the resulting spreadsheet shall be
 send via email to the developer team for review.
 
 %% As far as applicable, which parts of the testing will be automated, which test tools will be
-%% used in the various phases of the testing process (planning, preparation, test generation, test
-%% execution, completion), which tests are performed manually, what is automated, and which
-%% tools have to be obtained or developed.
-
+%% used in the various phases of the testing process (planning, preparation, test geIn the section \ref{levels} we told about the units our SUT could be split in. We consider every combination of unitneraation, test
+%% execution, completion), which tests are performed manualpart that should be tested. Per such a part we will consider ourselves finished if we feel certain that we can predict every outcome for every input. Since the SUT is definedly, whaat is automated, and which
+%% tools have to be obtained or developed.                            , this certainty can be achieved. When all parts have been tested in such a way, we consid
+rselves finished.
 \section{Exit Criteria}
 % Martin Huijben
 
-In the section \ref{levels} we told about the units our SUT could be split in. We consider every combination of units as a part that should be tested. Per such a part we will consider ourselves finished if we feel certain that we can predict every outcome for every input. Since the SUT is defined in a context-free grammar, this certainty can be achieved. When all parts have been tested in such a way, we consider ourselves finished.
+The context-free grammar is a real help by deciding when tests are finished. It gives us a way to do exhaustive test generation and test execution.
+Test generation is finished when for every discernable case in the context-free grammar has a test case connected to it.
+Test execution is finished when we feel certain that we can predict every outcome for every input in such a case.
+
 
 %% What are the criteria for going from one test phase to the next, when is testing finished,
 %% when is the product considered sufficiently tested, what are the (final) evaluation criteria.
@@ -252,7 +265,7 @@ The program will be initialized with the following functions
 \item \texttt{root}, which returns the Nth root of it first argument.  (WARNING: does not work properly)
 \item \texttt{exit} , which will terminate the program
 \end{itemize}
-
+                               a                     a
 
 
 \emph{BTW floor,ceil and round work incorrectly for NEGATIVE numbers}
@@ -260,25 +273,25 @@ The program will be initialized with the following functions
 A valid expression is defined using Context-free Grammar
 
 Expression \(\rightarrow\) Seperator Expression Seperator
-
+                                              a                 ArgumentList
 Expression \(\rightarrow\) (Expression)
-
+                                          a
 Expression \(\rightarrow\) Number
-
+    a                             $\mid$           $\mid$     a          a
 Expression \(\rightarrow\) Variable
-
+                                                              $\mid$ 1 $\mid$ 2 $\mid$ 3 $\mid$ 4 $\mid$ 5 $\mid$ 6 $\mid$ 7 $\mid$ 8 $\mid$ 9 $\mid$
 Expression \(\rightarrow\) PrefixFunction Seperator (Expression)
 
 Expression \(\rightarrow\) Expression Seperator InfixFunction Seperator Expression
 
 Seperator \(\rightarrow\) SPACE | \(\phi\) | Seperator Seperator
-
+                                  $\mid$                $\mid$
 Number \(\rightarrow\) 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | Number Number
 
 Variable \(\rightarrow\) Name
 
 PrefixFunction \(\rightarrow\) Name
-
+                                             $\mid$ * $\mid$ - $\mid$ + $\mid$
 Name \(\rightarrow\) SmallLetter | CapitalLetter | NameName
 
 SmallLetter \(\rightarrow\) a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z
@@ -296,7 +309,7 @@ A variable assignment is in the form
 \texttt{VARIABLENAME = EXPRESSION}
 
 Where a valid \texttt{VARIABLENAME} is a string of 1 or more letters and
-is case-sensitive.
+ is case-sensitive.
 \subsection{Equality tests}
 An equality test is in the form
 
@@ -309,10 +322,17 @@ Where \texttt{EXPRESSION1} and \texttt{EXPRESSION2} are valid expressions and
 A function assignment is in the form
 
 \texttt{FUNCTIONNAME(ARGUMENTS):=EXPRESSION}
+
+where \texttt{ARGUMENTS} is an ArgumentList.
+
 \subsection{Expression parsing}
 Intermediate steps and calculations are show
 The result of the expression is shown
+                         PrefixFunction SmallLetter CapitalLetter
 
+%%  LocalWords:  NameName CapticalLetter VARIABLENAME FUNCTIONNAME
+
+%%  LocalWords:  ArgumentList NonEmptyArgumentList
 For instance an expression in the form \texttt{(1 + 2) * 4} will require the following actions.
 
 \begin{itemize}
