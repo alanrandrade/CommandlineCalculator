@@ -37,13 +37,22 @@
 
 \section{Introduction}
 % Martin Huijben
-In this document we will describe the testing process of the Commandline Calculator, which can be found at \url{https://github.com/Witik/CommandlineCalculator}. The tests will be focussed on giving a full overview of the capabilities of the calculator. We will talk in this document about our goals, the product, what we expect during testing, how we expect the test process and what we expect as result. This document has an appendix fully describing the SUT.
+In this document we will describe the testing process of the
+Commandline Calculator, which can be found at
+\url{https://github.com/Witik/CommandlineCalculator}. The tests will
+be focussed on giving a full overview of the capabilities of the
+calculator. We will talk in this document about our goals, the
+product, what we expect during testing, how we expect the test process
+and what we expect as result. This document has an appendix fully
+describing the SUT.
 %% State the objectives and overview of the document at a high-level.
 
 \section{Test Goal}
 % Sasja Gillissen
 The goal of the tests is to compare the specification of the program to the implementation. The result of these tests is a list of issues, which may be empty. This list will be delivered to the developers. The software is licensed under GNU General Public Licence (GPLv3).
 
+%% COMMENT: Stakeholders? what are their interests?
+%% COMMENT: Should the line about the license not be moved to the PRODUCT section
 
 %% What is the overall goal of the testing effort, what are the final deliverables, who are the
 %% stakeholders, i.e., for whom are you doing it, applicable laws and (international) standards.
@@ -78,11 +87,20 @@ The full specification is included in appendix\ref{app:specification}
 %% shall do. (Do not include specification documents, but refer to them.)
 \section{Risks}
 % Martin Huijben
-This product is advertised as a working calculator with function and variable memory. Every time the product does not comply with these expectations, this causes a risk, since people might not double check the answers, have another calculator or have a backup of the inserted data. This makes the following scenarios risks:
+This product is advertised as a working calculator with function and
+variable memory. Every time the product does not comply with these
+expectations, this causes a risk, since people might not double check
+the answers, have another calculator or have a backup of the inserted
+data. This makes the following scenarios risks:
+
+%% COMMENT: It comes down to 'it does not conform, so it is a risk.'
+%% COMMENT: A risk is what the consequences of an issue are!
+
+
 \begin{itemize}
-	\item The calculator gives a wrong answer. A risk since the user might not notice this.
+	\item The calculator gives a wrong answer. A risk since the user might not notice this. %% COMMENT: And since other product may use answers as inputs
 	\item The calculator crashes. A risk since valuable function and variable memory can be deleted.
-	\item The calculator gives an error when it shouldn't. A minor risk since the user knows the product can not comply, no data is lost and often there is another calculator.
+	\item The calculator gives an error when it shouldn't. A minor risk since the user knows the product can not comply, no data is lost and often there is another calculator. %% COMMENT: any expected errors, such as 'divide by zero'?
 \end{itemize}
 Finding those scenarios will be a main focus in our testing.
 
@@ -112,8 +130,8 @@ If we follow the quality characteristics of ISO 9126, then functionality and rel
 	\item[Functionality] will be tested thoroughly. We have a complete and detailed specification of the SUT, to which the SUT should comply.
 	\item[Reliability] will be a key point. Fault tolerance and recoverability are important to us, for the reason that on this area the SUT does not comply with our initial expectations. Some simple experimenting showed that our SUT could crash at some input, instead of just giving an error. We want to test in which cases this happens.
 	\item[Usability] is of little concern to us. Since the SUT is meant as a commandline calculator and is not meant for the larger public, the usability expectations are low. The SUT already surpasses our expectations.
-	\item[Efficiency] will not be tested. The SUT is so small that to the user every calculation will seem as instantaneous, regardless of the actual efficiency.
-	\item[Maintainability] will not be tested. The difficulty to adapt the SUT does not interest us.
+	\item[Efficiency] will not be tested. The SUT is so small that to the user every calculation will seem as instantaneous, regardless of the actual efficiency. %% COMMENT: automated/generated (long) inputs?
+	\item[Maintainability] will not be tested. The difficulty to adapt the SUT does not interest us. %% COMMENT: 'We are only intereded in ...' is more neutral
 	\item[Portability], the last characteristic. This will also not be tested. The reason for this is because we already know the portability. Every computer with command line and Java 1.8 can use the SUT.
 \end{description}
 
@@ -128,7 +146,9 @@ The SUT can be split into clear units. There is one unit for each predefined var
 
 
 
-We are only interested in the capabilities of our SUT, not in how one would fix found shortcomings. Therefore we do not test white box. We will be doing validation testing, using the specification.
+We are only interested in the capabilities of our SUT, not in how one
+would fix found shortcomings. Therefore we do not test white box. We %% COMMENT: White box has more advatages than just knowing how to fix
+will be doing validation testing, using the specification.
 
 We do not split the system into modules or units. We will stay on the system level.
 
@@ -141,7 +161,7 @@ We do not split the system into modules or units. We will stay on the system lev
 
 Test will be performed by independent testers. This is because little
 knowledge is needed to preform the test and those already familiar
-with the program may be biased.     \label{sec:test-generation}
+with the program may be biased.     \label{sec:test-generation} %% COMMENT: Rol with relation to the developers?
 
 %% Who tests what, and what are the roles: developer, (independent)
 %% tester, user, alpha, certification, . . .),
@@ -153,6 +173,15 @@ with the program may be biased.     \label{sec:test-generation}
 \section{Test Generation Techniques}
 % Sasja Gillissen
 The Black-Box tests will first be generated by error guessing based on the specification. The test suite will be expanded using partitioning of the input values, and applying boundary value analysis on these partitions.
+
+%% COMMENT: A bit short.
+
+%% COMMENT: How is the grammar used? (section 12)
+
+%% COMMENT: Only expressions, also test
+%% COMMENT:  - memory fuctionality
+%% COMMENT:  - arithemic edce cases
+
 
 %% As far as already known or required, e.g., by applicable standards: black-box (equivalence
 %% partitioning, boundary value analysis, error guessing, cause-effect graphing, decision tables,
@@ -183,7 +212,7 @@ This template contains:
 
 \begin{itemize}
 \item One or more lines of input to be entered in the program
-\item A description of the expected output
+\item A description of the expected output %% COMMENT: per line?
 \item A field to insert the resulting output after entering the input.
 \end{itemize}
 
@@ -207,9 +236,15 @@ send via email to the developer team for review.
 \section{Exit Criteria}
 % Martin Huijben
 
-The context-free grammar is a real help by deciding when tests are finished. It gives us a way to do exhaustive test generation and test execution.
-Test generation is finished when for every discernable case in the context-free grammar has a test case connected to it.
-Test execution is finished when we feel certain that we can predict every outcome for every input in such a case.
+The context-free grammar is a real help by deciding when tests are
+finished. It gives us a way to do exhaustive test generation and test
+execution. Test generation is finished when for every discernable case
+in the context-free grammar has a test case connected to it. Test
+execution is finished when we feel certain that we can predict every
+outcome for every input in such a case.
+
+%% COMMENT: Exhaustive on the grammar rules, not on inputs.
+%% COMMENT: (Grammar accepts an infinite number of expressions)
 
 As for the planning and preparation phases, we are ready to go as soon as this document gets approved.
 
@@ -277,13 +312,13 @@ The program will be initialized with the following functions
 \item \texttt{log}
 \item \texttt{ln}, which
 \item \texttt{sqrt}, which returns the square root of its
-\item \texttt{root}, which returns the Nth root of it first argument.  (WARNING: does not work properly)
+\item \texttt{root}, which returns the Nth root of it first argument.  %%(WARNING: does not work properly)
 \item \texttt{exit} , which will terminate the program
 \end{itemize}
 
 
 
-\emph{BTW floor,ceil and round work incorrectly for NEGATIVE numbers}
+%%\emph{BTW floor,ceil and round work incorrectly for NEGATIVE numbers}
 \subsection{Expression}
 A valid expression is defined using Context-free Grammar
 
