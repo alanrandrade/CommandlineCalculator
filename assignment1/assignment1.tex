@@ -161,7 +161,7 @@ We do not split the system into modules or units. We will stay on the system lev
 
 Test will be performed by independent testers. This is because little
 knowledge is needed to preform the test and those already familiar
-with the program may be biased.     \label{sec:test-generation} %% COMMENT: Rol with relation to the developers?
+with the program may be biased. \label{sec:test-generation} %% COMMENT: Role with relation to the developers?
 
 %% Who tests what, and what are the roles: developer, (independent)
 %% tester, user, alpha, certification, . . .),
@@ -277,6 +277,25 @@ fix them in the future.
 \section{Test Cases}
 %% 2. Develop (at least) 10 black-box functionality test cases to test your SUT manually. Justify
 %% the choice of these test cases, e.g., with reference to classical, black-box testing techniques.
+
+\begin{center}
+\begin{tabular}{llr}
+Thing & Input & Expected Output\\
+\hline
+Function Assignment & f(x):= x + 1 \n f(7) & 8\\
+Variable Assignment & k = 3 \n k & 3\\
+Expression (1) & (((0 + 1) * 2) - 3) / 4 & -0.2500000000000000\\
+Expression (2) & 1 / 0 & Error\\
+Equality (1) & 3 = 3 & 0\\
+Equality (2) & 2 = 1 & 1\\
+Equality (3) & 2 = 3 & -1\\
+Builtin Functions (1) & sqrt(ln(log(100))) & 0.83\\
+Builtin Functions (2) & floor(0.5) + ceil(0.5) + round(0.5) & 3\\
+Builtin Variables & e * pi & 8.539734222673565677848730527685\\
+Exit & exit & Nothing\\
+\end{tabular}
+\end{center}
+
 
 \appendix
 \section{Specification} \label{app:specification}
