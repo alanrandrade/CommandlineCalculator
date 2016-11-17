@@ -32,7 +32,7 @@ do
     else
         echo "*FAIL* on ["$testcase"] Output"
         # show difference
-        diff $BASEDIR"usecases/"$testcase"_output.txt" $BASEDIR"outputs/"$testcase"_output.txt"
+        # diff $BASEDIR"usecases/"$testcase"_output.txt" $BASEDIR"outputs/"$testcase"_output.txt"
     fi
 
     # compare sterr to expected stderr
@@ -42,7 +42,7 @@ do
     else
         echo "*FAIL* ["$testcase"] Error"
         # show difference
-        diff $BASEDIR"usecases/"$testcase"_errors.txt" $BASEDIR"outputs/"$testcase"_errors.txt"
+        # diff $BASEDIR"usecases/"$testcase"_errors.txt" $BASEDIR"outputs/"$testcase"_errors.txt"
     fi
 
 done

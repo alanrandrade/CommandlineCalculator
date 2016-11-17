@@ -1,3 +1,0 @@
-Exception in thread "main" java.util.NoSuchElementException: No line found
-	at java.util.Scanner.nextLine(Scanner.java:1540)
-	at eu.gillissen.commandline.calculator.Calc.main(Calc.java:54)
