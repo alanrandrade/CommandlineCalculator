@@ -1,0 +1,17 @@
+added variable pi to memory 
+added variable e to memory 
+added function floor to memory 
+added function ceil to memory 
+added function round to memory 
+added function log to memory 
+added function ln to memory 
+added function sqrt to memory 
+added function root to memory 
+added function exit to memory 
+? e = 2.718281828459045
+pi = 3.141592653589793
+2.718281828459045 * 3.141592653589793 = 8.539734222673565677848730527685
+Calculations:
+Result:
+e * pi = 8.539734222673565677848730527685
+? Bye!

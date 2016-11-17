@@ -1,0 +1,9 @@
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+	at java.math.BigDecimal.divideAndRound(BigDecimal.java:4106)
+	at java.math.BigDecimal.divide(BigDecimal.java:5183)
+	at java.math.BigDecimal.divide(BigDecimal.java:1561)
+	at eu.gillissen.commandline.calculator.node.MultiplicationOrDivisionNode.evaluate(MultiplicationOrDivisionNode.java:26)
+	at eu.gillissen.commandline.calculator.node.SplitNode.evaluate(SplitNode.java:24)
+	at eu.gillissen.commandline.calculator.Calc.evaluate(Calc.java:127)
+	at eu.gillissen.commandline.calculator.Calc.calculate(Calc.java:102)
+	at eu.gillissen.commandline.calculator.Calc.main(Calc.java:56)

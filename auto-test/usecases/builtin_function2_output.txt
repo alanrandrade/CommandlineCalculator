@@ -1,0 +1,18 @@
+added variable pi to memory 
+added variable e to memory 
+added function floor to memory 
+added function ceil to memory 
+added function round to memory 
+added function log to memory 
+added function ln to memory 
+added function sqrt to memory 
+added function root to memory 
+added function exit to memory 
+? duplicate expression 0.5
+duplicate expression 0.5
+0 + 1 = 1
+1 + 1 = 2
+Calculations:
+Result:
+floor(0.5) + ceil(0.5) + round(0.5) = 2
+? Bye!

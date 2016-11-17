@@ -1,0 +1,2 @@
+floor(0.5) + ceil(0.5) + round(0.5)
+exit()

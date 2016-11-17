@@ -1,0 +1,13 @@
+added variable pi to memory 
+added variable e to memory 
+added function floor to memory 
+added function ceil to memory 
+added function round to memory 
+added function log to memory 
+added function ln to memory 
+added function sqrt to memory 
+added function root to memory 
+added function exit to memory 
+? [2 = 1] = 1
+Calculations:
+? Bye!
