@@ -19,7 +19,6 @@ do
     echo -en ""$testcase": "
 
     # pipe input and catch outputs and errors
-
     cat $BASEDIR"usecases/"$testcase"_input.txt" |
         java -jar $BASEDIR"../target/CommandlineCalculator-1.0-jar-with-dependencies.jar"\
              > $BASEDIR"outputs/"$testcase"_output.txt"\
@@ -31,8 +30,6 @@ do
         echo -n "[OK]"
     else
         echo "*FAIL* on ["$testcase"] Output"
-        # show difference
-        # diff $BASEDIR"usecases/"$testcase"_output.txt" $BASEDIR"outputs/"$testcase"_output.txt"
     fi
 
     # compare sterr to expected stderr
@@ -41,8 +38,6 @@ do
         echo "[OK]"
     else
         echo "*FAIL* ["$testcase"] Error"
-        # show difference
-        # diff $BASEDIR"usecases/"$testcase"_errors.txt" $BASEDIR"outputs/"$testcase"_errors.txt"
     fi
 
 done
