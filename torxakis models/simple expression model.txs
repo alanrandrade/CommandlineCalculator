@@ -1,0 +1,101 @@
+{-
+TorXakis - Model Based Testing
+Copyright (c) 2015-2016 TNO and Radboud University
+See license.txt
+-}
+
+
+-- ----------------------------------------------------------------------------------------- --
+-- Model of (parallel) Adders, for one adder - Adder1 -, and for three adders - Adder3 -,
+-- with inputs "Plus(i) x y" and "Minus(i) x y", and output "Result(i) z".
+-- ----------------------------------------------------------------------------------------- --
+
+
+TYPEDEF  Operation
+    ::=
+          Plus  { p1, p2 :: Operation }
+        | Minus { p1, p2 :: Operation }
+        | Times { p1, p2 :: Operation }
+		--| Divide { p1, p2 :: Operation }
+		| Integer {p1 :: Int }
+ENDDEF
+
+
+FUNCDEF operationToString(op::Operation) :: String ::=
+	IF isPlus(op) THEN operationToString(p1(op)) +++ " + " +++ operationToString(p2(op)) 
+	ELSE IF isMinus(op) THEN operationToString(p1(op)) +++ " - " +++ operationToString(p2(op))
+	ELSE IF isTimes(op) THEN operationToString(p1(op)) +++ " * " +++ operationToString(p2(op))
+	ELSE IF isInteger(op) THEN toString(p1(op))
+	FI FI FI FI
+ENDDEF
+
+-- java -jar /c/Users/Martin/Documents/GitHub/CommandlineCalculator/target/CommandlineCalculator-1.0-jar-with-dependencies.jar | /c/Users/Martin/Documents/netcat-master/netcat-master/nc.exe -lp 9090
+
+
+-- ----------------------------------------------------------------------------------------- --
+
+PROCDEF sut [Act :: Operation; outp :: String] ()
+	::=
+		Act ?opn >-> Res 
+
+PROCDEF  adder  [ Act :: Operation;  Res :: Int ] ( )
+    ::=
+           Act ?opn [[ isPlus(opn)  ]]  >->  Res !p1(opn)+p2(opn)  >->  adder [ Act, Res ] ( )
+        ##
+           Act ?opn [[ isMinus(opn) ]]  >->  Res !m1(opn)-m2(opn)  >->  adder [ Act, Res ] ( )
+ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+
+
+CHANDEF  Chans  ::=    Action  :: Operation
+                     ; Result  :: Int
+ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+
+
+MODELDEF  Adder
+    ::=
+        CHAN IN    Action
+        CHAN OUT   Result
+
+        BEHAVIOUR  adder [ Action, Result ] ( )
+
+ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+
+
+CNECTDEF  Sut
+    ::=
+        CLIENTSOCK
+
+        CHAN  OUT  Action                        HOST "localhost"  PORT 7890
+        ENCODE     Action ? opn              ->  ! OperationToString(opn)
+
+        CHAN  IN   Result                        HOST "localhost"  PORT 7890
+        DECODE     Result ! fromString(s)   <-   ? s
+
+ENDDEF
+
+
+CNECTDEF  Sim
+    ::=
+        SERVERSOCK
+
+        CHAN  IN   Action                        HOST "localhost"  PORT 7890
+        DECODE     Action ! fromString(s)   <-   ? s
+
+        CHAN  OUT  Result                        HOST "localhost"  PORT 7890
+        ENCODE     Result ? result           ->  ! toString(result)
+
+ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+-- ----------------------------------------------------------------------------------------- --
+
