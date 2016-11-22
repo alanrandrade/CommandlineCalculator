@@ -12,7 +12,7 @@ MODELDEF Model ::=
     CHAN IN    Stimulus
     CHAN OUT   Response
 
-    BEHAVIOUR  
+    BEHAVIOUR
         Stimulus >-> Response
 ENDDEF
 
@@ -20,9 +20,77 @@ CNECTDEF  Sut
     ::=
         CLIENTSOCK
 
+-- verwacht input ""
         CHAN  OUT  Stimulus            HOST "localhost"  PORT 7890
         ENCODE     Stimulus            ->  ! ""
-        
+
+-- echo'd iets terug
         CHAN  IN   Response            HOST "localhost"  PORT 7890
         DECODE     Response            <-   ? s
 ENDDEF
+
+-- ----------------------------------------------------------------------------------------- --
+-- Model of (parallel) Adders, for one adder - Adder1 -, and for three adders - Adder3 -,
+-- with inputs "Plus(i) x y" and "Minus(i) x y", and output "Result(i) z".
+-- ----------------------------------------------------------------------------------------- --
+
+
+TYPEDEF  Operation
+    ::=
+          Plus  { p1, p2 :: Int }
+        | Minus { m1, m2 :: Int }
+        | Error
+ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+
+
+PROCDEF  adder  [ Act :: Operation;  Res :: Int ] ( )
+    ::=
+           Act ?opn [[ isPlus(opn)  ]]  >->  Res !p1(opn)+p2(opn)  >->  adder [ Act, Res ] ( )
+        ##
+           Act ?opn [[ isMinus(opn) ]]  >->  Res !m1(opn)-m2(opn)  >->  adder [ Act, Res ] ( )
+ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+
+
+CHANDEF  Chans  ::=    Action  :: Operation
+                     ; Result  :: Int
+ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+
+
+MODELDEF  Adder
+    ::=
+        CHAN IN    Action
+        CHAN OUT   Result
+
+        BEHAVIOUR  adder [ Action, Result ] ( )
+
+ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+
+
+CNECTDEF  Sim
+    ::=
+        SERVERSOCK
+
+        CHAN  IN   Action                        HOST "localhost"  PORT 7890
+        DECODE     Action ! fromString(s)   <-   ? s
+
+        CHAN  OUT  Result                        HOST "localhost"  PORT 7890
+        ENCODE     Result ? result           ->  ! toString(result)
+
+ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+-- ----------------------------------------------------------------------------------------- --
+
