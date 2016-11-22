@@ -2,7 +2,7 @@
 
 
 CHANDEF  Chans ::=  Action  :: Operation
-                    ; Result
+                    ; Result :: Int
 ENDDEF
 
 MODELDEF Model ::=
@@ -15,11 +15,11 @@ MODELDEF Model ::=
 ENDDEF
 
 
-PROCDEF  CalculatorLoop  [ Act :: Operation;  Res ] ( )
+PROCDEF  CalculatorLoop  [ Act :: Operation;  Res :: Int ] ( )
     ::=
-            Act ? opn
+            Act ? opn [[ isPlus(opn)  ]]
             >->
-            Res
+            Res ! operationToInt(opn)
             >->
             CalculatorLoop [ Act, Res ] ( )
 
@@ -37,7 +37,7 @@ CNECTDEF  Sut
 
 -- echo'd iets terug
         CHAN  IN   Result            HOST "localhost"  PORT 7890
-        DECODE     Result            <-   ? s
+        DECODE     Result ! fromString(s)             <-   ? s
 ENDDEF
 
 --
