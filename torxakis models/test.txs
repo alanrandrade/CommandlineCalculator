@@ -53,11 +53,11 @@ ENDDEF
 
 FUNCDEF operationToString(op::Operation) :: String ::=
 	IF isPlus(op) THEN
-            operationToString(p1(op)) ++ " + " ++ operationToString(p2(op))
+            "(" ++ operationToString(p1(op)) ++ " + " ++ operationToString(p2(op)) ++ ")"
 	ELSE IF isMinus(op) THEN
-            operationToString(m1(op)) ++ " - " ++ operationToString(m2(op))
+            "(" ++ operationToString(m1(op)) ++ " - " ++ operationToString(m2(op)) ++ ")"
 	ELSE IF isTimes(op) THEN
-            operationToString(t1(op)) ++ " * " ++ operationToString(t2(op))
+            "(" ++ operationToString(t1(op)) ++ " * " ++ operationToString(t2(op)) ++ ")"
 	ELSE IF isInteger(op) THEN
             toString(i(op))
 	ELSE
