@@ -5,15 +5,15 @@ See license.txt
 -}
 
 
-CHANDEF  Chans ::=  Stimulus; Response
+CHANDEF  Chans ::=  Action; Result
 ENDDEF
 
 MODELDEF Model ::=
-    CHAN IN    Stimulus
-    CHAN OUT   Response
+    CHAN IN    Action
+    CHAN OUT   Result
 
     BEHAVIOUR
-        Stimulus >-> Response
+        Action >-> Result
 ENDDEF
 
 CNECTDEF  Sut
@@ -21,12 +21,12 @@ CNECTDEF  Sut
         CLIENTSOCK
 
 -- verwacht input ""
-        CHAN  OUT  Stimulus            HOST "localhost"  PORT 7890
-        ENCODE     Stimulus            ->  ! ""
+        CHAN  OUT  Action            HOST "localhost"  PORT 7890
+        ENCODE     Action            ->  ! ""
 
 -- echo'd iets terug
-        CHAN  IN   Response            HOST "localhost"  PORT 7890
-        DECODE     Response            <-   ? s
+        CHAN  IN   Result            HOST "localhost"  PORT 7890
+        DECODE     Result            <-   ? s
 ENDDEF
 
 -- ----------------------------------------------------------------------------------------- --
@@ -57,38 +57,38 @@ ENDDEF
 -- ----------------------------------------------------------------------------------------- --
 
 
-CHANDEF  Chans  ::=    Action  :: Operation
-                     ; Result  :: Int
-ENDDEF
+-- CHANDEF  Chans  ::=    Action  :: Operation
+--                      ; Result  :: Int
+-- ENDDEF
 
 
 -- ----------------------------------------------------------------------------------------- --
 
 
-MODELDEF  Adder
-    ::=
-        CHAN IN    Action
-        CHAN OUT   Result
+-- MODELDEF  Adder
+--     ::=
+--         CHAN IN    Action
+--         CHAN OUT   Result
 
-        BEHAVIOUR  adder [ Action, Result ] ( )
+--         BEHAVIOUR  adder [ Action, Result ] ( )
 
-ENDDEF
+-- ENDDEF
 
 
 -- ----------------------------------------------------------------------------------------- --
 
 
-CNECTDEF  Sim
-    ::=
-        SERVERSOCK
+-- CNECTDEF  Sim
+--     ::=
+--         SERVERSOCK
 
-        CHAN  IN   Action                        HOST "localhost"  PORT 7890
-        DECODE     Action ! fromString(s)   <-   ? s
+--         CHAN  IN   Action                        HOST "localhost"  PORT 7890
+--         DECODE     Action ! fromString(s)   <-   ? s
 
-        CHAN  OUT  Result                        HOST "localhost"  PORT 7890
-        ENCODE     Result ? result           ->  ! toString(result)
+--         CHAN  OUT  Result                        HOST "localhost"  PORT 7890
+--         ENCODE     Result ? result           ->  ! toString(result)
 
-ENDDEF
+-- ENDDEF
 
 
 -- ----------------------------------------------------------------------------------------- --
