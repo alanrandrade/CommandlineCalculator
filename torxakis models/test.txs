@@ -5,7 +5,8 @@ See license.txt
 -}
 
 
-CHANDEF  Chans ::=  Action; Result
+CHANDEF  Chans ::=  Action  :: Operation
+                    ; Result
 ENDDEF
 
 MODELDEF Model ::=
@@ -13,16 +14,30 @@ MODELDEF Model ::=
     CHAN OUT   Result
 
     BEHAVIOUR
-        Action >-> Result
+            CalculatorLoop [ Action, Result ] ( )
+
 ENDDEF
+
+
+PROCDEF  CalculatorLoop  [ Act :: Operation;  Res ] ( )
+    ::=
+            Act ? opn
+            >->
+            Res
+            >->
+            CalculatorLoop [ Act, Res ] ( )
+
+ENDDEF
+
+
 
 CNECTDEF  Sut
     ::=
         CLIENTSOCK
 
--- verwacht input ""
+-- verwacht input
         CHAN  OUT  Action            HOST "localhost"  PORT 7890
-        ENCODE     Action            ->  ! ""
+        ENCODE     Action ? opn      ->  ! operationToString(opn)
 
 -- echo'd iets terug
         CHAN  IN   Result            HOST "localhost"  PORT 7890
