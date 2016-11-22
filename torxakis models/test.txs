@@ -42,11 +42,16 @@ ENDDEF
 
 FUNCDEF operationToString(op::Operation) :: String ::=
 	IF isPlus(op) THEN
-        operationToString(p1(op)) ++ " + " ++ operationToString(p2(op))
-	ELSE IF isMinus(op) THEN operationToString(m1(op)) ++ " - " ++ operationToString(m2(op))
-	ELSE IF isTimes(op) THEN operationToString(t1(op)) ++ " * " ++ operationToString(t2(op))
-	ELSE IF isInteger(op) THEN toString(i(op))
-	ELSE "" FI FI FI FI
+            operationToString(p1(op)) ++ " + " ++ operationToString(p2(op))
+	ELSE IF isMinus(op) THEN
+            operationToString(m1(op)) ++ " - " ++ operationToString(m2(op))
+	ELSE IF isTimes(op) THEN
+            operationToString(t1(op)) ++ " * " ++ operationToString(t2(op))
+	ELSE IF isInteger(op) THEN
+            toString(i(op))
+	ELSE
+            ""
+        FI FI FI FI
 ENDDEF
 
 --
@@ -55,21 +60,15 @@ ENDDEF
 FUNCDEF operationToInt(op::Operation) :: Int ::=
     IF isPlus(op) THEN
         operationToInt(p1(op)) + operationToInt(p2(op))
+    ELSE IF isMinus(op) THEN
+        operationToInt(m1(op))  - operationToInt(m2(op))
+    ELSE IF isTimes(op) THEN
+        operationToInt(t1(op)) * operationToInt(t2(op))
+    ELSE IF isInteger(op) THEN
+        i(op)
     ELSE
-        IF isMinus(op) THEN
-            operationToInt(m1(op))  - operationToInt(m2(op))
-        ELSE
-            IF isTimes(op) THEN
-                operationToInt(t1(op)) * operationToInt(t2(op))
-            ELSE
-                IF isInteger(op) THEN
-                    i(op)
-                ELSE
-                    0
-                FI
-            FI
-        FI
-    FI
+        0
+    FI FI FI FI
 ENDDEF
 
 --
