@@ -1,32 +1,16 @@
--- tests if expressions using the operators +,- and * give the right result.
--- assumes the result is just a number.
+-- tests exiting.
+-- assumes "bye" as result.
 -- untested ----------------------------------------------------------------------------------------- --
 
 
 TYPEDEF  Operation
     ::=
-          Plus  { p1, p2 :: Operation }
-        | Minus { p1, p2 :: Operation }
-        | Times { p1, p2 :: Operation }
-		--| Divide { p1, p2 :: Operation }
-		| Integer {p1 :: Int }
+         Exit
 ENDDEF
 
 
 FUNCDEF operationToString(op::Operation) :: String ::=
-	IF isPlus(op) THEN operationToString(p1(op)) +++ " + " +++ operationToString(p2(op)) 
-	ELSE IF isMinus(op) THEN operationToString(p1(op)) +++ " - " +++ operationToString(p2(op))
-	ELSE IF isTimes(op) THEN operationToString(p1(op)) +++ " * " +++ operationToString(p2(op))
-	ELSE IF isInteger(op) THEN toString(p1(op))
-	FI FI FI FI
-ENDDEF
-
-FUNCDEF operationToInt(op::Operation) :: Int ::=
-	IF isPlus(op) THEN operationToInt(p1(op)) + operationToInt(p2(op)) 
-	ELSE IF isMinus(op) THEN operationToInt(p1(op))  - operationToInt(p2(op))
-	ELSE IF isTimes(op) THEN operationToInt(p1(op)) * operationToInt(p2(op))
-	ELSE IF isInteger(op) THEN p1(op)
-	FI FI FI FI
+	IF isExit(op) THEN "exit" FI 
 ENDDEF
 
 -- java -jar /c/Users/Martin/Documents/GitHub/CommandlineCalculator/target/CommandlineCalculator-1.0-jar-with-dependencies.jar | /c/Users/Martin/Documents/netcat-master/netcat-master/nc.exe -lp 9090
@@ -36,14 +20,14 @@ ENDDEF
 
 PROCDEF sut [Act :: Operation; Res :: Int] ()
 	::=
-		Act ?opn >-> Res !operationToInt(opn) >-> sut [Act,Res] ()
+		Act ?opn >-> Res "bye"
 
 
 -- ----------------------------------------------------------------------------------------- --
 
 
 CHANDEF  Chans  ::=    Action  :: Operation
-                     ; Result  :: Int
+                     ; Result  :: String
 ENDDEF
 
 
