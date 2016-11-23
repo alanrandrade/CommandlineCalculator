@@ -4,8 +4,8 @@
 \BOOKMARK [2][-]{subsection.1.3}{Test your SUT with the automated test scripts and analyze the results.}{section.1}% 4
 \BOOKMARK [2][-]{subsection.1.4}{Evaluate your automated test execution environment.}{section.1}% 5
 \BOOKMARK [1][-]{section.2}{Model-Based Testing}{}% 6
-\BOOKMARK [2][-]{subsection.2.1}{Modeling Investigation Investigate and study \(the behaviour of\) your SUT; investigate and argue which parts of your SUT, which interfaces, and which functionality might be tested with TorXakis.}{section.2}% 7
-\BOOKMARK [2][-]{subsection.2.2}{MBT Modeling Make a model for your SUT in the TorXakis modelling language txs.}{section.2}% 8
-\BOOKMARK [2][-]{subsection.2.3}{MBT Test Environment Develop a test environment or test architecture which will be used for model-based testing of your SUT.}{section.2}% 9
-\BOOKMARK [2][-]{subsection.2.4}{MBT Testing Use TorXakis to generate tests, and execute them on your SUT.}{section.2}% 10
-\BOOKMARK [2][-]{subsection.2.5}{Deliverable Give the models, code, adapters, etc. in such a way that we can run it; provide a \220README\220.}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.1}{Modeling Investigation}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.2}{MBT Modeling}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.3}{MBT Test Environment}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.4}{MBT Testing}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.5}{Deliverable}{section.2}% 11
