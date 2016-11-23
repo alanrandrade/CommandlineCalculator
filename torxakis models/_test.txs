@@ -75,7 +75,7 @@ FUNCDEF calcResultFromString(result :: String) :: CalcResult ::=
 ENDDEF
 
 FUNCDEF isNumerical(numString :: String) :: Bool ::=
-    strinre(numString, REGEX('[0-9]*'))
+    strinre(numString, REGEX('-?[0-9]*'))
 ENDDEF
 
 FUNCDEF calcActionToString(act :: CalcAction) :: String ::=
