@@ -173,9 +173,19 @@ We wanted to model the use cases we made in the previous assignment. Here they a
 %% connections and interfaces; explain your choices. Try to reuse the
 %% test-execution automation environment as much as possible.
 
-Our main application, Commandlinecalculator is a command line tool
+Out test environment consists or our main Tool,
+Commandlinecalculator.jar, Torxakis and a proxy.
 
-\includegraphics[width=8cm]{overview.png}
+\includegraphics[width=6cm]{overview.png}
+
+Our main application, Commandlinecalculator is a command line tool. It
+reads from stdin en outputs to stdout and stderr
+
+SockServ.jar is a proxy between Torxakis and the
+CommandLineCalculator. It opens a socket and passes messages through
+to the Commandlinecalculator. In addition it simplifies the output,
+showing only the final result. This simplified allows us to use a less
+verbose model in torxakis
 
 \subsection{MBT Testing}
 %% Use TorXakis to generate tests, and execute them on your SUT.}
