@@ -3,6 +3,13 @@
 *.iml
 *.eml
 
+# macOS
+.DS_Store
+.texpad*
+
+# log files
+*.log
+
 # IDE
 .idea
 build
