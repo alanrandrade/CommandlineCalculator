@@ -85,9 +85,11 @@ FUNCDEF calcActionToString(act :: CalcAction) :: String ::=
         getFuncDef(funI(act))
     ELSE IF isVarDef(act) THEN
         getVarDef(varI(act))
+    ELSE IF isStringAction(act) THEN
+        str(act)
     ELSE
         "exit()"
-    FI FI FI
+    FI FI FI FI
 ENDDEF
 
 FUNCDEF getFuncDef(id :: Int) :: String ::=
