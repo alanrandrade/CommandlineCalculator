@@ -76,11 +76,11 @@ CNECTDEF  Sut
         CLIENTSOCK
 
 -- verwacht input
-        CHAN  OUT  Action            HOST "192.168.1.101"  PORT 7890
+        CHAN  OUT  Action            HOST "localhost"  PORT 7890
         ENCODE     Action ? opn      ->  ! calcActionToString(opn)
 
 -- echo'd iets terug
-        CHAN  IN   Result            HOST "192.168.1.101"  PORT 7890
+        CHAN  IN   Result            HOST "localhost"  PORT 7890
         DECODE     Result ! calcResultFromString(s)     <-   ? s
 ENDDEF
 
