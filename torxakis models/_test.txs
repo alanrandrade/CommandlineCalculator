@@ -25,7 +25,7 @@ PROCDEF  CalculatorLoop  [ Act :: CalcAction; Wrt :: String; Res :: Int; Err :: 
         ##
             Act ? opn [[ isExit(opn) ]] >-> Err ! "Bye!"
         ##
-            Act ? opn [[ isFuncDef(opn) ]] >-> Wrt ? getFuncApplication(funI(opn)) >-> Res ! funcResult(funI(opn)) >-> CalculatorLoop [Act, Wrt, Res, Err]
+            Act ? opn [[ isFuncDef(opn) ]] >-> Act ! CalcAction(Stringaction(val(getfuncapplication(funI(opn))))) opn2 [[ isFuncApp(opn2) && funI(opn) == appFunI(opn2) ]] >-> Res ! funcResult(funI(opn)) >-> CalculatorLoop [Act, Wrt, Res, Err]
         ##
             Act ? opn [[ isVarDef(opn) ]] >-> Wrt ? getVarApplication(funI(opn)) >-> Res ! varResult(funI(opn)) >-> CalculatorLoop [Act, Wrt, Res, Err]
 
@@ -67,7 +67,8 @@ TYPEDEF CalcAction
             Expression { exp :: Operation }
         |   FuncDef { funI :: Int }
         |   VarDef  { varI :: Int }
-        |   Exit 
+        |   StringAction { val :: String}
+        |   Exit
 ENDDEF
 
 FUNCDEF calcActionToString(act :: CalcAction) :: String ::=
@@ -77,7 +78,7 @@ FUNCDEF calcActionToString(act :: CalcAction) :: String ::=
         getFuncDef(funI(act))
     ELSE IF isVarDef(act) THEN
         getVarDef(varI(act))
-    ELSE 
+    ELSE
         "exit()"
     FI FI FI
 ENDDEF
@@ -89,7 +90,7 @@ FUNCDEF getFuncDef(id :: Int) :: String ::=
         "f(x) := x*2"
     ELSE IF id == 2
         "g(x,y) := x+y"
-    ELSE 
+    ELSE
         getFuncDef(id-3)
     FI FI FI
 ENDDEF
@@ -101,7 +102,7 @@ FUNCDEF getVarDef(id :: Int) :: String ::=
         "vary = 5*2"
     ELSE IF id == 2
         "varz = 521+231"
-    ELSE 
+    ELSE
         getVarDef(id-3)
     FI FI FI
 ENDDEF
@@ -113,7 +114,7 @@ FUNCDEF getFuncApplication(id :: Int) :: String ::=
         "f(3)"
     ELSE IF id == 2
         "g(7,3)"
-    ELSE 
+    ELSE
         getFuncApplication(id-3)
     FI FI FI
 ENDDEF
@@ -125,7 +126,7 @@ FUNCDEF getVarApplication(id :: Int) :: String ::=
         "vary-1"
     ELSE IF id == 2
         "varz/10"
-    ELSE 
+    ELSE
         getVarApplication(id-3)
     FI FI FI
 ENDDEF
@@ -138,7 +139,7 @@ FUNCDEF funcResult(id :: Int) :: Int ::=
         9
     ELSE IF id == 2
         10
-    ELSE 
+    ELSE
         funcResult(id-3)
     FI FI FI
 ENDDEF
@@ -150,7 +151,7 @@ FUNCDEF varResult(id :: Int) :: Int ::=
         9
     ELSE IF id == 2
         10
-    ELSE 
+    ELSE
         varResult(id-3)
     FI FI FI
 ENDDEF
