@@ -1,0 +1,257 @@
+-- TODO: ons model geeft nog geen result terug
+
+
+CHANDEF  Chans ::=  Action  :: CalcAction
+                    ; Write :: String
+                    ; Result :: Int
+                    ; Error :: String
+ENDDEF
+
+MODELDEF Model ::=
+    CHAN IN    Action
+    CHAN IN    Write
+    CHAN OUT   Result
+    CHAN OUT   Error
+
+    BEHAVIOUR
+            CalculatorLoop [ Action, Write, Result, Error] ( )
+
+ENDDEF
+
+
+PROCDEF  CalculatorLoop  [ Act :: CalcAction; Wrt :: String; Res :: Int; Err :: String] ( )
+    ::=
+            Act ? opn [[ isExpression(opn)  ]] >-> Res ! operationToInt(exp(opn)) >-> CalculatorLoop [ Act, Wrt, Res, Err] ( )
+        ##
+            Act ? opn [[ isExit(opn) ]] >-> Err ! "Bye!"
+        ##
+            Act ? opn [[ isFuncDef(opn) ]] >-> Wrt ? getFuncApplication(funI(opn)) >-> Res ! funcResult(funI(opn)) >-> CalculatorLoop [Act, Wrt, Res, Err]
+        ##
+            Act ? opn [[ isVarDef(opn) ]] >-> Wrt ? getVarApplication(funI(opn)) >-> Res ! varResult(funI(opn)) >-> CalculatorLoop [Act, Wrt, Res, Err]
+
+ENDDEF
+
+
+
+CNECTDEF  Sut
+    ::=
+        CLIENTSOCK
+
+-- verwacht input
+        CHAN  OUT  Action            HOST "localhost"  PORT 7890
+        ENCODE     Action ? opn      ->  ! calcActionToString(opn)
+
+        CHAN  OUT  Write            HOST "localhost"  PORT 7890
+        ENCODE     Write ? opn      ->  ! toString(opn)
+
+-- echo'd iets terug
+        CHAN  IN   Result            HOST "localhost"  PORT 7890
+        DECODE     Result ! fromString(s)             <-   ? s
+
+        CHAN  IN   Error            HOST "localhost"  PORT 7890
+        DECODE     Error  ! s                         <-   ? s
+ENDDEF
+
+--
+TYPEDEF  Operation
+    ::=
+          Plus  { p1, p2 :: Operation }
+        | Minus { m1, m2 :: Operation }
+        | Times { t1, t2 :: Operation }
+		--| Divide { p1, p2 :: Operation }
+		| Integer { i :: Int }
+ENDDEF
+
+TYPEDEF CalcAction
+    ::=
+            Expression { exp :: Operation }
+        |   FuncDef { funI :: Int }
+        |   VarDef  { varI :: Int }
+        |   Exit 
+ENDDEF
+
+FUNCDEF calcActionToString(act :: CalcAction) :: String ::=
+    IF isExpression(act) THEN
+        operationToString(exp(act))
+    ELSE IF isFuncDef(act) THEN
+        getFuncDef(funI(act))
+    ELSE IF isVarDef(act) THEN
+        getVarDef(varI(act))
+    ELSE 
+        "exit()"
+    FI FI FI
+ENDDEF
+
+FUNCDEF getFuncDef(id :: Int) :: String ::=
+    IF id == 0 THEN
+        "id(x) := x"
+    ELSE IF id == 1
+        "f(x) := x*2"
+    ELSE IF id == 2
+        "g(x,y) := x+y"
+    ELSE 
+        getFuncDef(id-3)
+    FI FI FI
+ENDDEF
+
+FUNCDEF getVarDef(id :: Int) :: String ::=
+    IF id == 0 THEN
+        "varx = 0"
+    ELSE IF id == 1
+        "vary = 5*2"
+    ELSE IF id == 2
+        "varz = 521+231"
+    ELSE 
+        getVarDef(id-3)
+    FI FI FI
+ENDDEF
+
+FUNCDEF getFuncApplication(id :: Int) :: String ::=
+    IF id == 0 THEN
+        "id(5)"
+    ELSE IF id == 1
+        "f(3)"
+    ELSE IF id == 2
+        "g(7,3)"
+    ELSE 
+        getFuncApplication(id-3)
+    FI FI FI
+ENDDEF
+
+FUNCDEF getVarApplication(id :: Int) :: String ::=
+    IF id == 0 THEN
+        "5+varx"
+    ELSE IF id == 1
+        "vary-1"
+    ELSE IF id == 2
+        "varz/10"
+    ELSE 
+        getVarApplication(id-3)
+    FI FI FI
+ENDDEF
+
+
+FUNCDEF funcResult(id :: Int) :: Int ::=
+    IF id == 0 THEN
+        5
+    ELSE IF id == 1
+        9
+    ELSE IF id == 2
+        10
+    ELSE 
+        funcResult(id-3)
+    FI FI FI
+ENDDEF
+
+FUNCDEF varResult(id :: Int) :: Int ::=
+    IF id == 0 THEN
+        5
+    ELSE IF id == 1
+        9
+    ELSE IF id == 2
+        10
+    ELSE 
+        varResult(id-3)
+    FI FI FI
+ENDDEF
+
+FUNCDEF operationToString(op::Operation) :: String ::=
+	IF isPlus(op) THEN
+            "(" ++ operationToString(p1(op)) ++ " + " ++ operationToString(p2(op)) ++ ")"
+	ELSE IF isMinus(op) THEN
+            "(" ++ operationToString(m1(op)) ++ " - " ++ operationToString(m2(op)) ++ ")"
+	ELSE IF isTimes(op) THEN
+            "(" ++ operationToString(t1(op)) ++ " * " ++ operationToString(t2(op)) ++ ")"
+	ELSE IF isInteger(op) THEN
+            toString(i(op))
+	ELSE
+            ""
+        FI FI FI FI
+ENDDEF
+
+--
+
+
+FUNCDEF operationToInt(op::Operation) :: Int ::=
+    IF isPlus(op) THEN
+        operationToInt(p1(op)) + operationToInt(p2(op))
+    ELSE IF isMinus(op) THEN
+        operationToInt(m1(op))  - operationToInt(m2(op))
+    ELSE IF isTimes(op) THEN
+        operationToInt(t1(op)) * operationToInt(t2(op))
+    ELSE IF isInteger(op) THEN
+        i(op)
+    ELSE
+        0
+    FI FI FI FI
+ENDDEF
+
+--
+
+
+
+-- ----------------------------------------------------------------------------------------- --
+-- Model of (parallel) Adders, for one adder - Adder1 -, and for three adders - Adder3 -,
+-- with inputs "Plus(i) x y" and "Minus(i) x y", and output "Result(i) z".
+-- ----------------------------------------------------------------------------------------- --
+
+
+-- TYPEDEF  Operation
+--     ::=
+--           Plus  { p1, p2 :: Int }
+--         | Minus { m1, m2 :: Int }
+--         | Error
+-- ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+
+
+-- PROCDEF  adder  [ Act :: Operation;  Res :: Int ] ( )
+--     ::=
+--            Act ?opn [[ isPlus(opn)  ]]  >->  Res !p1(opn)+p2(opn)  >->  adder [ Act, Res ] ( )
+--         ##
+--            Act ?opn [[ isMinus(opn) ]]  >->  Res !m1(opn)-m2(opn)  >->  adder [ Act, Res ] ( )
+-- ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+
+
+-- CHANDEF  Chans  ::=    Action  :: Operation
+--                      ; Result  :: Int
+-- ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+
+
+-- MODELDEF  Adder
+--     ::=
+--         CHAN IN    Action
+--         CHAN OUT   Result
+
+--         BEHAVIOUR  adder [ Action, Result ] ( )
+
+-- ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+
+
+-- CNECTDEF  Sim
+--     ::=
+--         SERVERSOCK
+
+--         CHAN  IN   Action                        HOST "localhost"  PORT 7890
+--         DECODE     Action ! fromString(s)   <-   ? s
+
+--         CHAN  OUT  Result                        HOST "localhost"  PORT 7890
+--         ENCODE     Result ? result           ->  ! toString(result)
+
+-- ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+-- ----------------------------------------------------------------------------------------- --
+
