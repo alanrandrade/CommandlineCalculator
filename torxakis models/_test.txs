@@ -10,20 +10,45 @@ MODELDEF Model ::=
     CHAN OUT   Result
 
     BEHAVIOUR
-            CalculatorLoop [ Action, Result] ( )
+            CalculatorLoop [ Action, Result] ( Memory(FuncNil, VarNil) )
 
 ENDDEF
 
 
-PROCDEF  CalculatorLoop  [ Act :: CalcAction; Res :: CalcResult] ( )
+PROCDEF  CalculatorLoop  [ Act :: CalcAction; Res :: CalcResult] (mem :: CalcMemory)
     ::=
-            Act ? opn [[ isExpression(opn)  ]] >-> Res ! IntResult(operationToInt(exp(opn))) >-> CalculatorLoop [ Act, Res] ( )
+            Act ? opn [[ isExpression(opn)  ]]
+                >->
+            Res ! IntResult(operationToInt(exp(opn)))
+                >->
+            CalculatorLoop [ Act, Res] (mem)
         ##
-            Act ? opn [[ isExit(opn) ]] >-> Res ! StringResult("Bye!")
+            Act ? opn [[ isExit(opn) ]]
+                >->
+            Res ! StringResult("Bye!")
         ##
-            Act ? opn [[ isFuncDef(opn) ]] >-> Act ! StringAction(getFuncApplication(funI(opn))) >-> Res ! IntResult(funcResult(funI(opn))) >-> CalculatorLoop [Act, Res] ( )
+            Act ? opn [[ isFuncDef(opn) ]]
+                >->
+            CalculatorLoop [Act, Res] (putFuncInMemory(funI(opn),mem))
         ##
-            Act ? opn [[ isVarDef(opn) ]] >-> Res ! IntResult(varDefResult(funI(opn))) >-> Act ! StringAction(getVarApplication(funI(opn))) >-> Res ! IntResult(varResult(funI(opn))) >-> CalculatorLoop [Act, Res] ( )
+            Act ? opn [[ isFuncAppl(opn) /\ funcMemContainsFunc(funAI(opn),funcMem(mem))]]
+                >->
+            Res ! IntResult(funcResult(funAI(opn)))
+                >->
+            CalculatorLoop [Act, Res] (mem)
+
+        ##
+            Act ? opn [[ isVarDef(opn) ]]
+                >->
+            Res ! IntResult(varDefResult(varI(opn)))
+                >->
+            CalculatorLoop [Act, Res] (putVarInMemory(funI(opn),mem))
+        ##
+            Act ? opn [[ isVarAppl(opn) /\ varMemContainsVar(varAI(opn),varMem(mem))]]
+                >->
+            Res ! IntResult(varResult(varAI(opn)))
+                >->
+            CalculatorLoop [Act, Res] (mem)
 ENDDEF
 
 
@@ -56,6 +81,8 @@ TYPEDEF CalcAction
             Expression { exp :: Operation }
         |   FuncDef { funI :: Int }
         |   VarDef  { varI :: Int }
+        |   FuncAppl { funAI :: Int }
+        |   VarAppl  { varAI :: Int }
         |   StringAction { str :: String }
         |   Exit 
 ENDDEF
@@ -64,6 +91,69 @@ TYPEDEF CalcResult
     ::=
             IntResult { i :: Int }
         |   StringResult { str :: String }
+ENDDEF
+
+TYPEDEF CalcMemory
+    ::=
+        Memory  { funcMem :: FuncMemory
+                ; varMem :: VarMemory
+                }
+ENDDEF
+
+TYPEDEF FuncMemory
+    ::=
+            FuncCons    { hd :: Int
+                        ; tl :: FuncMemory
+                        }
+        |   FuncNil
+ENDDEF
+
+TYPEDEF VarMemory
+    ::=
+            VarCons { hd :: Int
+                    ; tl :: VarMemory
+                    }
+        |   VarNil
+ENDDEF
+
+FUNCDEF putVarInMemory (var :: Int; mem :: CalcMemory) :: CalcMemory ::=
+    IF varMemContainsVar(var,varMem(mem)) THEN
+        mem
+    ELSE 
+        Memory(funcMem(mem),VarCons(var, varMem(mem)))
+    FI
+ENDDEF
+
+FUNCDEF putFuncInMemory (func :: Int; mem :: CalcMemory) :: CalcMemory ::=
+    IF funcMemContainsFunc(func,funcMem(mem)) THEN
+        mem
+    ELSE 
+        Memory(FuncCons(func,funcMem(mem)),varMem(mem))
+    FI
+ENDDEF
+
+FUNCDEF varMemContainsVar(var :: Int; mem :: VarMemory) :: Bool ::=
+    IF isVarNil(mem) THEN
+        False
+    ELSE 
+        IF hd(mem) == var THEN
+            True
+        ELSE
+            varMemContainsVar(var, tl(mem))
+        FI
+    FI
+ENDDEF
+
+FUNCDEF funcMemContainsFunc(func :: Int; mem :: FuncMemory) :: Bool ::=
+    IF isFuncNil(mem) THEN
+        False
+    ELSE 
+        IF hd(mem) == func THEN
+            True
+        ELSE
+            funcMemContainsFunc(func, tl(mem))
+        FI
+    FI
 ENDDEF
 
 FUNCDEF calcResultFromString(result :: String) :: CalcResult ::=
@@ -85,18 +175,22 @@ FUNCDEF calcActionToString(act :: CalcAction) :: String ::=
         getFuncDef(funI(act))
     ELSE IF isVarDef(act) THEN
         getVarDef(varI(act))
+    ELSE IF isFuncAppl(act) THEN
+        getFuncApplication(funAI(act))
+    ELSE IF isVarAppl(act) THEN
+        getVarApplication(varAI(act))
     ELSE IF isStringAction(act) THEN
         str(act)
     ELSE
         "exit()"
-    FI FI FI FI
+    FI FI FI FI FI FI
 ENDDEF
 
 FUNCDEF getFuncDef(id :: Int) :: String ::=
     IF id == 0 THEN
         "id(x) := x"
     ELSE IF id == 1 THEN
-        "f(x) := x*2"
+        "f(x) := x*3"
     ELSE IF id == 2 THEN
         "g(x,y) := x+y"
     ELSE
