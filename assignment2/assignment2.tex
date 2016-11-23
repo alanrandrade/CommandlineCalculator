@@ -138,21 +138,47 @@ easily add more use cases to test for.
 %% (http://www.cs.ru.nl/personal/tretmans/torxakis/) to model and test
 %% your SUT:
 
-\subsection{Modeling Investigation Investigate and study (the behaviour of) your SUT; investigate and argue which parts of your SUT, which interfaces, and which functionality might be tested with TorXakis.}
+\subsection{Modeling Investigation}
+We wanted to model the use cases we made in the previous assignment. Here they are again:
 
-\subsection{MBT Modeling Make a model for your SUT in the TorXakis modelling language txs.}
+\begin{center}
+	\begin{tabular}{llr}
+		Category & Input & Expected Output\\
+		\hline
+		Exiting & \texttt{exit} & Nothing\\
+		Function Assignment & \texttt{f(x):= x + 1 ; f(7)} & \texttt{8}\\
+		Builtin Functions (1) & \texttt{sqrt(ln(log(100)))} & \texttt{0.83}\\
+		Builtin Functions (2) & \texttt{floor(0.5) + ceil(0.5) + round(0.5)} & \texttt{2}\\
+		Variable Assignment & \texttt{k = 3 ; k} & \texttt{3}\\
+		Builtin Variables & \texttt{e * pi} & \texttt{8.5397342226735656}\\
+		Expression (1) & \texttt{(((0 + 1) * 2) - 3) / 4} & \texttt{-0.2500000000000000}\\
+		Expression (2) & \texttt{1 / 0} & Error\\
+		Equality (1) & \texttt{3 = 3} & \texttt{0}\\
+		Equality (2) & \texttt{2 = 1} & \texttt{1}\\
+		Equality (3) & \texttt{2 = 3} & \texttt{-1}\\
+	\end{tabular}
+\end{center}
+
+
+%% Investigate and study (the behaviour of) your SUT; investigate and argue which parts of your SUT, which interfaces, and which functionality might be tested with TorXakis.
+
+\subsection{MBT Modeling}
+%% Make a model for your SUT in the TorXakis modelling language txs.}
 %% Explain your model (structure, processes, data definitions, . . . ).
 
-\subsection{MBT Test Environment Develop a test environment or test architecture which will be used for model-based testing of your SUT.}
+\subsection{MBT Test Environment}
+%% Develop a test environment or test architecture which will be used for model-based testing of your SUT.}
 %% Give a sketch of the test architecture, i.e., the positioning of the
 %% SUT, test tool(s), adapter(s), logging tool(s), . . ., and their
 %% connections and interfaces; explain your choices. Try to reuse the
 %% test-execution automation environment as much as possible.
 
-\subsection{MBT Testing Use TorXakis to generate tests, and execute them on your SUT.}
+\subsection{MBT Testing}
+%% Use TorXakis to generate tests, and execute them on your SUT.}
 %% Explain your observations and analyse the test results.
 
-\subsection{Deliverable Give the models, code, adapters, etc. in such a way that we can run it; provide a ’README’.}
+\subsection{Deliverable}
+%% Give the models, code, adapters, etc. in such a way that we can run it; provide a ’README’.}
 %% Be prepared to give a demo.
 
 
