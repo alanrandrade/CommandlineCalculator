@@ -84,7 +84,7 @@ TYPEDEF CalcAction
         |   FuncAppl { funAI :: Int }
         |   VarAppl  { varAI :: Int }
         |   StringAction { str :: String }
-        |   Exit 
+        |   Exit
 ENDDEF
 
 TYPEDEF CalcResult
@@ -159,7 +159,7 @@ ENDDEF
 FUNCDEF calcResultFromString(result :: String) :: CalcResult ::=
     IF (isNumerical(result)) THEN
         IntResult(fromString(result))
-    ELSE 
+    ELSE
         StringResult(result)
     FI
 ENDDEF
