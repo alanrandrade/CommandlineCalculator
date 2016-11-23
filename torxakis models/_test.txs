@@ -23,7 +23,7 @@ PROCDEF  CalculatorLoop  [ Act :: CalcAction; Res :: CalcResult] ( )
         ##
             Act ? opn [[ isFuncDef(opn) ]] >-> Act ! StringAction(getFuncApplication(funI(opn))) >-> Res ! IntResult(funcResult(funI(opn))) >-> CalculatorLoop [Act, Res] ( )
         ##
-            Act ? opn [[ isVarDef(opn) ]] >-> Act ! StringAction(getVarApplication(funI(opn))) >-> Res ! IntResult(varResult(funI(opn))) >-> CalculatorLoop [Act, Res] ( )
+            Act ? opn [[ isVarDef(opn) ]] >-> Res ! IntResult(varDefResult(funI(opn))) >-> Act ! StringAction(getVarApplication(funI(opn))) >-> Res ! IntResult(varResult(funI(opn))) >-> CalculatorLoop [Act, Res] ( )
 ENDDEF
 
 
@@ -158,6 +158,18 @@ FUNCDEF varResult(id :: Int) :: Int ::=
         9
     ELSE IF id == 2 THEN
         10
+    ELSE
+        varResult(id-3)
+    FI FI FI
+ENDDEF
+
+FUNCDEF varDefResult(id :: Int) :: Int ::=
+    IF id == 0 THEN
+        0
+    ELSE IF id == 1 THEN
+        10
+    ELSE IF id == 2 THEN
+        752
     ELSE
         varResult(id-3)
     FI FI FI
