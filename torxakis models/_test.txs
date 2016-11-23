@@ -2,32 +2,28 @@
 
 
 CHANDEF  Chans ::=  Action  :: CalcAction
-                    ; Write :: String
-                    ; Result :: Int
-                    ; Error :: String
+                    ; Result :: CalcResult
 ENDDEF
 
 MODELDEF Model ::=
     CHAN IN    Action
-    CHAN IN    Write
     CHAN OUT   Result
-    CHAN OUT   Error
 
     BEHAVIOUR
-            CalculatorLoop [ Action, Write, Result, Error] ( )
+            CalculatorLoop [ Action, Result] ( )
 
 ENDDEF
 
 
-PROCDEF  CalculatorLoop  [ Act :: CalcAction; Wrt :: String; Res :: Int; Err :: String] ( )
+PROCDEF  CalculatorLoop  [ Act :: CalcAction; Res :: CalcResult] ( )
     ::=
-            Act ? opn [[ isExpression(opn)  ]] >-> Res ! operationToInt(exp(opn)) >-> CalculatorLoop [ Act, Wrt, Res, Err] ( )
+            Act ? opn [[ isExpression(opn)  ]] >-> Res ! IntResult(operationToInt(exp(opn))) >-> CalculatorLoop [ Act, Res] ( )
         ##
-            Act ? opn [[ isExit(opn) ]] >-> Err ! "Bye!"
+            Act ? opn [[ isExit(opn) ]] >-> Res ! StringResult("Bye!")
         ##
-            Act ? opn [[ isFuncDef(opn) ]] >-> Act ! CalcAction(Stringaction(val(getfuncapplication(funI(opn))))) opn2 [[ isFuncApp(opn2) && funI(opn) == appFunI(opn2) ]] >-> Res ! funcResult(funI(opn)) >-> CalculatorLoop [Act, Wrt, Res, Err]
+            Act ? opn [[ isFuncDef(opn) ]] >-> Act ! StringAction(getFuncApplication(funI(opn))) >-> Res ! IntResult(funcResult(funI(opn))) >-> CalculatorLoop [Act, Res]
         ##
-            Act ? opn [[ isVarDef(opn) ]] >-> Wrt ? getVarApplication(funI(opn)) >-> Res ! varResult(funI(opn)) >-> CalculatorLoop [Act, Wrt, Res, Err]
+            Act ? opn [[ isVarDef(opn) ]] >-> Act ! StringAction(getVarApplication(funI(opn))) >-> Res ! IntResult(varResult(funI(opn))) >-> CalculatorLoop [Act, Res]
 
 ENDDEF
 
@@ -41,15 +37,9 @@ CNECTDEF  Sut
         CHAN  OUT  Action            HOST "localhost"  PORT 7890
         ENCODE     Action ? opn      ->  ! calcActionToString(opn)
 
-        CHAN  OUT  Write            HOST "localhost"  PORT 7890
-        ENCODE     Write ? opn      ->  ! toString(opn)
-
 -- echo'd iets terug
         CHAN  IN   Result            HOST "localhost"  PORT 7890
-        DECODE     Result ! fromString(s)             <-   ? s
-
-        CHAN  IN   Error            HOST "localhost"  PORT 7890
-        DECODE     Error  ! s                         <-   ? s
+        DECODE     Result ! calcResultFromString(s)     <-   ? s
 ENDDEF
 
 --
@@ -67,8 +57,26 @@ TYPEDEF CalcAction
             Expression { exp :: Operation }
         |   FuncDef { funI :: Int }
         |   VarDef  { varI :: Int }
-        |   StringAction { val :: String}
-        |   Exit
+        |   StringAction { str :: String }
+        |   Exit 
+ENDDEF
+
+TYPEDEF CalcResult
+    ::=
+            IntResult { i :: Int }
+        |   StringResult { str :: String }
+ENDDEF
+
+FUNCDEF calcResultFromString(result :: String) :: CalcResult ::=
+    IF (isNumerical(result))
+        IntResult(fromString(result))
+    ELSE 
+        StringResult(result)
+    FI
+ENDDEF
+
+FUNCDEF isNumerical(numString :: String) :: Boolean ::=
+    strinre(numString, REGEX('[0-9]*'))
 ENDDEF
 
 FUNCDEF calcActionToString(act :: CalcAction) :: String ::=
@@ -167,7 +175,7 @@ FUNCDEF operationToString(op::Operation) :: String ::=
             toString(i(op))
 	ELSE
             ""
-        FI FI FI FI
+    FI FI FI FI
 ENDDEF
 
 --
@@ -186,73 +194,3 @@ FUNCDEF operationToInt(op::Operation) :: Int ::=
         0
     FI FI FI FI
 ENDDEF
-
---
-
-
-
--- ----------------------------------------------------------------------------------------- --
--- Model of (parallel) Adders, for one adder - Adder1 -, and for three adders - Adder3 -,
--- with inputs "Plus(i) x y" and "Minus(i) x y", and output "Result(i) z".
--- ----------------------------------------------------------------------------------------- --
-
-
--- TYPEDEF  Operation
---     ::=
---           Plus  { p1, p2 :: Int }
---         | Minus { m1, m2 :: Int }
---         | Error
--- ENDDEF
-
-
--- ----------------------------------------------------------------------------------------- --
-
-
--- PROCDEF  adder  [ Act :: Operation;  Res :: Int ] ( )
---     ::=
---            Act ?opn [[ isPlus(opn)  ]]  >->  Res !p1(opn)+p2(opn)  >->  adder [ Act, Res ] ( )
---         ##
---            Act ?opn [[ isMinus(opn) ]]  >->  Res !m1(opn)-m2(opn)  >->  adder [ Act, Res ] ( )
--- ENDDEF
-
-
--- ----------------------------------------------------------------------------------------- --
-
-
--- CHANDEF  Chans  ::=    Action  :: Operation
---                      ; Result  :: Int
--- ENDDEF
-
-
--- ----------------------------------------------------------------------------------------- --
-
-
--- MODELDEF  Adder
---     ::=
---         CHAN IN    Action
---         CHAN OUT   Result
-
---         BEHAVIOUR  adder [ Action, Result ] ( )
-
--- ENDDEF
-
-
--- ----------------------------------------------------------------------------------------- --
-
-
--- CNECTDEF  Sim
---     ::=
---         SERVERSOCK
-
---         CHAN  IN   Action                        HOST "localhost"  PORT 7890
---         DECODE     Action ! fromString(s)   <-   ? s
-
---         CHAN  OUT  Result                        HOST "localhost"  PORT 7890
---         ENCODE     Result ? result           ->  ! toString(result)
-
--- ENDDEF
-
-
--- ----------------------------------------------------------------------------------------- --
--- ----------------------------------------------------------------------------------------- --
-
