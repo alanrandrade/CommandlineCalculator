@@ -159,6 +159,11 @@ We wanted to model the use cases we made in the previous assignment. Here they a
 	\end{tabular}
 \end{center}
 
+Here the category column is key. The input and expected output for these use cases are deterministic, and are therefore not usefull. 
+
+Since Torxakis does not have floats, our model will not test for this. This means that no Builtin Function is tested, since they only make sense when using floats. We will not use Builtin Variables in expressions, since all Builtin Variables are floats too. But we do test if the Builtin Variables are defined correctly, by calling them without other operators.
+
+
 
 %% Investigate and study (the behaviour of) your SUT; investigate and argue which parts of your SUT, which interfaces, and which functionality might be tested with TorXakis.
 
@@ -190,6 +195,7 @@ verbose model in torxakis
 \subsection{MBT Testing}
 %% Use TorXakis to generate tests, and execute them on your SUT.}
 %% Explain your observations and analyse the test results.
+
 
 \subsection{Deliverable}
 %% Give the models, code, adapters, etc. in such a way that we can run it; provide a ’README’.}
