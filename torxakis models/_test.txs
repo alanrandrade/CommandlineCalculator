@@ -22,18 +22,28 @@ PROCDEF  CalculatorLoop  [ Act :: CalcAction; Res :: CalcResult] (mem :: CalcMem
             Res ! IntResult(operationToInt(exp(opn)))
                 >->
             CalculatorLoop [ Act, Res] (mem)
-        ##
-            Act ? opn [[ isExit(opn) ]]
-                >->
-            Res ! StringResult("Bye!")
-        ##
+			
+ --       ##
+ --           Act ? opn [[ isExit(opn) ]]
+ --               >->
+ --           Res ! StringResult("Bye!")
+ 
+ ##
             Act ? opn [[ isFuncDef(opn) ]]
                 >->
             CalculatorLoop [Act, Res] (putFuncInMemory(funI(opn),mem))
+			
         ##
             Act ? opn [[ isFuncAppl(opn) /\ funcMemContainsFunc(funAI(opn),funcMem(mem))]]
                 >->
             Res ! IntResult(funcResult(funAI(opn)))
+                >->
+            CalculatorLoop [Act, Res] (mem)
+			
+        ##
+            Act ? opn [[ isFuncAppl(opn) /\ not(funcMemContainsFunc(funAI(opn),funcMem(mem)))]]
+                >->
+            Res ! StringResult(funcErrResult(funAI(opn)))
                 >->
             CalculatorLoop [Act, Res] (mem)
 
@@ -42,11 +52,19 @@ PROCDEF  CalculatorLoop  [ Act :: CalcAction; Res :: CalcResult] (mem :: CalcMem
                 >->
             Res ! IntResult(varDefResult(varI(opn)))
                 >->
-            CalculatorLoop [Act, Res] (putVarInMemory(funI(opn),mem))
+            CalculatorLoop [Act, Res] (putVarInMemory(varI(opn),mem))
+			
         ##
             Act ? opn [[ isVarAppl(opn) /\ varMemContainsVar(varAI(opn),varMem(mem))]]
                 >->
             Res ! IntResult(varResult(varAI(opn)))
+                >->
+            CalculatorLoop [Act, Res] (mem)
+			
+        ##
+            Act ? opn [[ isVarAppl(opn) /\ not(varMemContainsVar(varAI(opn),varMem(mem)))]]
+                >->
+            Res ! StringResult(varErrResult(varAI(opn)))
                 >->
             CalculatorLoop [Act, Res] (mem)
 ENDDEF
@@ -58,11 +76,11 @@ CNECTDEF  Sut
         CLIENTSOCK
 
 -- verwacht input
-        CHAN  OUT  Action            HOST "localhost"  PORT 7890
+        CHAN  OUT  Action            HOST "192.168.1.101"  PORT 7890
         ENCODE     Action ? opn      ->  ! calcActionToString(opn)
 
 -- echo'd iets terug
-        CHAN  IN   Result            HOST "localhost"  PORT 7890
+        CHAN  IN   Result            HOST "192.168.1.101"  PORT 7890
         DECODE     Result ! calcResultFromString(s)     <-   ? s
 ENDDEF
 
@@ -120,7 +138,7 @@ FUNCDEF putVarInMemory (var :: Int; mem :: CalcMemory) :: CalcMemory ::=
     IF varMemContainsVar(var,varMem(mem)) THEN
         mem
     ELSE 
-        Memory(funcMem(mem),VarCons(var, varMem(mem)))
+        Memory(funcMem(mem),VarCons(modVar(var), varMem(mem)))
     FI
 ENDDEF
 
@@ -128,7 +146,7 @@ FUNCDEF putFuncInMemory (func :: Int; mem :: CalcMemory) :: CalcMemory ::=
     IF funcMemContainsFunc(func,funcMem(mem)) THEN
         mem
     ELSE 
-        Memory(FuncCons(func,funcMem(mem)),varMem(mem))
+        Memory(FuncCons(modFunc(func),funcMem(mem)),varMem(mem))
     FI
 ENDDEF
 
@@ -136,7 +154,7 @@ FUNCDEF varMemContainsVar(var :: Int; mem :: VarMemory) :: Bool ::=
     IF isVarNil(mem) THEN
         False
     ELSE 
-        IF hd(mem) == var THEN
+        IF hd(mem) == modVar(var) THEN
             True
         ELSE
             varMemContainsVar(var, tl(mem))
@@ -148,7 +166,7 @@ FUNCDEF funcMemContainsFunc(func :: Int; mem :: FuncMemory) :: Bool ::=
     IF isFuncNil(mem) THEN
         False
     ELSE 
-        IF hd(mem) == func THEN
+        IF hd(mem) == modFunc(func) THEN
             True
         ELSE
             funcMemContainsFunc(func, tl(mem))
@@ -194,7 +212,7 @@ FUNCDEF getFuncDef(id :: Int) :: String ::=
     ELSE IF id == 2 THEN
         "g(x,y) := x+y"
     ELSE
-        getFuncDef(id-3)
+        getFuncDef(modFunc(id))
     FI FI FI
 ENDDEF
 
@@ -206,7 +224,7 @@ FUNCDEF getVarDef(id :: Int) :: String ::=
     ELSE IF id == 2 THEN
         "varz = 521+231"
     ELSE
-        getVarDef(id-3)
+        getVarDef(modVar(id))
     FI FI FI
 ENDDEF
 
@@ -218,7 +236,7 @@ FUNCDEF getFuncApplication(id :: Int) :: String ::=
     ELSE IF id == 2 THEN
         "g(7,3)"
     ELSE
-        getFuncApplication(id-3)
+        getFuncApplication(modFunc(id))
     FI FI FI
 ENDDEF
 
@@ -228,12 +246,35 @@ FUNCDEF getVarApplication(id :: Int) :: String ::=
     ELSE IF id == 1 THEN
         "vary-1"
     ELSE IF id == 2 THEN
-        "varz/10"
+        "(varz+248)/100"
     ELSE
-        getVarApplication(id-3)
+        getVarApplication(modVar(id))
     FI FI FI
 ENDDEF
 
+FUNCDEF funcErrResult(id :: Int) :: String ::=
+    IF id == 0 THEN
+        "Cannot find identifier 'id' in memory"
+    ELSE IF id == 1 THEN
+        "Cannot find identifier 'f' in memory"
+    ELSE IF id == 2 THEN
+        "Cannot find identifier 'g' in memory"
+    ELSE
+        funcErrResult(modFunc(id))
+    FI FI FI
+ENDDEF
+
+FUNCDEF varErrResult(id :: Int) :: String ::=
+    IF id == 0 THEN
+        "Cannot find identifier 'varx' in memory"
+    ELSE IF id == 1 THEN
+        "Cannot find identifier 'vary' in memory"
+    ELSE IF id == 2 THEN
+        "Cannot find identifier 'varz' in memory"
+    ELSE
+        varErrResult(modVar(id))
+    FI FI FI
+ENDDEF
 
 FUNCDEF funcResult(id :: Int) :: Int ::=
     IF id == 0 THEN
@@ -243,7 +284,7 @@ FUNCDEF funcResult(id :: Int) :: Int ::=
     ELSE IF id == 2 THEN
         10
     ELSE
-        funcResult(id-3)
+        funcResult(modFunc(id))
     FI FI FI
 ENDDEF
 
@@ -255,7 +296,7 @@ FUNCDEF varResult(id :: Int) :: Int ::=
     ELSE IF id == 2 THEN
         10
     ELSE
-        varResult(id-3)
+        varResult(modVar(id))
     FI FI FI
 ENDDEF
 
@@ -267,8 +308,16 @@ FUNCDEF varDefResult(id :: Int) :: Int ::=
     ELSE IF id == 2 THEN
         752
     ELSE
-        varResult(id-3)
+        varDefResult(modFunc(id))
     FI FI FI
+ENDDEF
+
+FUNCDEF modFunc(id :: Int) :: Int ::=
+	id % 3
+ENDDEF
+
+FUNCDEF modVar(id :: Int) :: Int ::=
+	id % 3
 ENDDEF
 
 FUNCDEF operationToString(op::Operation) :: String ::=
