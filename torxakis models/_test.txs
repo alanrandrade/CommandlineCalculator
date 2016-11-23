@@ -21,10 +21,9 @@ PROCDEF  CalculatorLoop  [ Act :: CalcAction; Res :: CalcResult] ( )
         ##
             Act ? opn [[ isExit(opn) ]] >-> Res ! StringResult("Bye!")
         ##
-            Act ? opn [[ isFuncDef(opn) ]] >-> Act ! StringAction(getFuncApplication(funI(opn))) >-> Res ! IntResult(funcResult(funI(opn))) >-> CalculatorLoop [Act, Res]
+            Act ? opn [[ isFuncDef(opn) ]] >-> Act ! StringAction(getFuncApplication(funI(opn))) >-> Res ! IntResult(funcResult(funI(opn))) >-> CalculatorLoop [Act, Res] ( )
         ##
-            Act ? opn [[ isVarDef(opn) ]] >-> Act ! StringAction(getVarApplication(funI(opn))) >-> Res ! IntResult(varResult(funI(opn))) >-> CalculatorLoop [Act, Res]
-
+            Act ? opn [[ isVarDef(opn) ]] >-> Act ! StringAction(getVarApplication(funI(opn))) >-> Res ! IntResult(varResult(funI(opn))) >-> CalculatorLoop [Act, Res] ( )
 ENDDEF
 
 
@@ -68,14 +67,14 @@ TYPEDEF CalcResult
 ENDDEF
 
 FUNCDEF calcResultFromString(result :: String) :: CalcResult ::=
-    IF (isNumerical(result))
+    IF (isNumerical(result)) THEN
         IntResult(fromString(result))
     ELSE 
         StringResult(result)
     FI
 ENDDEF
 
-FUNCDEF isNumerical(numString :: String) :: Boolean ::=
+FUNCDEF isNumerical(numString :: String) :: Bool ::=
     strinre(numString, REGEX('[0-9]*'))
 ENDDEF
 
@@ -94,9 +93,9 @@ ENDDEF
 FUNCDEF getFuncDef(id :: Int) :: String ::=
     IF id == 0 THEN
         "id(x) := x"
-    ELSE IF id == 1
+    ELSE IF id == 1 THEN
         "f(x) := x*2"
-    ELSE IF id == 2
+    ELSE IF id == 2 THEN
         "g(x,y) := x+y"
     ELSE
         getFuncDef(id-3)
@@ -106,9 +105,9 @@ ENDDEF
 FUNCDEF getVarDef(id :: Int) :: String ::=
     IF id == 0 THEN
         "varx = 0"
-    ELSE IF id == 1
+    ELSE IF id == 1 THEN
         "vary = 5*2"
-    ELSE IF id == 2
+    ELSE IF id == 2 THEN
         "varz = 521+231"
     ELSE
         getVarDef(id-3)
@@ -118,9 +117,9 @@ ENDDEF
 FUNCDEF getFuncApplication(id :: Int) :: String ::=
     IF id == 0 THEN
         "id(5)"
-    ELSE IF id == 1
+    ELSE IF id == 1 THEN
         "f(3)"
-    ELSE IF id == 2
+    ELSE IF id == 2 THEN
         "g(7,3)"
     ELSE
         getFuncApplication(id-3)
@@ -130,9 +129,9 @@ ENDDEF
 FUNCDEF getVarApplication(id :: Int) :: String ::=
     IF id == 0 THEN
         "5+varx"
-    ELSE IF id == 1
+    ELSE IF id == 1 THEN
         "vary-1"
-    ELSE IF id == 2
+    ELSE IF id == 2 THEN
         "varz/10"
     ELSE
         getVarApplication(id-3)
@@ -143,9 +142,9 @@ ENDDEF
 FUNCDEF funcResult(id :: Int) :: Int ::=
     IF id == 0 THEN
         5
-    ELSE IF id == 1
+    ELSE IF id == 1 THEN
         9
-    ELSE IF id == 2
+    ELSE IF id == 2 THEN
         10
     ELSE
         funcResult(id-3)
@@ -155,9 +154,9 @@ ENDDEF
 FUNCDEF varResult(id :: Int) :: Int ::=
     IF id == 0 THEN
         5
-    ELSE IF id == 1
+    ELSE IF id == 1 THEN
         9
-    ELSE IF id == 2
+    ELSE IF id == 2 THEN
         10
     ELSE
         varResult(id-3)
