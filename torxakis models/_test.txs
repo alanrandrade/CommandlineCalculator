@@ -23,12 +23,38 @@ PROCDEF  CalculatorLoop  [ Act :: CalcAction; Res :: CalcResult] (mem :: CalcMem
                 >->
             CalculatorLoop [ Act, Res] (mem)
 			
+--        ##
+--            Act ! StringAction("1 / 0") 
+--                >->
+--            Res ? res [[ isStringResult(res) /\ isException(str(res)) ]]
+			
+        ##
+            Act ? opn [[ isEquality(opn)  ]]
+                >->
+            Res ! IntResult(equalityResult(left(opn),right(opn)))
+                >->
+            CalculatorLoop [ Act, Res] (mem)
+			
  --       ##
  --           Act ? opn [[ isExit(opn) ]]
  --               >->
  --           Res ! StringResult("Bye!")
+			
+        ##
+            Act ! StringAction("pi")
+                >->
+            Res ! StringResult("3.141592653589793")
+				>->
+            CalculatorLoop [ Act, Res] (mem)
+			
+        ##
+            Act ! StringAction("e")
+                >->
+            Res ! StringResult("2.718281828459045")
+				>->
+            CalculatorLoop [ Act, Res] (mem)
  
- ##
+		##
             Act ? opn [[ isFuncDef(opn) ]]
                 >->
             CalculatorLoop [Act, Res] (putFuncInMemory(funI(opn),mem))
@@ -97,6 +123,7 @@ ENDDEF
 TYPEDEF CalcAction
     ::=
             Expression { exp :: Operation }
+        |   Equality { left :: Operation; right :: Operation}
         |   FuncDef { funI :: Int }
         |   VarDef  { varI :: Int }
         |   FuncAppl { funAI :: Int }
@@ -199,9 +226,11 @@ FUNCDEF calcActionToString(act :: CalcAction) :: String ::=
         getVarApplication(varAI(act))
     ELSE IF isStringAction(act) THEN
         str(act)
-    ELSE
+    ELSE IF isEquality(act) THEN
+		operationToString(left(act)) ++ " = " ++ operationToString(right(act))
+	ELSE
         "exit()"
-    FI FI FI FI FI FI
+    FI FI FI FI FI FI FI
 ENDDEF
 
 FUNCDEF getFuncDef(id :: Int) :: String ::=
@@ -351,6 +380,18 @@ FUNCDEF operationToInt(op::Operation) :: Int ::=
     FI FI FI FI
 ENDDEF
 
+FUNCDEF equalityResult(left :: Operation; right :: Operation) :: Int ::=
+	LET lft = operationToInt(left); rgt = operationToInt(right) IN
+		IF lft > rgt THEN
+			1
+		ELSE IF lft < rgt THEN
+			-1
+		ELSE 
+			0
+		FI FI
+	NI	
+ENDDEF
+
 FUNCDEF trim(str :: String) :: String ::=
 	IF len(str) > 0 THEN
 		trimStart(str,0)
@@ -395,4 +436,8 @@ FUNCDEF isWhitespace(str :: String) :: Bool ::=
 	ELSE
 		(str == " ") \/ (str == "\n") \/ (str == "\r") \/ (str == "\t") 
 	FI
+ENDDEF
+
+FUNCDEF isException(str :: String) :: Bool ::=
+	strinre(str, REGEX('^Exception.*'))
 ENDDEF
