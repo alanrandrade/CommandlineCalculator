@@ -81,7 +81,7 @@ CNECTDEF  Sut
 
 -- echo'd iets terug
         CHAN  IN   Result            HOST "localhost"  PORT 7890
-        DECODE     Result ! calcResultFromString(s)     <-   ? s
+        DECODE     Result ! calcResultFromString(trim(s))     <-   ? s
 ENDDEF
 
 --
@@ -349,4 +349,50 @@ FUNCDEF operationToInt(op::Operation) :: Int ::=
     ELSE
         0
     FI FI FI FI
+ENDDEF
+
+FUNCDEF trim(str :: String) :: String ::=
+	IF len(str) > 0 THEN
+		trimStart(str,0)
+	ELSE
+		str
+	FI
+ENDDEF
+
+FUNCDEF trimStart(str :: String; i :: Int) :: String ::=
+	IF len(str) <= i THEN
+		str
+	ELSE IF isWhitespace(at(str,i)) THEN
+		trimStart(str,i+1)
+	ELSE
+		trimEnd(subStr(str,i,len(str)),0)
+	FI FI
+ENDDEF
+
+FUNCDEF trimEnd(str :: String; i :: Int) :: String ::=
+	IF len(str) <= i THEN
+		str
+	ELSE IF isWhitespace(at(str,len(str)-(i+1))) THEN
+		trimEnd(str,i+1)
+	ELSE
+		subStr(str,0,len(str)-i)
+	FI FI
+ENDDEF
+
+FUNCDEF subStr(str :: String; start :: Int; len :: Int) :: String ::=
+	IF len==0 THEN
+		""
+	ELSE IF len(str) < start THEN
+		""
+	ELSE
+		at(str,start) ++ subStr(str,start+1,len-1)
+	FI FI
+ENDDEF
+
+FUNCDEF isWhitespace(str :: String) :: Bool ::=
+	IF len(str) <> 1 THEN
+		False
+	ELSE
+		(str == " ") \/ (str == "\n") \/ (str == "\r") \/ (str == "\t") 
+	FI
 ENDDEF
