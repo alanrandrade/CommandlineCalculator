@@ -159,7 +159,7 @@ We wanted to model the use cases we made in the previous assignment. Here they a
 	\end{tabular}
 \end{center}
 
-Here the category column is key. The input and expected output for these use cases are deterministic, and are therefore not usefull. 
+Here the category column is key. The input and expected output for these use cases are deterministic, and are therefore not usefull.
 
 Since Torxakis does not have floats, our model will not test for this. This means that no Builtin Function is tested, since they only make sense when using floats. We will not use Builtin Variables in expressions, since all Builtin Variables are floats too. But we do test if the Builtin Variables are defined correctly, by calling them without other operators.
 
@@ -196,12 +196,38 @@ verbose model in torxakis
 %% Use TorXakis to generate tests, and execute them on your SUT.}
 %% Explain your observations and analyse the test results.
 
+Right now our TorXakis model generates nested arithmetic expressions
+and compares the evaluation done by Torxakis with the result given by
+our SUT.
+
+Function and variable assignments are not tested yet since this would
+require a more complex model and could potentionally take mor effort
+than rewriting our SUT.
+
+%% Expand if our test suite expands
 
 \subsection{Deliverable}
 %% Give the models, code, adapters, etc. in such a way that we can run it; provide a ’README’.}
 %% Be prepared to give a demo.
 
-\url{https://github.com/Witik/CommandlineCalculator}
+The code for both the SUT, the wrapper and the Torxakis models is
+publicly avaible at
+\url{https://github.com/Witik/CommandlineCalculator}.
+
+To start the proxy service and SUT simply run the Sockserv.jar with as
+arguments the port to run on and command that you would otherwise
+execute. If you are in the root directory of the git project you can use the command
+
+\begin{verbatim}
+java -jar SockServ.jar 7890 java -jar target/CommandlineCalculator-1.0-jar-with-dependencies.jar
+\end{verbatim}
+
+Then run the torxakis tests with the following command from the torxakis directory
+
+\begin{verbatim}
+cmd.exe /c torxakis.bat /parth/to/git/root/torxakis models/test.txs
+\end{verbatim}
+
 
 \end{document}
 
