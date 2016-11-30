@@ -170,6 +170,19 @@ Since Torxakis does not have floats, our model will not test for this. This mean
 \subsection{MBT Modeling}
 %% Make a model for your SUT in the TorXakis modelling language txs.}
 %% Explain your model (structure, processes, data definitions, . . . ).
+Ons model is genaamd \begin{verbatim} _text.txs \end{verbatim}. Bij elke inputstap wordt een actie aan de SUT gegeven. Hierbij is er keuze uit de volgende acties:
+\begin{itemize}
+	\item[Expression] Expressies kunnen bestaan uit elke combinatie van +,-,* en getallen. Er wordt gecheckt of de SUT de juiste uitkomst van deze expressie geeft.
+	\item[1/0] Er wordt gecheckt of bij deze input de SUT daadwerkelijk een error geeft.
+	\item[equality] Ons model genereert twee expressies en vraagt aan de SUT of de eerste gelijk, groter of kleiner is dan de tweede. Het checkt of het antwoord klopt.
+	\item[exit] Dit test of het commando 'exit' aan de SUT geven, 'bye!' teruggeeft en dat de SUT vervolgens niet meer reageert op input.
+	\item[pi] Kijkt of de definitie van pi 3.141592653589793 is
+	\item[e] Kijkt of de definitie van e 2.718281828459045 is
+	\item[function definition] Genereert een van de drie voorgedefinieerde functies en onthoudt die.
+	\item[function application] Er zijn hier twee opties. Of de functie is gedefinieerd, of niet. Als de functie gedefinieert is, wordt gecheckt of de SUT het juiste antwoord geeft. Als dat nog niet zo is, wordt gecheckt of de SUT de juiste error geeft.
+	\item[variable definition] Genereert een van de drie voorgedefinieerde variable definitions en onthoudt die.
+	\item[variable application] Checkt of de SUT het juiste antwoord geeft als de variable gedefinieerd is, en als het niet nog niet gedefinieerd is, checkt het of de juiste error gegeven wordt.
+\end{itemize}
 
 \subsection{MBT Test Environment}
 %% Develop a test environment or test architecture which will be used for model-based testing of your SUT.}
@@ -195,7 +208,7 @@ verbose model in torxakis
 \subsection{MBT Testing}
 %% Use TorXakis to generate tests, and execute them on your SUT.}
 %% Explain your observations and analyse the test results.
-
+All tests succeed. If the exit action is executed, following steps are 'quiessence', as should be.
 
 \subsection{Deliverable}
 %% Give the models, code, adapters, etc. in such a way that we can run it; provide a ’README’.}
