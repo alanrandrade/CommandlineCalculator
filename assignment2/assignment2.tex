@@ -159,16 +159,16 @@ We wanted to model the use cases we made in the previous assignment. Here they a
 	\end{tabular}
 \end{center}
 
-Here the category column is key. The input and expected output for these use cases are deterministic, and are therefore not usefull.
+Here the category column is key. The input and expected output for these use cases are deterministic, and are therefore not useful.
 
 Since Torxakis does not have floats, our model will not test for this. This means that no Builtin Function is tested, since they only make sense when using floats. We will not use Builtin Variables in expressions, since all Builtin Variables are floats too. But we do test if the Builtin Variables are defined correctly, by calling them without other operators.
 
 
 
-%% Investigate and study (the behaviour of) your SUT; investigate and argue which parts of your SUT, which interfaces, and which functionality might be tested with TorXakis.
+%% Investigate and study (the behavior of) your SUT; investigate and argue which parts of your SUT, which interfaces, and which functionality might be tested with TorXakis.
 
 \subsection{MBT Modeling}
-%% Make a model for your SUT in the TorXakis modelling language txs.}
+%% Make a model for your SUT in the TorXakis modeling language txs.}
 %% Explain your model (structure, processes, data definitions, . . . ).
 Ons model is genaamd \begin{verbatim} _text.txs \end{verbatim}. Bij elke inputstap wordt een actie aan de SUT gegeven. Hierbij is er keuze uit de volgende acties:
 \begin{itemize}
@@ -196,26 +196,26 @@ Commandlinecalculator.jar, Torxakis and a proxy.
 
 \includegraphics[width=6cm]{overview.png}
 
-Our main application, Commandlinecalculator is a command line tool. It
+Our main application, CommandLineCalculator is a command line tool. It
 reads from STDIN en outputs to STDOUT and STDERR
 
 SockServ.jar is a proxy between Torxakis and the
 CommandLineCalculator. It opens a socket and passes messages through
-to the Commandlinecalculator. In addition it simplifies the output,
+to the CommandLineCalculator. In addition it simplifies the output,
 showing only the final result. This simplified allows us to use a less
-verbose model in torxakis
+verbose model in TorXakis
 
 \subsection{MBT Testing}
 %% Use TorXakis to generate tests, and execute them on your SUT.}
 %% Explain your observations and analyse the test results.
-All tests succeed. If the exit action is executed, following steps are 'quiessence', as should be.
+All tests succeed. If the exit action is executed, following steps are 'quiescence', as should be.
 
 Right now our TorXakis model generates nested arithmetic expressions
-and compares the evaluation done by Torxakis with the result given by
+and compares the evaluation done by TorXakis with the result given by
 our SUT.
 
 Function and variable assignments are only tested shallowly yet since this would
-require a model potentially more than our SUT.
+require a model potentially more complicated than our SUT.
 
 %% Expand if our test suite expands
 
@@ -224,7 +224,7 @@ require a model potentially more than our SUT.
 %% Be prepared to give a demo.
 
 The code for both the SUT, the wrapper and the Torxakis models is
-publicly avaible at
+publicly available at
 \url{https://github.com/Witik/CommandlineCalculator}.
 
 To start the proxy service and SUT simply run the Sockserv.jar with as
@@ -235,7 +235,7 @@ execute. If you are in the root directory of the git project you can use the com
 java -jar SockServ.jar 7890 java -jar target/CommandlineCalculator-1.0-jar-with-dependencies.jar
 \end{verbatim}
 
-Then run the torxakis tests with the following command from the torxakis directory
+Then run the TorXakis tests with the following command from the TorXakis directory
 
 \begin{verbatim}
 cmd.exe /c torxakis.bat /parth/to/git/root/torxakis models/_test.txs
@@ -246,5 +246,5 @@ cmd.exe /c torxakis.bat /parth/to/git/root/torxakis models/_test.txs
 
 %%  LocalWords:  tikzmark pathmorphing Sasja Gillissen Huijben MBT ln
 %%  LocalWords:  pdfauthor pdflang TorXakis SUT llr sqrt ceil JuBuLa
-%%  LocalWords:  txt STDOUT STDERR CommandLineCalculator SockServ
-%%  LocalWords:  STDIN
+%%  LocalWords:  txt STDOUT STDERR CommandLineCalculator SockServ txs
+%%  LocalWords:  STDIN Torxakis
