@@ -208,16 +208,23 @@ verbose model in TorXakis
 \subsection{MBT Testing}
 %% Use TorXakis to generate tests, and execute them on your SUT.}
 %% Explain your observations and analyse the test results.
-All tests succeed. If the exit action is executed, following steps are 'quiescence', as should be.
+All tests succeed. If the exit action is executed, following steps are
+'quiescence', as should be.
 
-Right now our TorXakis model generates nested arithmetic expressions
-and compares the evaluation done by TorXakis with the result given by
-our SUT.
+Our SUT passes all generated arethemic expression tests. Function and
+variable assignments are only tested shallowly yet since this would
+require a model potentially more complicated than our SUT. Because the
+amount of functions and variables is fixed in our torxakis model all
+variations can be tested.
 
-Function and variable assignments are only tested shallowly yet since this would
-require a model potentially more complicated than our SUT.
+Our SUT passsing all of our created tests in Torxakis is expected as
+we had previously already tested our system manually and with our bash
+script mentioned earlier.
 
-%% Expand if our test suite expands
+Our SUT is ioco to our Torxakis model. All test cases in our Torxakis
+model are sucessfully implmented in our SUT. However since our SUT can
+create infinite amount of variable and expression names the reverse is
+not true.
 
 \subsection{Deliverable}
 %% Give the models, code, adapters, etc. in such a way that we can run it; provide a ’README’.}
