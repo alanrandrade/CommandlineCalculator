@@ -170,19 +170,21 @@ Since Torxakis does not have floats, our model will not test for this. This mean
 \subsection{MBT Modeling}
 %% Make a model for your SUT in the TorXakis modeling language txs.}
 %% Explain your model (structure, processes, data definitions, . . . ).
-Ons model is genaamd \begin{verbatim} _text.txs \end{verbatim}. Bij elke inputstap wordt een actie aan de SUT gegeven. Hierbij is er keuze uit de volgende acties:
+Our model is named \begin{verbatim} _text.txs \end{verbatim}. At every inputstep an action is given to the SUT. Here TorXakis chooses from the list of following actions:
 \begin{itemize}
-	\item[Expression] Expressies kunnen bestaan uit elke combinatie van +,-,* en getallen. Er wordt gecheckt of de SUT de juiste uitkomst van deze expressie geeft.
-	\item[1/0] Er wordt gecheckt of bij deze input de SUT daadwerkelijk een error geeft.
-	\item[equality] Ons model genereert twee expressies en vraagt aan de SUT of de eerste gelijk, groter of kleiner is dan de tweede. Het checkt of het antwoord klopt.
-	\item[exit] Dit test of het commando 'exit' aan de SUT geven, 'bye!' teruggeeft en dat de SUT vervolgens niet meer reageert op input.
-	\item[pi] Kijkt of de definitie van pi 3.141592653589793 is
-	\item[e] Kijkt of de definitie van e 2.718281828459045 is
-	\item[function definition] Genereert een van de drie voorgedefinieerde functies en onthoudt die.
-	\item[function application] Er zijn hier twee opties. Of de functie is gedefinieerd, of niet. Als de functie gedefinieert is, wordt gecheckt of de SUT het juiste antwoord geeft. Als dat nog niet zo is, wordt gecheckt of de SUT de juiste error geeft.
-	\item[variable definition] Genereert een van de drie voorgedefinieerde variable definitions en onthoudt die.
-	\item[variable application] Checkt of de SUT het juiste antwoord geeft als de variable gedefinieerd is, en als het niet nog niet gedefinieerd is, checkt het of de juiste error gegeven wordt.
+	\item[Expression] Expressions can be generated out of any combination of +,-,* and numbers. It is checked that the SUT returns the right solution to this expression.
+	\item[1/0] TorXakis checks if the SUT really gives an error when presented with this input.
+	\item[equality] Our model generates two expressions and asks the SUT if the first is greater, equal or smaller thant the second. It then checks if the answer given back is correct. 
+	\item[exit] This tests that giving the 'exit' commando to the SUT returns 'bye!' and that the SUT does not respond to input afterwards.
+	\item[pi] Checks if the definition of pi is 3.141592653589793
+	\item[e] Checks if the definition of e is 2.718281828459045
+	\item[function definition] Generates one of three premade functions and remembers it.
+	\item[function application] There are two options. Either the function has already been defined or not. If the function is defined, TorXakis checks if the SUT gives the right answer. Otherwise it is checked that the SUT gives the corresponding error.
+	\item[variable definition] Generates one of three premade variable definitions and remembers it.
+	\item[variable application] Checks if the SUT gives the right answer if the variable has already been defined. Otherwise it checks if the SUT gives the corresponding error.
 \end{itemize}
+
+
 
 \subsection{MBT Test Environment}
 %% Develop a test environment or test architecture which will be used for model-based testing of your SUT.}
