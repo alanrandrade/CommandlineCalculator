@@ -135,7 +135,7 @@ easily add more use cases to test for.
 
 \section{Model-Based Testing}
 %% Use the MBT tool TorXakis
-%% (http://www.cs.ru.nl/personal/tretmans/torxakis/) to model and test
+%% (http://www.cs.ru.nl/personal/tretmans/TorXakis/) to model and test
 %% your SUT:
 
 \subsection{Modeling Investigation}
@@ -161,7 +161,7 @@ We wanted to model the use cases we made in the previous assignment. Here they a
 
 Here the category column is key. The input and expected output for these use cases are deterministic, and are therefore not useful.
 
-Since Torxakis does not have floats, our model will not test for this. This means that no Builtin Function is tested, since they only make sense when using floats. We will not use Builtin Variables in expressions, since all Builtin Variables are floats too. But we do test if the Builtin Variables are defined correctly, by calling them without other operators.
+Since TorXakis does not have floats, our model will not test for this. This means that no Builtin Function is tested, since they only make sense when using floats. We will not use Builtin Variables in expressions, since all Builtin Variables are floats too. But we do test if the Builtin Variables are defined correctly, by calling them without other operators.
 
 
 
@@ -170,11 +170,11 @@ Since Torxakis does not have floats, our model will not test for this. This mean
 \subsection{MBT Modeling}
 %% Make a model for your SUT in the TorXakis modeling language txs.}
 %% Explain your model (structure, processes, data definitions, . . . ).
-Our model is named \begin{verbatim} _text.txs \end{verbatim}. At every inputstep an action is given to the SUT. Here TorXakis chooses from the list of following actions:
+Our model is named \begin{verbatim} _text.txs \end{verbatim}. At every input step an action is given to the SUT. Here TorXakis chooses from the list of following actions:
 \begin{itemize}
 	\item[Expression] Expressions can be generated out of any combination of +,-,* and numbers. It is checked that the SUT returns the right solution to this expression.
 	\item[1/0] TorXakis checks if the SUT really gives an error when presented with this input.
-	\item[equality] Our model generates two expressions and asks the SUT if the first is greater, equal or smaller thant the second. It then checks if the answer given back is correct. 
+	\item[equality] Our model generates two expressions and asks the SUT if the first is greater, equal or smaller than the second. It then checks if the answer given back is correct.
 	\item[exit] This tests that giving the 'exit' commando to the SUT returns 'bye!' and that the SUT does not respond to input afterwards.
 	\item[pi] Checks if the definition of pi is 3.141592653589793
 	\item[e] Checks if the definition of e is 2.718281828459045
@@ -194,16 +194,16 @@ Our model is named \begin{verbatim} _text.txs \end{verbatim}. At every inputstep
 %% test-execution automation environment as much as possible.
 
 Out test environment consists or our main Tool,
-Commandlinecalculator.jar, Torxakis and a proxy.
+CommandlineCalculator.jar, TorXakis and a proxy.
 
 \includegraphics[width=6cm]{overview.png}
 
-Our main application, CommandLineCalculator is a command line tool. It
+Our main application, CommandlineCalculator is a command line tool. It
 reads from STDIN en outputs to STDOUT and STDERR
 
-SockServ.jar is a proxy between Torxakis and the
-CommandLineCalculator. It opens a socket and passes messages through
-to the CommandLineCalculator. In addition it simplifies the output,
+SockServ.jar is a proxy between TorXakis and the
+CommandlineCalculator. It opens a socket and passes messages through
+to the CommandlineCalculator. In addition it simplifies the output,
 showing only the final result. This simplified allows us to use a less
 verbose model in TorXakis
 
@@ -213,18 +213,18 @@ verbose model in TorXakis
 All tests succeed. If the exit action is executed, following steps are
 'quiescence', as should be.
 
-Our SUT passes all generated arethemic expression tests. Function and
+Our SUT passes all generated arithmetic expression tests. Function and
 variable assignments are only tested shallowly yet since this would
 require a model potentially more complicated than our SUT. Because the
-amount of functions and variables is fixed in our torxakis model all
+amount of functions and variables is fixed in our TorXakis model all
 variations can be tested.
 
-Our SUT passsing all of our created tests in Torxakis is expected as
+Our SUT passing all of our created tests in TorXakis is expected as
 we had previously already tested our system manually and with our bash
 script mentioned earlier.
 
-Our SUT is ioco to our Torxakis model. All test cases in our Torxakis
-model are sucessfully implmented in our SUT. However since our SUT can
+Our SUT is ioco to our TorXakis model. All test cases in our TorXakis
+model are successfully implemented in our SUT. However since our SUT can
 create infinite amount of variable and expression names the reverse is
 not true.
 
@@ -232,7 +232,7 @@ not true.
 %% Give the models, code, adapters, etc. in such a way that we can run it; provide a ’README’.}
 %% Be prepared to give a demo.
 
-The code for both the SUT, the wrapper and the Torxakis models is
+The code for both the SUT, the wrapper and the TorXakis models is
 publicly available at
 \url{https://github.com/Witik/CommandlineCalculator}.
 
@@ -247,13 +247,8 @@ java -jar SockServ.jar 7890 java -jar target/CommandlineCalculator-1.0-jar-with-
 Then run the TorXakis tests with the following command from the TorXakis directory
 
 \begin{verbatim}
-cmd.exe /c torxakis.bat /parth/to/git/root/torxakis models/_test.txs
+cmd.exe /c TorXakis.bat /path/to/git/root/TorXakis models/_test.txs
 \end{verbatim}
 
 
 \end{document}
-
-%%  LocalWords:  tikzmark pathmorphing Sasja Gillissen Huijben MBT ln
-%%  LocalWords:  pdfauthor pdflang TorXakis SUT llr sqrt ceil JuBuLa
-%%  LocalWords:  txt STDOUT STDERR CommandLineCalculator SockServ txs
-%%  LocalWords:  STDIN Torxakis
