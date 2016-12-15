@@ -16,7 +16,7 @@ public class TestConfig {
         OSMOConfiguration config = new OSMOConfiguration();
         config.addModelObject(new CalcTestClass());
         config.setJUnitLength(5);
-        config.setTestEndCondition(new Length(5));
+        config.setTestEndCondition(new Length(100));
         return config;
     }
 }
