@@ -87,6 +87,9 @@ Our model is basically the same as the TorXakis model. When it starts, it repeat
 \subsection{MBT Test Environment}
 %% Adapt the test environment of the previous assignment, if
 %% necessary, for model-based testing with the selected MBT tool.
+
+
+
 \subsection{MBT Testing}
 %% Use the selected MBT tool to generate tests, and execute them on
 %% your SUT. Explain your observations and analyse the test results.
@@ -99,11 +102,17 @@ Our model is basically the same as the TorXakis model. When it starts, it repeat
 \section{Comparison}
 %% Compare the selected MBT tool of this assignment with TorXakis;
 %% consider the following aspects:
-\subsection{implementation relation;}
-\subsection{support for test input generation as well as output checking;}
-\subsection{support for non-determinism;}
-\subsection{method of test selection;}
-\subsection{modeling notation: its expressiveness and ease of use;}
+\subsection{implementation relation}
+...blablabla fijner om te implementeren want het is java
+\subsection{support for test input generation as well as output checking}
+In TorXakis it is easier to generate input. However, this is not hard in OSMO. When generating tests, one should give OSMO a number on which it generates random steps. This number can also be used as a generator number for generating random input. Then you just do \verb|Random(number).nextInt(size)| to choose what to do next.
+
+
+Output checking is easier in OSMO. 
+\subsection{support for non-determinism}
+Our model does not need non-determinism.
+\subsection{method of test selection}
+\subsection{modeling notation: its expressiveness and ease of use}
 \subsection{on-line vs. off-line testing, i.e., on-the-fly vs. batch.}
 
 %% Hints - Model-Based Testing Tools There are many MBT tools:
