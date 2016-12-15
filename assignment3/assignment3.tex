@@ -81,11 +81,26 @@ been if our SUT and Testing Tool were written in different languages.
 \section{Comparison}
 %% Compare the selected MBT tool of this assignment with TorXakis;
 %% consider the following aspects:
-\subsection{implementation relation;}
-\subsection{support for test input generation as well as output checking;}
-\subsection{support for non-determinism;}
-\subsection{method of test selection;}
-\subsection{modeling notation: its expressiveness and ease of use;}
+\subsection{implementation relation}
+Unlike TorXakis, With OSMO we have to manually implement some functionality.
+
+In TorXakis all we have to do is describe states and state
+transitions. After that we can run TorXakis and check our model
+against our SUT.
+
+In OSMO we have to manually generate some testing functionality. For
+instantce TorXakis has support to automatic expression building (from
+simpler expressions) while with OSMO we have to write our own
+expression building algorithm.
+
+\subsection{support for test input generation as well as output checking}
+rng
+
+In Torxakis
+
+\subsection{support for non-determinism}
+\subsection{method of test selection}
+\subsection{modeling notation: its expressiveness and ease of use}
 \subsection{on-line vs. off-line testing, i.e., on-the-fly vs. batch.}
 
 %% Hints - Model-Based Testing Tools There are many MBT tools:
@@ -108,3 +123,5 @@ been if our SUT and Testing Tool were written in different languages.
 %% . . .
 
 \end{document}
+
+%%  LocalWords:  OSMO SUT
