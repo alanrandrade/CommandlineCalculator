@@ -6,6 +6,7 @@
 \usepackage{float}
 \usepackage{wrapfig}
 \usepackage{rotating}
+\usepackage{enumitem}
 \usepackage[normalem]{ulem}
 \usepackage{amsmath}
 \usepackage{textcomp}
@@ -68,10 +69,8 @@ been if our SUT and Testing Tool were written in different languages.
 %% is easiest if you model the same part as you used in
 %%the second assignment (first MBT assignment). Explain your model.
 
-The implementation of our model can be found at GITHUBLINK.
-
 Our model is basically the same as the TorXakis model. When it starts, it repeatedly chooses an action from the following list and tests it.
-\begin{itemize}
+\begin{description}[labelindent=1cm]
 	\item[\textbf{Expression}] Expressions can be generated out of any combination of +,-,* and numbers. It is checked that the SUT returns the right solution to this expression.
 	\item[\textbf{1/0}] TorXakis checks if the SUT really gives an error when presented with this input.
 	\item[\textbf{equality}] Our model generates two expressions and asks the SUT if the first is greater, equal or smaller than the second. It then checks if the answer given back is correct.
@@ -82,7 +81,9 @@ Our model is basically the same as the TorXakis model. When it starts, it repeat
 	\item[\textbf{function application}] There are two options. Either the function has already been defined or not. If the function is defined, TorXakis checks if the SUT gives the right answer. Otherwise it is checked that the SUT gives the corresponding error.
 	\item[\textbf{variable definition}] Generates one of three premade variable definitions and remembers it.
 	\item[\textbf{variable application}] Checks if the SUT gives the right answer if the variable has already been defined. Otherwise it checks if the SUT gives the corresponding error.
-\end{itemize}
+\end{description}
+
+
 
 \subsection{MBT Test Environment}
 %% Adapt the test environment of the previous assignment, if
@@ -98,6 +99,14 @@ Our model is basically the same as the TorXakis model. When it starts, it repeat
 %% Give the models, code, adapters, etc. in such a way that we can run
 %% it; provide a ’README’. Be prepared to give a demo.
 
+The code for both the SUT, the wrapper and the TorXakis models is
+publicly available at
+\url{https://github.com/Witik/CommandlineCalculator}.
+
+To start the proxy service and SUT simply run the Sockserv.jar with as
+arguments the port to run on and command that you would otherwise
+execute. If you are in the root directory of the git project you can
+use the command
 
 \section{Comparison}
 %% Compare the selected MBT tool of this assignment with TorXakis;
@@ -116,7 +125,12 @@ expression building algorithm.
 
 \subsection{support for test input generation as well as output checking}
 \textbf{1.}
-In TorXakis it is easier to generate input. However, this is not hard in OSMO. When generating tests, one should give OSMO a number on which it generates random steps. This number can also be used as a generator number for generating random input. Then you just do \verb|Random(number).nextInt(size)| to choose what to do next.
+In TorXakis it is easier to generate input. However, this is not hard
+in OSMO. When generating tests, one should give OSMO a number on which
+it generates random steps. This number can also be used as a generator
+number for generating random input. Then you just do
+
+\verb|Random(number).nextInt(size)| to choose what to do next.
 
 \textbf{2.}
 Both TorXakis and OSMO allow random input generation.
@@ -126,8 +140,11 @@ we have full acces to all java libraries. While OSMO does not come
 with such expression building tools we can and have implemented the
 generation in java.
 
+Output checking is easier in OSMO.
 
-Output checking is easier in OSMO. 
+In OSMO
+
+<<<<<<< HEAD
 \subsection{support for non-determinism}
 Our model does not need non-determinism.
 
@@ -136,9 +153,20 @@ Our model does not need non-determinism.
 
 
 \subsection{support for non-determinism}
->>>>>>> origin/master
+\mbox{¿}\mbox{¿}\mbox{¿}\mbox{¿}\mbox{¿}\mbox{¿}\mbox{¿}\mbox{¿}
+origin/master
+
+=======
+Output checking is easier in OSMO. In TorXakis we had to extend our test adapter to filter the output to something TorXakis could match, since the regexp expressions TorXakis offered where not strong enough.
+
+\subsection{support for non-determinism}
+Our model does not need non-determinism.
+
+>>>>>>> ac27b17d408c8a5c73f9bafaac209d51025b71ba
 \subsection{method of test selection}
+Both models allow random test selection, redoing previous random generated test selection, and walking through the model.
 \subsection{modeling notation: its expressiveness and ease of use}
+
 \subsection{on-line vs. off-line testing, i.e., on-the-fly vs. batch.}
 
 %% Hints - Model-Based Testing Tools There are many MBT tools:
