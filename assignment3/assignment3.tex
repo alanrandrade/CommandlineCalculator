@@ -54,13 +54,32 @@
 %% Make a model for your SUT, or part of your SUT, in the input
 %% language of the selected MBT tool. In order to allow comparison, it
 %% is easiest if you model the same part as you used in
-the second assignment (first MBT assignment). Explain your model.
+%%the second assignment (first MBT assignment). Explain your model.
+
+The implementation of our model can be found at GITHUBLINK.
+
+Our model is basically the same as the TorXakis model. When it starts, it repeatedly chooses an action from the following list and tests it.
+\begin{itemize}
+	\item[\textbf{Expression}] Expressions can be generated out of any combination of +,-,* and numbers. It is checked that the SUT returns the right solution to this expression.
+	\item[\textbf{1/0}] TorXakis checks if the SUT really gives an error when presented with this input.
+	\item[\textbf{equality}] Our model generates two expressions and asks the SUT if the first is greater, equal or smaller than the second. It then checks if the answer given back is correct.
+	\item[\textbf{exit}] This tests that giving the 'exit' commando to the SUT returns 'bye!' and that the SUT does not respond to input afterwards.
+	\item[\textbf{pi}] Checks if the definition of pi is 3.141592653589793
+	\item[\textbf{e}] Checks if the definition of e is 2.718281828459045
+	\item[\textbf{function definition}] Generates one of three premade functions and remembers it.
+	\item[\textbf{function application}] There are two options. Either the function has already been defined or not. If the function is defined, TorXakis checks if the SUT gives the right answer. Otherwise it is checked that the SUT gives the corresponding error.
+	\item[\textbf{variable definition}] Generates one of three premade variable definitions and remembers it.
+	\item[\textbf{variable application}] Checks if the SUT gives the right answer if the variable has already been defined. Otherwise it checks if the SUT gives the corresponding error.
+\end{itemize}
+
+
 \subsection{MBT Test Environment}
 %% Adapt the test environment of the previous assignment, if
 %% necessary, for model-based testing with the selected MBT tool.
 \subsection{MBT Testing}
 %% Use the selected MBT tool to generate tests, and execute them on
 %% your SUT. Explain your observations and analyse the test results.
+
 \subsection{Deliverable}
 %% Give the models, code, adapters, etc. in such a way that we can run
 %% it; provide a ’README’. Be prepared to give a demo.
