@@ -103,14 +103,40 @@ Our model is basically the same as the TorXakis model. When it starts, it repeat
 %% Compare the selected MBT tool of this assignment with TorXakis;
 %% consider the following aspects:
 \subsection{implementation relation}
-...blablabla fijner om te implementeren want het is java
+Unlike TorXakis, With OSMO we have to manually implement some functionality.
+
+In TorXakis all we have to do is describe states and state
+transitions. After that we can run TorXakis and check our model
+against our SUT.
+
+In OSMO we have to manually generate some testing functionality. For
+instance TorXakis has support to automatic expression building (from
+simpler expressions) while with OSMO we have to write our own
+expression building algorithm.
+
 \subsection{support for test input generation as well as output checking}
+\textbf{1.}
 In TorXakis it is easier to generate input. However, this is not hard in OSMO. When generating tests, one should give OSMO a number on which it generates random steps. This number can also be used as a generator number for generating random input. Then you just do \verb|Random(number).nextInt(size)| to choose what to do next.
+
+\textbf{2.}
+Both TorXakis and OSMO allow random input generation.
+
+In TorXakis there is builtin functionality to generate input. In OSMO
+we have full acces to all java libraries. While OSMO does not come
+with such expression building tools we can and have implemented the
+generation in java.
 
 
 Output checking is easier in OSMO. 
 \subsection{support for non-determinism}
 Our model does not need non-determinism.
+
+
+\subsection{support for test input generation as well as output checking}
+
+
+\subsection{support for non-determinism}
+>>>>>>> origin/master
 \subsection{method of test selection}
 \subsection{modeling notation: its expressiveness and ease of use}
 \subsection{on-line vs. off-line testing, i.e., on-the-fly vs. batch.}
@@ -135,3 +161,5 @@ Our model does not need non-determinism.
 %% . . .
 
 \end{document}
+
+%%  LocalWords:  OSMO SUT TorXakis
