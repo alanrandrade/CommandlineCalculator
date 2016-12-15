@@ -1,0 +1,165 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{verbatim}
+\tolerance=1000
+\bibliographystyle{plain}
+\usepackage{microtype}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usetikzlibrary{tikzmark,decorations.pathmorphing}
+\author{Sasja Gillissen, Martin Huijben, Martijn Terpstra}
+\date{\today}
+\title{Testing Techniques\\
+  \textbf{Assignment 3}}
+\hypersetup{
+ pdfauthor={Sasja Gillissen, Martin Huijben, Martijn Terpstra},
+ pdflang={English}}
+\begin{document}
+\maketitle
+
+%\tableofcontents
+
+
+%% This is the second Model-Based Testing (MBT) assignment of the
+%% course Testing Techniques, which continues the previous assignment.
+%% The purpose of this assignment is to apply Model-Based Testing
+%% (MBT) to your System Under Test (SUT) using a second MBT tool, and
+%% to compare. You can freely select any MBT tool; below some ideas
+%% are given. Try to reuse as much as possible from what you did in
+%% the second assignment, i.e., the test architecture and (the
+%% structure of) the model, though you will have to express your model
+%% in another syntax, of course.
+
+\section{Model-Based Testing}
+
+\subsection{MBT Tool Selection}
+%% Search for model-based testing tools, select an MBT tool, and give
+%% some arguments why you selected that tool. (See the list of MBT
+%% tools below.)
+
+For our tool we have chosen OSMO MBT
+TOOL\footnote{\url{https://github.com/mukatee/osmo}}.
+This tool seemed to be the most appropriate from the list of tools
+given in the assignment desription.
+Firstly the tool is free software under the LGPL License. This allows
+us to freely use this model. Many existing tools are proprietary,
+requiring us to buy a license for continued use.
+Secondly the chosen tool, and its tests are written in Java. Our SUT
+is also written in Java so integration is easier than it would have
+been if our SUT and Testing Tool were written in different languages.
+
+\subsection{MBT Modeling}
+%% Make a model for your SUT, or part of your SUT, in the input
+%% language of the selected MBT tool. In order to allow comparison, it
+%% is easiest if you model the same part as you used in
+%%the second assignment (first MBT assignment). Explain your model.
+
+The implementation of our model can be found at GITHUBLINK.
+
+Our model is basically the same as the TorXakis model. When it starts, it repeatedly chooses an action from the following list and tests it.
+\begin{itemize}
+	\item[\textbf{Expression}] Expressions can be generated out of any combination of +,-,* and numbers. It is checked that the SUT returns the right solution to this expression.
+	\item[\textbf{1/0}] TorXakis checks if the SUT really gives an error when presented with this input.
+	\item[\textbf{equality}] Our model generates two expressions and asks the SUT if the first is greater, equal or smaller than the second. It then checks if the answer given back is correct.
+	\item[\textbf{exit}] This tests that giving the 'exit' commando to the SUT returns 'bye!' and that the SUT does not respond to input afterwards.
+	\item[\textbf{pi}] Checks if the definition of pi is 3.141592653589793
+	\item[\textbf{e}] Checks if the definition of e is 2.718281828459045
+	\item[\textbf{function definition}] Generates one of three premade functions and remembers it.
+	\item[\textbf{function application}] There are two options. Either the function has already been defined or not. If the function is defined, TorXakis checks if the SUT gives the right answer. Otherwise it is checked that the SUT gives the corresponding error.
+	\item[\textbf{variable definition}] Generates one of three premade variable definitions and remembers it.
+	\item[\textbf{variable application}] Checks if the SUT gives the right answer if the variable has already been defined. Otherwise it checks if the SUT gives the corresponding error.
+\end{itemize}
+
+\subsection{MBT Test Environment}
+%% Adapt the test environment of the previous assignment, if
+%% necessary, for model-based testing with the selected MBT tool.
+
+
+
+\subsection{MBT Testing}
+%% Use the selected MBT tool to generate tests, and execute them on
+%% your SUT. Explain your observations and analyse the test results.
+
+\subsection{Deliverable}
+%% Give the models, code, adapters, etc. in such a way that we can run
+%% it; provide a ’README’. Be prepared to give a demo.
+
+
+\section{Comparison}
+%% Compare the selected MBT tool of this assignment with TorXakis;
+%% consider the following aspects:
+\subsection{implementation relation}
+Unlike TorXakis, With OSMO we have to manually implement some functionality.
+
+In TorXakis all we have to do is describe states and state
+transitions. After that we can run TorXakis and check our model
+against our SUT.
+
+In OSMO we have to manually generate some testing functionality. For
+instance TorXakis has support to automatic expression building (from
+simpler expressions) while with OSMO we have to write our own
+expression building algorithm.
+
+\subsection{support for test input generation as well as output checking}
+\textbf{1.}
+In TorXakis it is easier to generate input. However, this is not hard in OSMO. When generating tests, one should give OSMO a number on which it generates random steps. This number can also be used as a generator number for generating random input. Then you just do \verb|Random(number).nextInt(size)| to choose what to do next.
+
+\textbf{2.}
+Both TorXakis and OSMO allow random input generation.
+
+In TorXakis there is builtin functionality to generate input. In OSMO
+we have full acces to all java libraries. While OSMO does not come
+with such expression building tools we can and have implemented the
+generation in java.
+
+
+Output checking is easier in OSMO. 
+\subsection{support for non-determinism}
+Our model does not need non-determinism.
+
+
+\subsection{support for test input generation as well as output checking}
+
+
+\subsection{support for non-determinism}
+>>>>>>> origin/master
+\subsection{method of test selection}
+\subsection{modeling notation: its expressiveness and ease of use}
+\subsection{on-line vs. off-line testing, i.e., on-the-fly vs. batch.}
+
+%% Hints - Model-Based Testing Tools There are many MBT tools:
+%% academic and commercial (often with 30 days free trial period),
+%% using various modeling languages, with abstract models and with
+%% models as programs, on-line and off-line, supported and
+%% unsupported, serious and less serious, . . .. Have a look at
+%% websites like this one:
+%% http://robertvbinder.com/open-source-tools-for-model-based-testing
+%% or this one:
+%% http://mit.bme.hu/~micskeiz/pages/modelbased_testing.html or search
+%% on the web, or have a look at this list (underlining is used to
+%% indicate a slight preference): AETG, Agatha, Agedis, All4Tec
+%% MaTeLo, Autolink, Axini Test Manager, Conformiq Qtronic, Cooper,
+%% fMBT, Gast, Gotcha, JTorX, NModel, ParTeG, Phact/The Kit,
+%% QuickCheck, Reactis, RT-Tester, SaMsTaG, SeppMed MBTsuite,
+%% Smartesting CertifyIt, Spec Explorer, Statemate, STG, TestGen
+%% (Stirling), TestGen (INT), TestComposer, TGV, TorX, T-Vec, Uppaal
+%% Cover, Uppaal Tron, Tveda, TestOptimal, GraphWalker, Tigris, OSMO,
+%% . . .
+
+\end{document}
+
+%%  LocalWords:  OSMO SUT TorXakis
