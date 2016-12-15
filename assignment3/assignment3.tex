@@ -69,8 +69,6 @@ been if our SUT and Testing Tool were written in different languages.
 %% is easiest if you model the same part as you used in
 %%the second assignment (first MBT assignment). Explain your model.
 
-The implementation of our model can be found at GITHUBLINK.
-
 Our model is basically the same as the TorXakis model. When it starts, it repeatedly chooses an action from the following list and tests it.
 \begin{description}[labelindent=1cm]
 	\item[\textbf{Expression}] Expressions can be generated out of any combination of +,-,* and numbers. It is checked that the SUT returns the right solution to this expression.
@@ -146,6 +144,7 @@ Output checking is easier in OSMO.
 
 In OSMO
 
+<<<<<<< HEAD
 \subsection{support for non-determinism}
 Our model does not need non-determinism.
 
@@ -157,8 +156,17 @@ Our model does not need non-determinism.
 \mbox{¿}\mbox{¿}\mbox{¿}\mbox{¿}\mbox{¿}\mbox{¿}\mbox{¿}\mbox{¿}
 origin/master
 
+=======
+Output checking is easier in OSMO. In TorXakis we had to extend our test adapter to filter the output to something TorXakis could match, since the regexp expressions TorXakis offered where not strong enough.
+
+\subsection{support for non-determinism}
+Our model does not need non-determinism.
+
+>>>>>>> ac27b17d408c8a5c73f9bafaac209d51025b71ba
 \subsection{method of test selection}
+Both models allow random test selection, redoing previous random generated test selection, and walking through the model.
 \subsection{modeling notation: its expressiveness and ease of use}
+
 \subsection{on-line vs. off-line testing, i.e., on-the-fly vs. batch.}
 
 %% Hints - Model-Based Testing Tools There are many MBT tools:
