@@ -124,25 +124,20 @@ simpler expressions) while with OSMO we have to write our own
 expression building algorithm.
 
 \subsection{support for test input generation as well as output checking}
-\textbf{1.}
-In TorXakis it is easier to generate input. However, this is not hard
-in OSMO. When generating tests, one should give OSMO a number on which
-it generates random steps. This number can also be used as a generator
-number for generating random input. Then you just do
+
+Both TorXakis and OSMO allow random input generation. In TorXakis it
+is easier to generate input. However, this is not hard in OSMO. In
+TorXakis there is builtin functionality to generate input.
+
+While OSMO does not come with such expression building tools we can
+and have implemented the generation in java. When generating tests,
+one should give OSMO a number on which it generates random steps. This
+number can also be used as a generator number for generating random
+input.
+
+Then you just do
 
 \verb|Random(number).nextInt(size)| to choose what to do next.
-
-\textbf{2.}
-Both TorXakis and OSMO allow random input generation.
-
-In TorXakis there is builtin functionality to generate input. In OSMO
-we have full acces to all java libraries. While OSMO does not come
-with such expression building tools we can and have implemented the
-generation in java.
-
-Output checking is easier in OSMO.
-
-In OSMO
 
 Output checking is easier in OSMO. In TorXakis we had to extend our
 test adapter to filter the output to something TorXakis could match,
@@ -156,7 +151,23 @@ Both models allow random test selection, redoing previous random
 generated test selection, and walking through the model.
 \subsection{modeling notation: its expressiveness and ease of use}
 
+The models written with OSMO are java programs. While the syntax may
+be different from TorXakis it was significantly easier to setup
+because we were already familiar with java.
+
 \subsection{on-line vs. off-line testing, i.e., on-the-fly vs. batch.}
+
+OSMO does off-line batch testing, just like TorXakis. In OSMO we
+define a model and let OSMO compare our model with our SUT.
+
+We do not need anything more complicated. Firstly because our system
+is lightweight enough that we can easily have a session running just
+for testing. On-line testing would not allow us to test anything we
+could not easily test offline. Secondly because our system does not
+need to operate in real time. Restarting our system just to test it
+does not cause any problems. Lastly we assume our SUT is deterministic
+and only depends on user input.
+
 
 %% Hints - Model-Based Testing Tools There are many MBT tools:
 %% academic and commercial (often with 30 days free trial period),
