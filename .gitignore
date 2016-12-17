@@ -29,4 +29,6 @@ node_modules
 /assignment1/assignment1.pdf
 /assignment1/assignment1.synctex.gz
 *.pdf
-
+/assignment3/assignment3.aux
+/assignment3/assignment3.out
+/assignment3/assignment3.pdf
