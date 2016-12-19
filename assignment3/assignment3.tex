@@ -78,7 +78,7 @@ TOOL\footnote{\url{https://github.com/mukatee/osmo}}.
 This tool seemed to be the most appropriate from the list of tools
 given in the assignment desription.
 Firstly the tool is free software under the LGPL License. This allows
-us to freely use this model. Many existing tools are proprietary,
+us to freely use this software. Many existing tools are proprietary,
 requiring us to buy a license for continued use.
 Secondly the chosen tool, and its tests are written in Java. Our SUT
 is also written in Java so integration is easier than it would have
@@ -90,17 +90,20 @@ been if our SUT and Testing Tool were written in different languages.
 %% is easiest if you model the same part as you used in
 %%the second assignment (first MBT assignment). Explain your model.
 
-Our model is basically the same as the TorXakis model. When it starts, it repeatedly chooses an action from the following list and tests it.
+Our model is basically the same as the TorXakis model. The biggest difference is that here we can easily work with float values, where in TorXakis this was too troublesome to implement. This means we can actually test the build in variables within epxressions and test the built-in functions. All built-in functions use floats.
+
+When our model starts, it repeatedly chooses an action from the following list and tests it.
 \begin{description}[labelindent=1cm]
 	\item[\textbf{Expression}] Expressions can be generated out of any combination of +,-,* and numbers. It is checked that the SUT returns the right solution to this expression.
-	\item[\textbf{1/0}] TorXakis checks if the SUT really gives an error when presented with this input.
+	\item[\textbf{1/0}] OSMO checks if the SUT really gives an error when presented with this input.
 	\item[\textbf{equality}] Our model generates two expressions and asks the SUT if the first is greater, equal or smaller than the second. It then checks if the answer given back is correct.
 	\item[\textbf{exit}] This tests that giving the 'exit' commando to the SUT returns 'bye!' and that the SUT does not respond to input afterwards.
 	\item[\textbf{pi}] Checks if the definition of pi is 3.141592653589793
 	\item[\textbf{e}] Checks if the definition of e is 2.718281828459045
-	\item[\textbf{function definition}] Generates one of three premade functions and remembers it.
-	\item[\textbf{function application}] There are two options. Either the function has already been defined or not. If the function is defined, TorXakis checks if the SUT gives the right answer. Otherwise it is checked that the SUT gives the corresponding error.
-	\item[\textbf{variable definition}] Generates one of three premade variable definitions and remembers it.
+	\item[\textbf{function definition}] Generates a random function and remembers it.
+	\item[\textbf{built-in functions}] The built-in functions are checked with random input.
+	\item[\textbf{function application}] There are two options. Either the function has already been defined or not. If the function is defined, OSMO checks if the SUT gives the right answer. Otherwise it is checked that the SUT gives the corresponding error.
+	\item[\textbf{variable definition}] Generates a random variable definition and remembers it.
 	\item[\textbf{variable application}] Checks if the SUT gives the right answer if the variable has already been defined. Otherwise it checks if the SUT gives the corresponding error.
 \end{description}
 
@@ -192,16 +195,12 @@ use the command
 %% Compare the selected MBT tool of this assignment with TorXakis;
 %% consider the following aspects:
 \subsection{implementation relation}
-Unlike TorXakis, With OSMO we have to manually implement some functionality.
+Both tools miss functionality that the other tool has. However, the functionality that OSMO misses is easier to overcome.
 
-In TorXakis all we have to do is describe states and state
-transitions. After that we can run TorXakis and check our model
-against our SUT.
+For example, describing states and state transitions in OSMO is tedious, but our SUT does not have complicated state transitions.
+Another example, OSMO does not have automatic expression building, but this was easy to implement.
 
-In OSMO we have to manually generate some testing functionality. For
-instance TorXakis has support to automatic expression building (from
-simpler expressions) while with OSMO we have to write our own
-expression building algorithm.
+The problems in TorXakis are difficulties when extracting input (regexp is just not strong enough), difficulties connecting to the SUT and difficulties working with floats. All three of them heavily limited the ease of implementation.
 
 \subsection{support for test input generation as well as output checking}
 
