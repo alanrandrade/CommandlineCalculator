@@ -10,7 +10,7 @@ public class ExpressionGenerator {
     private Random random = new Random();
 
     public Expression generateSimpleExpression() {
-        return generateExpression(5);
+        return generateExpression(4);
     }
 
     private Expression generateExpression(int depth) {
