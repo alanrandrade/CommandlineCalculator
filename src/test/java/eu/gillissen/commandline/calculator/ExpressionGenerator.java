@@ -23,7 +23,7 @@ public class ExpressionGenerator {
     private Expression randomExpression(Expression left, Expression right) {
         ExpressionType type = randomExpressionType();
         if (type == ExpressionType.VALUE) {
-            return new Expression(randomValue());
+            return randomValueExpression();
         } else {
             return new Expression(type, left, right);
         }
@@ -36,6 +36,10 @@ public class ExpressionGenerator {
     private ExpressionType randomExpressionType() {
         ExpressionType[] expressionTypes = ExpressionType.values();
         return expressionTypes[random.nextInt(expressionTypes.length)];
+    }
+
+    public Expression randomValueExpression() {
+        return new Expression(randomValue());
     }
 
 }
