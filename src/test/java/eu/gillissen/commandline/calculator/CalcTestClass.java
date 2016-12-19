@@ -99,8 +99,9 @@ public class CalcTestClass {
     @TestStep("expression")
     public void testExpression() throws ParseException, MemoryException, EvaluationException {
         Expression expression = generator.generateSimpleExpression();
-        assertValueExpression(expression.eval(), expression.toString());
-        requirements.covered(CalcReq.EXPRESSION);
+        if (assertValueExpression(expression.eval(), expression.toString())) {
+            requirements.covered(CalcReq.EXPRESSION);
+        }
     }
 
     @TestStep("define function")
@@ -199,16 +200,16 @@ public class CalcTestClass {
         Integer leftResult = left.eval();
         Integer rightResult = right.eval();
         int expected = leftResult.compareTo(rightResult);
-        assertValueExpression(expected, String.format("%s = %s", left.toString(), right.toString()));
-        requirements.covered(CalcReq.EXPRESSION_EQUALITY);
+        if (assertValueExpression(expected, String.format("%s = %s", left.toString(), right.toString()))) {
+            requirements.covered(CalcReq.EXPRESSION_EQUALITY);
+        }
     }
 
     private boolean applyFromMemory(Map<String, Integer> memory, String applicationFormat) throws ParseException, MemoryException, EvaluationException {
         String name = getRandomNameNotBuiltin();
         if (memory.containsKey(name)) {
             int value = memory.get(name);
-            assertValueExpression(value, String.format(applicationFormat, name));
-            return true;
+            return assertValueExpression(value, String.format(applicationFormat, name));
         } else {
             assertMemoryError(name, String.format(applicationFormat, name));
             return false;
@@ -224,22 +225,26 @@ public class CalcTestClass {
         }
     }
 
-    private void assertValueExpression(double value, String expression) throws ParseException, MemoryException, EvaluationException {
+    private boolean assertValueExpression(double value, String expression) throws ParseException, MemoryException, EvaluationException {
         BigDecimal result = calc.parse(expression).evaluate();
         if (result.compareTo(BigDecimal.valueOf(Double.MAX_VALUE)) < 0 && result.compareTo(BigDecimal.valueOf(Double.MIN_VALUE)) > 0) {
             assertEquals(value, result.doubleValue(), 0.0005);
+            return true;
         } else {
             System.out.println("====== Double overflow, unable to assert ========");
         }
+        return false;
     }
 
-    private void assertValueExpression(int value, String expression) throws ParseException, MemoryException, EvaluationException {
+    private boolean assertValueExpression(int value, String expression) throws ParseException, MemoryException, EvaluationException {
         BigDecimal result = calc.parse(expression).evaluate();
         if (result.compareTo(BigDecimal.valueOf(Integer.MAX_VALUE)) < 0 && result.compareTo(BigDecimal.valueOf(Integer.MIN_VALUE)) > 0) {
             assertEquals(value, result.intValueExact());
+            return true;
         } else {
             System.out.println("====== Integer overflow, unable to assert ========");
         }
+        return false;
     }
 
     @TestStep("division by zero")
