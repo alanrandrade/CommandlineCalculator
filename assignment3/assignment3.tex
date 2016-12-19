@@ -112,10 +112,9 @@ When our model starts, it repeatedly chooses an action from the following list a
 \subsection{MBT Test Environment}
 %% Adapt the test environment of the previous assignment, if
 %% necessary, for model-based testing with the selected MBT tool.
-With OSMO we could easily interact with our system under test.
-
-Unlike the previous assignment we did not have to create a special
-interface to test our program.
+With OSMO we could easily interact with our system under test. Unlike
+the previous assignment we did not have to create a special interface
+to test our program.
 
 Instead we add the testing environment to our SUT directly. Our
 testing tool, and its model are written in java so we could develop it
@@ -177,24 +176,21 @@ XIf() = (8 + (((4 * 5) + 3) + ((5 - 1) + (8 - 1))))
 In the end we could test all our use cases successfully and even more
 rigorously than we did with TorXakis in the previous assignment.
 
-
 \subsection{Deliverable}
 %% Give the models, code, adapters, etc. in such a way that we can run
 %% it; provide a ’README’. Be prepared to give a demo.
 
-The code for both the SUT, the wrapper and the TorXakis models is
-publicly available at
+The code for both the SUT and our tests is publicly available at
 \url{https://github.com/Witik/CommandlineCalculator}.
 
-To start the proxy service and SUT simply run the Sockserv.jar with as
-arguments the port to run on and command that you would otherwise
-execute. If you are in the root directory of the git project you can
-use the command
+The tests will run when you build the SUT using the command line
+command \verb|mvn install|.
+
 
 \section{Comparison}
 %% Compare the selected MBT tool of this assignment with TorXakis;
 %% consider the following aspects:
-\subsection{implementation relation}
+\subsection{Implementation relation}
 Both tools miss functionality that the other tool has. However, the functionality that OSMO misses is easier to overcome.
 
 For example, describing states and state transitions in OSMO is tedious, but our SUT does not have complicated state transitions.
@@ -202,7 +198,7 @@ Another example, OSMO does not have automatic expression building, but this was 
 
 The problems in TorXakis are difficulties when extracting input (regexp is just not strong enough), difficulties connecting to the SUT and difficulties working with floats. All three of them heavily limited the ease of implementation.
 
-\subsection{support for test input generation as well as output checking}
+\subsection{Support for test input generation as well as output checking}
 
 Both TorXakis and OSMO allow random input generation. In TorXakis it
 is easier to generate input. However, this is not hard in OSMO. In
@@ -222,20 +218,20 @@ Output checking is easier in OSMO. In TorXakis we had to extend our
 test adapter to filter the output to something TorXakis could match,
 since the regexp expressions TorXakis offered where not strong enough.
 
-\subsection{support for non-determinism}
+\subsection{Support for non-determinism}
 Our SUT is fully deterministic. Therefore our model does not need
 non-determinism.
 
-\subsection{method of test selection}
+\subsection{Method of test selection}
 Both models allow random test selection, redoing previous random
 generated test selection, and walking through the model.
-\subsection{modeling notation: its expressiveness and ease of use}
+\subsection{Modeling notation: its expressiveness and ease of use}
 
 The models written with OSMO are java programs. While the syntax may
 be different from TorXakis it was significantly easier to setup
 because we were already familiar with java.
 
-\subsection{on-line vs. off-line testing, i.e., on-the-fly vs. batch.}
+\subsection{On-line vs. off-line testing, i.e., on-the-fly vs. batch.}
 
 OSMO does off-line batch testing, just like TorXakis. In OSMO we
 define a model and let OSMO compare our model with our SUT.
