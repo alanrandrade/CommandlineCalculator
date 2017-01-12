@@ -25,11 +25,95 @@
 \author{Sasja Gillissen, Martin Huijben, Martijn Terpstra}
 \date{\today}
 \title{Testing Techniques\\
-  \textbf{Assignment 4}}
+  \textbf{Assignment 4: Active Learning}}
 \hypersetup{
  pdfauthor={Sasja Gillissen, Martin Huijben, Martijn Terpstra},
  pdflang={English}}
 \begin{document}
 \maketitle
+
+%% In this assignment you will learn models of two systems: one with an userin-
+%% terface, such that it is easy to see what it does, and one without user interface.
+%% 1
+\section{Chocolate bar machine}
+%% You will learn a model of an SUT (a chocolate bar machine), by providing
+%% counterexamples to hypotheses yourself. Furthermore, you will learn the same
+%% SUT by configuring appropriate testing methods to find counterexamples for
+%% the learned models automatically.
+\subsection{Install learning setup}
+%% See the instructions from the tutorial on BlackBoard.
+\subsection{Learning methods & counterexamples}
+%% 1. Open the chocolate bar machine website in your browser and click around
+%% to see how it works.
+
+%% 2. Learn some models (you do not need to reach the complete model) with
+%% the learning methods L*, RivestShapire and TTT by providing counterex-
+%% amples yourself. What differences do you notice between the learning
+%% methods?
+
+%% 3. Choose one learning method to learn the complete model. Give all the
+%% counterexamples that you used. Also include all the hypotheses.
+
+%% 4. Why do you think you have learned the complete model? Give an argu-
+%% ment.
+
+%% 5. Start learning again with TTT. How many times can you provide the last
+%% counterexample you used in learning the complete model, as a counterex-
+%% ample in this run?
+
+%% 6. Explain, based on the theory from the lecture, why it is possible that an
+%% input trace is accepted multiple times as a counterexample.
+\subseciton{1.3}
+%% Learn fully automatically
+
+%% 1. Choose some learning method (and write this down).
+
+%% 2. Learn a model automatically with the testing methods RandomWalk,
+%% WMethod, and WpMethod. For each of the testing methods, answer
+%% the following questions:
+%% (a) After how much time does the learner stop?
+%% (b) Is the found model the same model as you learned by supplying
+%% counterexamples yourself? Why (not)?
+
+%% 3. Explain which testing method worked the best according to you.
+\section{Bounded Retransmission Protocol}
+%% The Bounded Retransmission Protocol [1] has been developed by Philips to sup-
+%% port infrared communication between a remote control and a television. There
+%% is a reference implementation of the sender of the protocol. Your task is to find
+%% out which out of six implementations built by other manufacturers conform to
+%% the reference implementation.
+%% 1. Download the jars of the reference implementations and the implementa-
+%% tions from the manufacturers from BlackBoard.
+
+%% 2. Learn a model of them all. To do this the learner must communicate via
+%% a socket (use a sul of type SocketSul). Get your IP by using
+%% InetAddress.getLoopbackAddress(), and reset the system by sending
+%% the string “reset”. The input symbols are: IACK, IREQ 0 0 0, IREQ 0 0 1,
+%% IREQ 0 1 0, IREQ 0 1 1, IREQ 1 0 0, IREQ 1 0 1, IREQ 1 1 0,
+%% IREQ 1 1 1, ISENDFRAME, ITIMEOUT. These symbols are entered
+%% with a newline. When starting a jar (by entering java -jar filename.jar
+%% in a terminal), it tells you on which port it communicates. After starting a
+%% jar, you can start the learner. The output symbols OCONF 0, OCONF 1,
+%% and OCONF 2 should all appear in the final model. For these SUTs, Ran-
+%% domWalk finds counterexample the quickest, when choosing appropriate
+%% values for BasicLearner.randomWalk chanceOfResetting and
+%% BasicLearner.randomWalk numberOfSymbols .
+
+%% 3. Download the zip brpcompare.zip and put the package of java code in
+%% your project.
+
+%% 4. To find out which of the implementations of the manufacturers is equal to
+%% the reference implementation, call the main method of BRPCompare.java
+%% on the .dot file of the model of the reference implementation and the
+%% model of a implementation of a manufacturer.
+
+%% 5. For each of the implementations of the manufacturers, write down whether
+%% they were equal, and if not, provide the counterexample.
+
+%% References
+%% [1] Helmink, Leen, Martin Paul Alexander Sellink, and Frits W. Vaandrager.
+%% “Proof-checking a data link protocol.” International Workshop on Types for
+%% Proofs and Programs. Springer Berlin Heidelberg, 1993.
+%% 2
 
 \end{document}
