@@ -21,6 +21,8 @@
 \usepackage{microtype}
 \usepackage{tikz}
 \usepackage{circuitikz}
+\usepackage{xcolor,colortbl}
+\usepackage{ tipa }
 \usetikzlibrary{tikzmark,decorations.pathmorphing}
 \author{Sasja Gillissen, Martin Huijben, Martijn Terpstra}
 \date{\today}
@@ -36,13 +38,41 @@
 %% terface, such that it is easy to see what it does, and one without user interface.
 %% 1
 \section{Chocolate bar machine}
+\subsection{The three learning algorithms}
+\subsubsection{L*}
+\newcommand{\mc}[2]{\multicolumn{#1}{c}{#2}}
+\definecolor{Gray}{gray}{0.85}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+
+\newcolumntype{a}{>{\columncolor{Gray}}c}
+\newcolumntype{b}{>{\columncolor{white}}c}
+
+\begin{tabular}{l | l l l l l l l}
+	prefix\\suffix & 10ct & 5ct & reset & mars & twix & snickers & continue \\
+	\hline
+	\rowcolor{LightCyan}
+	\textepsilon & m & no & no & - & - & - & - \\
+	10ct & mt & mt & no & mars & - & - & - \\
+	5ct & mt & m & no & - & - & - & - \\
+	\rowcolor{LightCyan}
+	reset & m & no & no & - & - & - & - \\
+	\rowcolor{Gray}
+	10ct 10ct & mts & mts & no & mars & twix & - & - \\
+	\rowcolor{Gray}
+	10ct 5ct & mts & mts & no & mars & twix & - & - \\
+	\rowcolor{LightCyan}
+	10ct reset & m & no & no & - & - & - & - \\
+	10ct mars & - & - & no & - & - & - & no \\
+	
+\end{tabular}
+\subsubsection{RivestShapire}
+\subsubsection{TTT}
+
 %% You will learn a model of an SUT (a chocolate bar machine), by providing
 %% counterexamples to hypotheses yourself. Furthermore, you will learn the same
 %% SUT by configuring appropriate testing methods to find counterexamples for
 %% the learned models automatically.
-\subsection{Install learning setup}
-%% See the instructions from the tutorial on BlackBoard.
-\subsection{Learning methods & counterexamples}
+\subsection{Learning methods \& counterexamples}
 %% 1. Open the chocolate bar machine website in your browser and click around
 %% to see how it works.
 
@@ -63,7 +93,7 @@
 
 %% 6. Explain, based on the theory from the lecture, why it is possible that an
 %% input trace is accepted multiple times as a counterexample.
-\subseciton{1.3}
+\subsection{1.3}
 %% Learn fully automatically
 
 %% 1. Choose some learning method (and write this down).
