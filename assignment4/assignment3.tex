@@ -138,23 +138,37 @@ IREQ_0_0_0/ITIMEOUT --------> OFRAME_1_0_0_0/OFRAME_1_0_1_0
 IREQ_0_0_0/ITIMEOUT --------> OFRAME_1_0_0_0/OFRAME_1_0_0_0
 \end{verbatim}
 
-\begin{tabular}
-{l | l l l l l l l l l l l l}
- prefix/suffix & \textepsilon & IACK & IREQ_0_0_0 & IREQ_0_0_1 & IREQ_0_1_0 & IREQ_0_1_1 & IREQ_1_0_0 & IREQ_1_0_1 & IREQ_1_1_0 & IREQ_1_1_1 & ISENDFRAME & ITIMEOUT\\
+
+{\footnotesize\begin{tabular}{l | l l l l l l l l l l l l}
+ prefix/suffix & \begin{rotate}{60} \textepsilon \end{rotate} & \begin{rotate}{60} IACK \end{rotate} & \begin{rotate}{60} IREQ_0_0_0 \end{rotate} & \begin{rotate}{60} IREQ_0_0_1 \end{rotate} & \begin{rotate}{60} IREQ_0_1_0 \end{rotate} & \begin{rotate}{60} IREQ_0_1_1 \end{rotate} & \begin{rotate}{60} IREQ_1_0_0 \end{rotate} & \begin{rotate}{60} IREQ_1_0_1 \end{rotate} & \begin{rotate}{60} IREQ_1_1_0 \end{rotate} & \begin{rotate}{60} IREQ_1_1_1 \end{rotate} & \begin{rotate}{60} ISENDFRAME \end{rotate} & \begin{rotate}{60} ITIMEOUT \end{rotate}\\
 \hline
+\rowcolor{Gray}
 \textepsilon & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+\rowcolor{Gray}
 IACK & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+\rowcolor{Gray}
 IREQ_0_0_0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+\rowcolor{Gray}
 IREQ_0_0_1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+\rowcolor{Gray}
 IREQ_0_1_0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+\rowcolor{Gray}
 IREQ_0_1_1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+\rowcolor{Gray}
 IREQ_1_0_0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+\rowcolor{Gray}
 IREQ_1_0_1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+\rowcolor{Gray}
 IREQ_1_1_0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+\rowcolor{Gray}
 IREQ_1_1_1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+\rowcolor{LightCyan}
 ISENDFRAME & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\rowcolor{Gray}
 ITIMEOUT & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
 \end{tabular}
+}
+
 
 
 %% 3. Download the zip brpcompare.zip and put the package of java code in
