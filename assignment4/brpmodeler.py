@@ -3,7 +3,6 @@
 import sys
 import socket
 
-MAX_TRACE_LENGTH = 1
 COMMANDS = [b"IACK\n", b"IREQ_0_0_0\n", b"IREQ_0_0_1\n", b"IREQ_0_1_0\n",
             b"IREQ_0_1_1\n", b"IREQ_1_0_0\n", b"IREQ_1_0_1\n", b"IREQ_1_1_0\n",
             b"IREQ_1_1_1\n", b"ISENDFRAME\n", b"ITIMEOUT\n"]
@@ -37,18 +36,29 @@ def valid_path(path,s):
     return True
 
 
-traces = list(gen_traces(COMMANDS,MAX_TRACE_LENGTH))
+prefix_traces = list(gen_traces(COMMANDS,1))
+suffix_traces = list(gen_traces(COMMANDS,1))
 
-# print to stdout latex code for a nice table
 def printable_trace(trace):
     if trace:
-        return "/".join([cmd[:-1].decode("utf-8") for cmd in trace])
+        return " ".join([cmd[:-1].decode("utf-8") for cmd in trace])
     else:
-        return "ε"
+        return "\\textepsilon"
 
-for y,prefix in enumerate(traces):
-    sys.stdout.write("%20s"%printable_trace(prefix))
-    for x,suffix in enumerate(traces):
-        sys.stdout.write(" 1" if valid_path(prefix + suffix,s) else " 0")
-    sys.stdout.write("\n")
+# print to stdout latex code for a nice tabl
+
+sys.stdout.write("\\begin{tabular}\n{l |")
+sys.stdout.write(" l"*len(suffix_traces))
+sys.stdout.write("}\n prefix/suffix & ")
+sys.stdout.write(" & ".join([printable_trace(t) for t in suffix_traces]))
+sys.stdout.write("\\\\\n\\hline\n")
+for y,prefix in enumerate(prefix_traces):
+    suffix_results = [valid_path(prefix + suffix,s) for suffix in suffix_traces]
+    sys.stdout.write( printable_trace(prefix))
+    for x,result in enumerate(suffix_results):
+        sys.stdout.write(" & 1" if result else " & 0")
+    sys.stdout.write("\\\\\n")
 s.close()
+
+
+sys.stdout.write("\end{tabular}\n")

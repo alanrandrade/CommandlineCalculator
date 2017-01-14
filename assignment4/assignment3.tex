@@ -63,7 +63,7 @@
 	\rowcolor{LightCyan}
 	10ct reset & m & no & no & - & - & - & - \\
 	10ct mars & - & - & no & - & - & - & no \\
-	
+
 \end{tabular}
 \subsubsection{RivestShapire}
 \subsubsection{TTT}
@@ -137,6 +137,24 @@ IREQ_0_0_0/ITIMEOUT --------> OFRAME_1_0_0_0/OFRAME_1_0_1_0
 \begin{verbatim}
 IREQ_0_0_0/ITIMEOUT --------> OFRAME_1_0_0_0/OFRAME_1_0_0_0
 \end{verbatim}
+
+\begin{tabular}
+{l | l l l l l l l l l l l l}
+ prefix/suffix & \textepsilon & IACK & IREQ_0_0_0 & IREQ_0_0_1 & IREQ_0_1_0 & IREQ_0_1_1 & IREQ_1_0_0 & IREQ_1_0_1 & IREQ_1_1_0 & IREQ_1_1_1 & ISENDFRAME & ITIMEOUT\\
+\hline
+\textepsilon & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+IACK & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+IREQ_0_0_0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+IREQ_0_0_1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+IREQ_0_1_0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+IREQ_0_1_1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+IREQ_1_0_0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+IREQ_1_0_1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+IREQ_1_1_0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+IREQ_1_1_1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+ISENDFRAME & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+ITIMEOUT & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
+\end{tabular}
 
 
 %% 3. Download the zip brpcompare.zip and put the package of java code in
