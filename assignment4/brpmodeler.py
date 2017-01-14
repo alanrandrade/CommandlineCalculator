@@ -3,7 +3,7 @@
 import sys
 import socket
 
-MAX_TRACE_LENGTH = 2
+MAX_TRACE_LENGTH = 1
 COMMANDS = [b"IACK\n", b"IREQ_0_0_0\n", b"IREQ_0_0_1\n", b"IREQ_0_1_0\n",
             b"IREQ_0_1_1\n", b"IREQ_1_0_0\n", b"IREQ_1_0_1\n", b"IREQ_1_1_0\n",
             b"IREQ_1_1_1\n", b"ISENDFRAME\n", b"ITIMEOUT\n"]
@@ -17,24 +17,38 @@ else:                           # defaults to this on my system
 
 def gen_traces(cmds,max_length,current=[]):
     "Generate all combination of commands up to a maximum length"
+    yield current
     if max_length > 0:
         for cmd in cmds:
-            yield current + [cmd]
             for trace in gen_traces(cmds, max_length-1, current + [cmd]):
                 yield trace
 
 s = socket.socket()
 s.connect((host,port))
 
-for input_trace in gen_traces(COMMANDS,MAX_TRACE_LENGTH):
-    output_trace = []
+
+def valid_path(path,s):
     s.send(b"reset\n")          # reset before every trace
-    for cmd in input_trace:
+    for cmd in path:
         s.send(cmd)
-        output_trace.append(s.recv(1024))
+        response = (s.recv(1024))
+        if response == b'Oquiescence\n':
+            return False
+    return True
 
-    fancy_input_display  = "/".join(map(lambda x:x.decode("utf-8")[:-1],input_trace))
-    fancy_output_display = "/".join(map(lambda x:x.decode("utf-8")[:-1],output_trace))
 
-    print(fancy_input_display + " --------> " + fancy_output_display)
+traces = list(gen_traces(COMMANDS,MAX_TRACE_LENGTH))
+
+# print to stdout latex code for a nice table
+def printable_trace(trace):
+    if trace:
+        return "/".join([cmd[:-1].decode("utf-8") for cmd in trace])
+    else:
+        return "ε"
+
+for y,prefix in enumerate(traces):
+    sys.stdout.write("%20s"%printable_trace(prefix))
+    for x,suffix in enumerate(traces):
+        sys.stdout.write(" 1" if valid_path(prefix + suffix,s) else " 0")
+    sys.stdout.write("\n")
 s.close()
