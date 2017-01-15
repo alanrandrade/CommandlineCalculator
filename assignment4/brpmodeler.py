@@ -45,7 +45,8 @@ def valid_path(path,s):
     return False
 
 
-row_colors = ["red!50","blue!50","green!50","yellow!50","magenta!50","cyan!50",
+row_colors = ["white",
+              "red!50","blue!50","green!50","yellow!50","magenta!50","cyan!50",
               "red!20","blue!20","green!20","yellow!20","magenta!20","cyan!20",
               "gray!50","gray!40","gray!30","gray!20","gray!10","gray!0",]
 row_colors_index = 0
