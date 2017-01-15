@@ -2,6 +2,7 @@
 
 import sys
 import socket
+import hashlib
 
 PREFIX_MAX_LENGTH = 1
 SUFFIX_MAX_LENGTH = 1
@@ -27,25 +28,26 @@ def gen_traces(cmds,max_length,current=[]):
 
 def printable_trace(trace):
     if trace:
-        return " ".join([cmd[:-1].decode("utf-8") for cmd in trace])
+        return " ".join([cmd[:-1].decode("utf-8").replace("_","-") for cmd in trace])
     else:
         return "\\textepsilon"
 
 def valid_path(path,s):
     s.send(b"reset\n")          # reset before every trace
+    response = False
     for cmd in path:
         s.send(cmd)
         response = (s.recv(1024))
         if response == b'Oquiescence\n':
             return False
-    return True
+    if response:
+        return response.decode("utf-8")[-6:-1].replace("_","-")
+    return False
 
 
-row_colors = ["Gray",
-              "LightCyan",
-              "RubineRed",
-              "orange",
-              "green"]
+row_colors = ["red!50","blue!50","green!50","yellow!50","magenta!50","cyan!50",
+              "red!20","blue!20","green!20","yellow!20","magenta!20","cyan!20",
+              "gray!50","gray!40","gray!30","gray!20","gray!10","gray!0",]
 row_colors_index = 0
 row_dict = {}
 
@@ -66,24 +68,26 @@ s.connect((host,port))
 prefix_traces = list(gen_traces(COMMANDS,PREFIX_MAX_LENGTH))
 suffix_traces = list(gen_traces(COMMANDS,SUFFIX_MAX_LENGTH))
 
-
+signature = hashlib.sha1()
 
 # print to stdout latex code for a nice tabl
 
 sys.stdout.write("{\\footnotesize")
-sys.stdout.write("\\begin{tabular}{l |")
+# sys.stdout.write("{\\tiny")
+sys.stdout.write("\\begin{longtable}{l |")
 sys.stdout.write(" l"*len(suffix_traces))
 sys.stdout.write("}\n prefix/suffix & ")
-sys.stdout.write(" & ".join(["\\begin{rotate}{60} %s \\end{rotate}"%printable_trace(t) for t in suffix_traces]))
+sys.stdout.write(" & ".join(["\\begin{rotate}{30} %s \\end{rotate}"%printable_trace(t) for t in suffix_traces]))
 sys.stdout.write("\\\\\n\\hline\n")
 for y,prefix in enumerate(prefix_traces):
     suffix_results = [valid_path(prefix + suffix,s) for suffix in suffix_traces]
     sys.stdout.write("\\rowcolor{%s}\n"%gen_row_color(str(suffix_results)))
     sys.stdout.write( printable_trace(prefix))
+    signature.update(repr(prefix).encode("utf-8") + repr(suffix_results).encode("utf-8"))
     for x,result in enumerate(suffix_results):
-        sys.stdout.write(" & 1" if result else " & 0")
+        sys.stdout.write(" & \-" if result else " & \\delta")
     sys.stdout.write("\\\\\n")
 s.close()
 
-
-sys.stdout.write("\end{tabular}\n}\n")
+sys.stdout.write("\end{longtable}\n}\n")
+sys.stdout.write("%% sha1 of table results: %s"%signature.hexdigest())

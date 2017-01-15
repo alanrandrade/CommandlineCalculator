@@ -1,28 +1,30 @@
 \documentclass[11pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 %\usepackage[T1]{fontenc}
-\usepackage{graphicx}
-\usepackage{longtable}
-\usepackage{float}
-\usepackage{wrapfig}
-\usepackage{rotating}
-\usepackage{enumitem}
+\bibliographystyle{plain}
+\tolerance=1000
 \usepackage[normalem]{ulem}
+\usepackage{ tipa }
 \usepackage{amsmath}
-\usepackage{textcomp}
-\usepackage{marvosym}
-\usepackage{wasysym}
 \usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{circuitikz}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{listings}
-\usepackage{verbatim}
-\tolerance=1000
-\bibliographystyle{plain}
+\usepackage{longtable}
+\usepackage{ltablex}
+\usepackage{marvosym}
 \usepackage{microtype}
+\usepackage{rotating}
+\usepackage{textcomp}
 \usepackage{tikz}
-\usepackage{circuitikz}
+\usepackage{verbatim}
+\usepackage{wasysym}
+\usepackage{wrapfig}
 \usepackage{xcolor,colortbl}
-\usepackage{ tipa }
 \usetikzlibrary{tikzmark,decorations.pathmorphing}
 \author{Sasja Gillissen, Martin Huijben, Martijn Terpstra}
 \date{\today}
@@ -129,45 +131,247 @@
 %% values for BasicLearner.randomWalk chanceOfResetting and
 %% BasicLearner.randomWalk numberOfSymbols .
 
-After a 2 inputs Mutant1 has show to be be different in at least one trace
+To compare the implementations I wrote a simple python script that
+checks the outputs for various prefixes and suffixes.
 
-\begin{verbatim}
-IREQ_0_0_0/ITIMEOUT --------> OFRAME_1_0_0_0/OFRAME_1_0_1_0
-\end{verbatim}
-\begin{verbatim}
-IREQ_0_0_0/ITIMEOUT --------> OFRAME_1_0_0_0/OFRAME_1_0_0_0
-\end{verbatim}
+The resultign henkel matrices can be found in the appendix. Right now
+these henkel matrices only go up to 2 commands deep.
+
+To quickly compare henkel matrices I digested a sha1hash for all results
+
+\begin{itemize}
+\item Reference: b5389e1403e81c3e69610a009d1b3a698ef89a94
+\item Mutant1: 5d2dc7ee40800be15c96767f829ae4b69045e39b
+\item Mutant2: b5389e1403e81c3e69610a009d1b3a698ef89a94
+\item Mutant3: b5389e1403e81c3e69610a009d1b3a698ef89a94
+\item Mutant4: b5389e1403e81c3e69610a009d1b3a698ef89a94
+\item Mutant5: b5389e1403e81c3e69610a009d1b3a698ef89a94
+\item Mutant6: b5389e1403e81c3e69610a009d1b3a698ef89a94
+\end{itemize}
+
+From this we can see that in the first two command given only Mutant1
+can be distinguished.
 
 
-{\footnotesize\begin{tabular}{l | l l l l l l l l l l l l}
- prefix/suffix & \begin{rotate}{60} \textepsilon \end{rotate} & \begin{rotate}{60} IACK \end{rotate} & \begin{rotate}{60} IREQ_0_0_0 \end{rotate} & \begin{rotate}{60} IREQ_0_0_1 \end{rotate} & \begin{rotate}{60} IREQ_0_1_0 \end{rotate} & \begin{rotate}{60} IREQ_0_1_1 \end{rotate} & \begin{rotate}{60} IREQ_1_0_0 \end{rotate} & \begin{rotate}{60} IREQ_1_0_1 \end{rotate} & \begin{rotate}{60} IREQ_1_1_0 \end{rotate} & \begin{rotate}{60} IREQ_1_1_1 \end{rotate} & \begin{rotate}{60} ISENDFRAME \end{rotate} & \begin{rotate}{60} ITIMEOUT \end{rotate}\\
+\part{Appendix}
+\subsection{Henkel matrices}
+\subsubsection{Reference implementations}
+{\footnotesize\begin{longtable}{l | l l l l l l l l l l l l}
+ prefix/suffix & \begin{rotate}{30} \textepsilon \end{rotate} & \begin{rotate}{30} IACK \end{rotate} & \begin{rotate}{30} IREQ-0-0-0 \end{rotate} & \begin{rotate}{30} IREQ-0-0-1 \end{rotate} & \begin{rotate}{30} IREQ-0-1-0 \end{rotate} & \begin{rotate}{30} IREQ-0-1-1 \end{rotate} & \begin{rotate}{30} IREQ-1-0-0 \end{rotate} & \begin{rotate}{30} IREQ-1-0-1 \end{rotate} & \begin{rotate}{30} IREQ-1-1-0 \end{rotate} & \begin{rotate}{30} IREQ-1-1-1 \end{rotate} & \begin{rotate}{30} ISENDFRAME \end{rotate} & \begin{rotate}{30} ITIMEOUT \end{rotate}\\
 \hline
-\rowcolor{Gray}
-\textepsilon & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
-\rowcolor{Gray}
-IACK & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
-\rowcolor{Gray}
-IREQ_0_0_0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
-\rowcolor{Gray}
-IREQ_0_0_1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
-\rowcolor{Gray}
-IREQ_0_1_0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
-\rowcolor{Gray}
-IREQ_0_1_1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
-\rowcolor{Gray}
-IREQ_1_0_0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
-\rowcolor{Gray}
-IREQ_1_0_1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
-\rowcolor{Gray}
-IREQ_1_1_0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
-\rowcolor{Gray}
-IREQ_1_1_1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
-\rowcolor{LightCyan}
-ISENDFRAME & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-\rowcolor{Gray}
-ITIMEOUT & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1\\
-\end{tabular}
+\rowcolor{red!50}
+\textepsilon & \delta & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{blue!50}
+IACK & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{green!50}
+IREQ-0-0-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{green!50}
+IREQ-0-0-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{yellow!50}
+IREQ-0-1-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{yellow!50}
+IREQ-0-1-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{magenta!50}
+IREQ-1-0-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{magenta!50}
+IREQ-1-0-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{cyan!50}
+IREQ-1-1-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{cyan!50}
+IREQ-1-1-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{red!20}
+ISENDFRAME & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta\\
+\rowcolor{blue!50}
+ITIMEOUT & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\end{longtable}
 }
+% sha1 of table results: b5389e1403e81c3e69610a009d1b3a698ef89a94
+\subsubsection{Mutant 1}
+{\footnotesize\begin{longtable}{l | l l l l l l l l l l l l}
+ prefix/suffix & \begin{rotate}{30} \textepsilon \end{rotate} & \begin{rotate}{30} IACK \end{rotate} & \begin{rotate}{30} IREQ-0-0-0 \end{rotate} & \begin{rotate}{30} IREQ-0-0-1 \end{rotate} & \begin{rotate}{30} IREQ-0-1-0 \end{rotate} & \begin{rotate}{30} IREQ-0-1-1 \end{rotate} & \begin{rotate}{30} IREQ-1-0-0 \end{rotate} & \begin{rotate}{30} IREQ-1-0-1 \end{rotate} & \begin{rotate}{30} IREQ-1-1-0 \end{rotate} & \begin{rotate}{30} IREQ-1-1-1 \end{rotate} & \begin{rotate}{30} ISENDFRAME \end{rotate} & \begin{rotate}{30} ITIMEOUT \end{rotate}\\
+\hline
+\rowcolor{red!50}
+\textepsilon & \delta & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{blue!50}
+IACK & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{green!50}
+IREQ-0-0-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{green!50}
+IREQ-0-0-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{yellow!50}
+IREQ-0-1-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{yellow!50}
+IREQ-0-1-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{magenta!50}
+IREQ-1-0-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{magenta!50}
+IREQ-1-0-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{cyan!50}
+IREQ-1-1-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{cyan!50}
+IREQ-1-1-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{red!20}
+ISENDFRAME & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta\\
+\rowcolor{blue!50}
+ITIMEOUT & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\end{longtable}
+}
+% sha1 of table results: 5d2dc7ee40800be15c96767f829ae4b69045e39b
+\subsubsection{Mutant 2}
+{\footnotesize\begin{longtable}{l | l l l l l l l l l l l l}
+ prefix/suffix & \begin{rotate}{30} \textepsilon \end{rotate} & \begin{rotate}{30} IACK \end{rotate} & \begin{rotate}{30} IREQ-0-0-0 \end{rotate} & \begin{rotate}{30} IREQ-0-0-1 \end{rotate} & \begin{rotate}{30} IREQ-0-1-0 \end{rotate} & \begin{rotate}{30} IREQ-0-1-1 \end{rotate} & \begin{rotate}{30} IREQ-1-0-0 \end{rotate} & \begin{rotate}{30} IREQ-1-0-1 \end{rotate} & \begin{rotate}{30} IREQ-1-1-0 \end{rotate} & \begin{rotate}{30} IREQ-1-1-1 \end{rotate} & \begin{rotate}{30} ISENDFRAME \end{rotate} & \begin{rotate}{30} ITIMEOUT \end{rotate}\\
+\hline
+\rowcolor{red!50}
+\textepsilon & \delta & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{blue!50}
+IACK & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{green!50}
+IREQ-0-0-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{green!50}
+IREQ-0-0-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{yellow!50}
+IREQ-0-1-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{yellow!50}
+IREQ-0-1-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{magenta!50}
+IREQ-1-0-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{magenta!50}
+IREQ-1-0-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{cyan!50}
+IREQ-1-1-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{cyan!50}
+IREQ-1-1-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{red!20}
+ISENDFRAME & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta\\
+\rowcolor{blue!50}
+ITIMEOUT & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\end{longtable}
+}
+% sha1 of table results: b5389e1403e81c3e69610a009d1b3a698ef89a94
+\subsubsection{Mutant 3}
+{\footnotesize\begin{longtable}{l | l l l l l l l l l l l l}
+ prefix/suffix & \begin{rotate}{30} \textepsilon \end{rotate} & \begin{rotate}{30} IACK \end{rotate} & \begin{rotate}{30} IREQ-0-0-0 \end{rotate} & \begin{rotate}{30} IREQ-0-0-1 \end{rotate} & \begin{rotate}{30} IREQ-0-1-0 \end{rotate} & \begin{rotate}{30} IREQ-0-1-1 \end{rotate} & \begin{rotate}{30} IREQ-1-0-0 \end{rotate} & \begin{rotate}{30} IREQ-1-0-1 \end{rotate} & \begin{rotate}{30} IREQ-1-1-0 \end{rotate} & \begin{rotate}{30} IREQ-1-1-1 \end{rotate} & \begin{rotate}{30} ISENDFRAME \end{rotate} & \begin{rotate}{30} ITIMEOUT \end{rotate}\\
+\hline
+\rowcolor{red!50}
+\textepsilon & \delta & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{blue!50}
+IACK & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{green!50}
+IREQ-0-0-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{green!50}
+IREQ-0-0-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{yellow!50}
+IREQ-0-1-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{yellow!50}
+IREQ-0-1-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{magenta!50}
+IREQ-1-0-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{magenta!50}
+IREQ-1-0-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{cyan!50}
+IREQ-1-1-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{cyan!50}
+IREQ-1-1-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{red!20}
+ISENDFRAME & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta\\
+\rowcolor{blue!50}
+ITIMEOUT & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\end{longtable}
+}
+% sha1 of table results: b5389e1403e81c3e69610a009d1b3a698ef89a94
+\subsubsection{Mutant 4}
+{\footnotesize\begin{longtable}{l | l l l l l l l l l l l l}
+ prefix/suffix & \begin{rotate}{30} \textepsilon \end{rotate} & \begin{rotate}{30} IACK \end{rotate} & \begin{rotate}{30} IREQ-0-0-0 \end{rotate} & \begin{rotate}{30} IREQ-0-0-1 \end{rotate} & \begin{rotate}{30} IREQ-0-1-0 \end{rotate} & \begin{rotate}{30} IREQ-0-1-1 \end{rotate} & \begin{rotate}{30} IREQ-1-0-0 \end{rotate} & \begin{rotate}{30} IREQ-1-0-1 \end{rotate} & \begin{rotate}{30} IREQ-1-1-0 \end{rotate} & \begin{rotate}{30} IREQ-1-1-1 \end{rotate} & \begin{rotate}{30} ISENDFRAME \end{rotate} & \begin{rotate}{30} ITIMEOUT \end{rotate}\\
+\hline
+\rowcolor{red!50}
+\textepsilon & \delta & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{blue!50}
+IACK & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{green!50}
+IREQ-0-0-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{green!50}
+IREQ-0-0-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{yellow!50}
+IREQ-0-1-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{yellow!50}
+IREQ-0-1-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{magenta!50}
+IREQ-1-0-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{magenta!50}
+IREQ-1-0-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{cyan!50}
+IREQ-1-1-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{cyan!50}
+IREQ-1-1-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{red!20}
+ISENDFRAME & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta\\
+\rowcolor{blue!50}
+ITIMEOUT & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\end{longtable}
+}
+% sha1 of table results: b5389e1403e81c3e69610a009d1b3a698ef89a94
+\subsubsection{Mutant 5}
+{\footnotesize\begin{longtable}{l | l l l l l l l l l l l l}
+ prefix/suffix & \begin{rotate}{30} \textepsilon \end{rotate} & \begin{rotate}{30} IACK \end{rotate} & \begin{rotate}{30} IREQ-0-0-0 \end{rotate} & \begin{rotate}{30} IREQ-0-0-1 \end{rotate} & \begin{rotate}{30} IREQ-0-1-0 \end{rotate} & \begin{rotate}{30} IREQ-0-1-1 \end{rotate} & \begin{rotate}{30} IREQ-1-0-0 \end{rotate} & \begin{rotate}{30} IREQ-1-0-1 \end{rotate} & \begin{rotate}{30} IREQ-1-1-0 \end{rotate} & \begin{rotate}{30} IREQ-1-1-1 \end{rotate} & \begin{rotate}{30} ISENDFRAME \end{rotate} & \begin{rotate}{30} ITIMEOUT \end{rotate}\\
+\hline
+\rowcolor{red!50}
+\textepsilon & \delta & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{blue!50}
+IACK & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{green!50}
+IREQ-0-0-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{green!50}
+IREQ-0-0-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{yellow!50}
+IREQ-0-1-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{yellow!50}
+IREQ-0-1-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{magenta!50}
+IREQ-1-0-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{magenta!50}
+IREQ-1-0-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{cyan!50}
+IREQ-1-1-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{cyan!50}
+IREQ-1-1-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{red!20}
+ISENDFRAME & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta\\
+\rowcolor{blue!50}
+ITIMEOUT & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\end{longtable}
+}
+% sha1 of table results: b5389e1403e81c3e69610a009d1b3a698ef89a94
+\subsubsection{Mutant 6}
+{\footnotesize\begin{longtable}{l | l l l l l l l l l l l l}
+ prefix/suffix & \begin{rotate}{30} \textepsilon \end{rotate} & \begin{rotate}{30} IACK \end{rotate} & \begin{rotate}{30} IREQ-0-0-0 \end{rotate} & \begin{rotate}{30} IREQ-0-0-1 \end{rotate} & \begin{rotate}{30} IREQ-0-1-0 \end{rotate} & \begin{rotate}{30} IREQ-0-1-1 \end{rotate} & \begin{rotate}{30} IREQ-1-0-0 \end{rotate} & \begin{rotate}{30} IREQ-1-0-1 \end{rotate} & \begin{rotate}{30} IREQ-1-1-0 \end{rotate} & \begin{rotate}{30} IREQ-1-1-1 \end{rotate} & \begin{rotate}{30} ISENDFRAME \end{rotate} & \begin{rotate}{30} ITIMEOUT \end{rotate}\\
+\hline
+\rowcolor{red!50}
+\textepsilon & \delta & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{blue!50}
+IACK & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{green!50}
+IREQ-0-0-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{green!50}
+IREQ-0-0-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{yellow!50}
+IREQ-0-1-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{yellow!50}
+IREQ-0-1-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{magenta!50}
+IREQ-1-0-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{magenta!50}
+IREQ-1-0-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{cyan!50}
+IREQ-1-1-0 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{cyan!50}
+IREQ-1-1-1 & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\rowcolor{red!20}
+ISENDFRAME & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta & \delta\\
+\rowcolor{blue!50}
+ITIMEOUT & \- & \- & \- & \- & \- & \- & \- & \- & \- & \- & \delta & \-\\
+\end{longtable}
+}
+% sha1 of table results: b5389e1403e81c3e69610a009d1b3a698ef89a94
 
 
 
