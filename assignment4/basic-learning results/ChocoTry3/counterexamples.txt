@@ -1,0 +1,26 @@
+0:
+Query[ε|snickers 5ct mars mars twix twix 5ct twix 5ct twix / NOK OK NOK NOK NOK NOK OK NOK OK OK]
+
+
+1:
+Query[ε|5ct 10ct 10ct 5ct snickers / OK OK OK OK OK]
+
+
+2:
+Query[ε|10ct twix mars 10ct twix 10ct twix 5ct mars / OK NOK OK OK NOK OK OK OK OK]
+
+
+3:
+Query[ε|mars 10ct mars mars 5ct 10ct twix 5ct mars 10ct 5ct mars snickers twix snickers twix snickers 10ct 10ct mars 5ct twix snickers 5ct mars 5ct mars / NOK OK OK NOK OK OK OK OK NOK OK OK OK NOK NOK NOK NOK NOK OK OK OK OK OK NOK OK OK OK OK]
+
+
+4:
+Query[ε|5ct 5ct 5ct 5ct mars mars twix 10ct 10ct twix 10ct mars 10ct 10ct 10ct mars 10ct 10ct 5ct / OK OK OK OK OK OK NOK OK OK OK OK OK OK OK OK OK OK OK NOK]
+
+
+5: 
+Query[ε|mars 5ct twix 5ct 5ct snickers 10ct 10ct 10ct snickers 5ct snickers / NOK OK NOK OK OK NOK OK OK OK OK OK OK]
+
+
+6: 
+Query[ε|snickers 5ct 10ct snickers 5ct 10ct 5ct 10ct twix snickers / NOK OK OK NOK OK OK OK NOK OK NOK]
