@@ -38,7 +38,9 @@
 
 In this assignment we learned the models of two systems. First we
 modeled a Chocolate bar machine that ran in a web browser. Secondly we
-tested a command line implementation of the Bounded Retransmission Protocol.
+tested a command line implementation of the Bounded Retransmission Protocol. 
+
+Our code can be found at \url{https://github.com/Witik/CommandlineCalculator}.
 
 \section{Chocolate bar machine}
 The chocolate bar machine is a JavaScript web application that modeled
@@ -72,7 +74,7 @@ easy to find, maybe L* and TTT are better.
 %% After that we started on automated testing.
 
 \subsection{Learning a full model}
-We chose RivestShapire, because it is huge and seems to be finished
+We chose RivestShapire. With 9 states after 1 counterexample, it grows exceptionally fast. Even better, we are convinced the generated model is already complete, meaning that we do not need to give more counterexamples.
 
 The counterexamples we gave are:
 \begin{itemize}
@@ -135,6 +137,8 @@ while TTT did find an example.
 
 The remaining implementations, mutant 3 and mutant 5, did not have
 counterexamples so they are equal to the reference implementation.
+
+Our tests can be found in the map basic-learning results.
 
 %% \subsection{Finding out which implementation is equal to which reference implementation}
 %% find out which of the implementations of the manufacturers is equal
