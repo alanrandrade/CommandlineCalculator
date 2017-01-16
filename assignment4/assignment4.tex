@@ -71,11 +71,19 @@ easy to find, maybe L* and TTT are better.
 
 %% After that we started on automated testing.
 
-\subsection{counterexamples}
-%% 3. Choose one learning method to learn the complete model. Give all the
-%% counterexamples that you used. Also include all the hypotheses.
+\subsection{Learning a full model}
+We chose RivestShapire, because it is huge and seems to be finished
 
-\subsection{Why this model is correct}
+The counterexamples we gave are:
+\begin{itemize}
+	\item 10ct mars
+\end{itemize}
+
+The hypotheses can be found in the map basic-learning results in the map with the name of the learning method.
+
+\subsection{Why is this model complete?}
+We stated in the beginning that the highest amount of money in the machine is 45ct. This would mean that there are 10 possible states, each where we add 5ct until we have 45ct. But 45ct can not be reached by clicking only 5ct. So there has to be less states. RivestShapire has 9 states, so there can't possibly be more states. Also, from every state it seems that 5ct sends us to one state higher, 10ct sends us to two states higher and buying stuff lowers us. 
+
 %% 4. Why do you think you have learned the complete model? Give an
 %% argument.
 
@@ -86,18 +94,13 @@ easy to find, maybe L* and TTT are better.
 %% 6. Explain, based on the theory from the lecture, why it is possible that an
 %% input trace is accepted multiple times as a counterexample.
 
-\subsection{Results of automatic learning}
-%% 1. Choose some learning method (and write this down).
+\subsection{Giving TTT our last counterexample}
+Our last counterexample is 10ct mars. We can provide it only once. It does not give the right model.
+We also tried giving something larger: snickers 5ct 10ct snickers 5ct 10ct 5ct 10ct twix snickers.
+Still, TTT accepts this only once. It generates 9 states, giving it a high probability of being a complete model.
 
-%% 2. Learn a model automatically with the testing methods RandomWalk,
-%% Learn a model of them reference implementations (jars)
-%%, answer
-%% the following questions:
-%% (a) After how much time does the learner stop?
-%% (b) Is the found model the same model as you learned by supplying
-%% counterexamples yourself? Why (not)?
-
-%% 3. Explain which testing method worked the best according to you.
+\subsection{giving a counterexample multiple times}
+We have no idea. We did not find a counterexample that TTT accepts more than once.
 
 We think RandomWalk is the best testing method. This is because the
 other testing methods did not finish within a reasonable time.
