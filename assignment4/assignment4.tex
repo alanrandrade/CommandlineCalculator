@@ -69,6 +69,9 @@ can insert before the system refuses new coins varies between 0,35 and
 
 \subsection{Manual counterexamples}
 We tested the three learning methods L*, RivestShapire and TTT. 
+After the first step, rivestshapire and ttt were just had one state. L* has three states. As a counterexample for RivestShapire and TTT we added '10ct mars' which gives OK instead of NOK.
+A step later RivestShapire has 9 states, TTT three states. It is clear that RivestShapire needs a lot less counterexamples. L* is now 4 states. It had a good start, but is now slowing down.
+Suppose that counterexamples are hard to find, RivestShapire has a clear advantage over L* and TTT. Although RivestShapire does take a lot of time to get to those 9 states. This means that if counterexamples are easy to find, maybe L* and TTT are better, but this has to be tested.
 %% After that we started on automated testing.
 
 \subsection{counterexamples}
@@ -91,7 +94,7 @@ We tested the three learning methods L*, RivestShapire and TTT.
 
 %% 2. Learn a model automatically with the testing methods RandomWalk,
 %% Learn a model of them reference implementations (jars)
-, answer
+%%, answer
 %% the following questions:
 %% (a) After how much time does the learner stop?
 %% (b) Is the found model the same model as you learned by supplying
