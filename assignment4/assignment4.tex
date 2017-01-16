@@ -74,17 +74,21 @@ easy to find, maybe L* and TTT are better.
 %% After that we started on automated testing.
 
 \subsection{Learning a full model}
-We chose RivestShapire. With 9 states after 1 counterexample, it grows exceptionally fast. Even better, we are convinced the generated model is already complete, meaning that we do not need to give more counterexamples.
+We chose RivestShapire. 
 
 The counterexamples we gave are:
 \begin{itemize}
-	\item 10ct mars
+	\item 10ct mars, a simple start
+	\item 5ct 5t 5ct 5ct 5ct 5ct 5ct 5ct 5ct, doing 5ct 9 times is not allowed.
+	\item 5ct 5ct 5ct 5ct 5ct 10ct mars mars mars 5ct mars, we noticed that state 5 can be reached by putting in 30ct as well as 35 ct and can go to zero again by spending 30ct.
+	\item 10ct 10ct 10ct 5ct 10ct 5ct mars 10ct 5ct mars 10ct 5ct mars 10ct 5ct mars, we found an infinite loop where putting in 15 ct and buying a mars returns you to the same state. This is ofcourse not true.
+	\item 5ct 10ct 10ct 10ct 10ct twix mars mars mars, we found a state which can be reached by spending 40ct as well 45ct. 
 \end{itemize}
 
-The hypotheses can be found in the map basic-learning results in the map with the name of the learning method.
+The hypotheses can be found in the map basic-learning results.
 
 \subsection{Why is this model complete?}
-We stated in the beginning that the highest amount of money in the machine is 45ct. This would mean that there are 10 possible states, each where we add 5ct until we have 45ct. But 45ct can not be reached by clicking only 5ct. So there has to be less states. RivestShapire has 9 states, so there can't possibly be more states. Also, from every state it seems that 5ct sends us to one state higher, 10ct sends us to two states higher and buying stuff lowers us.
+All states now represent a certain amount of money. There are two states for 35ct, one where you can reach 45ct and one where you cannot. This corresponds with what we found manually.
 
 %% 4. Why do you think you have learned the complete model? Give an
 %% argument.
