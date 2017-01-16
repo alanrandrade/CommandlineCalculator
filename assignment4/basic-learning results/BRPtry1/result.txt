@@ -1,0 +1,14 @@
+L* & RandomWalk
+
+=======MODEL 1========
+The automata are not equal! A counterexample is: IREQ_0_0_0 ITIMEOUT
+=======MODEL 2========
+The automata are equal!
+=======MODEL 3========
+The automata are equal!
+=======MODEL 4========
+The automata are not equal! A counterexample is: IREQ_0_0_0 IACK IACK
+=======MODEL 5========
+The automata are equal!
+=======MODEL 6========
+The automata are not equal! A counterexample is: IREQ_0_0_1 IACK IACK

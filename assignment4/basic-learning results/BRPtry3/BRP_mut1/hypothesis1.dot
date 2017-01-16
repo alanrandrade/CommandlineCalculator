@@ -1,0 +1,30 @@
+digraph g {
+__start0 [label="" shape="none"];
+
+	s0 [shape="circle" label="0"];
+	s1 [shape="circle" label="1"];
+	s0 -> s0 [label="IACK / ONOK"];
+	s0 -> s1 [label="IREQ_0_0_0 / OFRAME_1_0_0_0"];
+	s0 -> s1 [label="IREQ_0_0_1 / OFRAME_1_0_0_0"];
+	s0 -> s1 [label="IREQ_0_1_0 / OFRAME_1_0_0_0"];
+	s0 -> s1 [label="IREQ_0_1_1 / OFRAME_1_0_0_0"];
+	s0 -> s1 [label="IREQ_1_0_0 / OFRAME_1_0_0_1"];
+	s0 -> s1 [label="IREQ_1_0_1 / OFRAME_1_0_0_1"];
+	s0 -> s1 [label="IREQ_1_1_0 / OFRAME_1_0_0_1"];
+	s0 -> s1 [label="IREQ_1_1_1 / OFRAME_1_0_0_1"];
+	s0 -> s0 [label="ISENDFRAME / Oquiescence"];
+	s0 -> s0 [label="ITIMEOUT / ONOK"];
+	s1 -> s1 [label="IACK / OFRAME_0_0_1_0"];
+	s1 -> s1 [label="IREQ_0_0_0 / ONOK"];
+	s1 -> s1 [label="IREQ_0_0_1 / ONOK"];
+	s1 -> s1 [label="IREQ_0_1_0 / ONOK"];
+	s1 -> s1 [label="IREQ_0_1_1 / ONOK"];
+	s1 -> s1 [label="IREQ_1_0_0 / ONOK"];
+	s1 -> s1 [label="IREQ_1_0_1 / ONOK"];
+	s1 -> s1 [label="IREQ_1_1_0 / ONOK"];
+	s1 -> s1 [label="IREQ_1_1_1 / ONOK"];
+	s1 -> s1 [label="ISENDFRAME / Oquiescence"];
+	s1 -> s1 [label="ITIMEOUT / OFRAME_1_0_1_0"];
+
+__start0 -> s0;
+}
