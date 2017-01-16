@@ -40,24 +40,11 @@ In this assignment we learned the models of two systems. First we
 modeled a Chocolate bar machine that ran in a web browser. Secondly we
 tested a command line implementation of the Bounded Retransmission Protocol.
 
-We first focused on learning method without a specific SUT. After that
-we tested the models with our learning method. ??????????????????????
-
-\iffalse
-\section{Learning methods}
-section{Differences learning methods}
-and TTT Bounded
-
-
-We found that TTT found counterexamples that L* and RiverShapire did
-
-
-\fi
 \section{Chocolate bar machine}
 The chocolate bar machine is a javascript web application that modeled
 a snack dispenser. We can click buttons to simulate inserting coins
 and pressing physical buttons.
-                                                                
+
 We ran our SUT in Firefox and tested it with selenium.
 
 \subsection{Clicking around}
@@ -68,10 +55,20 @@ can insert before the system refuses new coins varies between 0,35 and
 0,45 cents.
 
 \subsection{Manual counterexamples}
-We tested the three learning methods L*, RivestShapire and TTT. 
-After the first step, rivestshapire and ttt were just had one state. L* has three states. As a counterexample for RivestShapire and TTT we added '10ct mars' which gives OK instead of NOK.
-A step later RivestShapire has 9 states, TTT three states. It is clear that RivestShapire needs a lot less counterexamples. L* is now 4 states. It had a good start, but is now slowing down.
-Suppose that counterexamples are hard to find, RivestShapire has a clear advantage over L* and TTT. Although RivestShapire does take a lot of time to get to those 9 states. This means that if counterexamples are easy to find, maybe L* and TTT are better, but this has to be tested.
+We tested the three learning methods L*, RivestShapire and TTT.
+
+After the first step, RivestShapire and TTT have just one state. L*
+has three states. As a counterexample for RivestShapire and TTT we
+added '10ct mars' which gives OK instead of NOK. A step later
+RivestShapire has 9 states, TTT three states. It is clear that
+RivestShapire needs a lot less counterexamples. L* is now 4 states. It
+had a good start, but is now slowing down.
+
+When counterexamples are hard to find RivestShapire has a clear
+advantage over L* and TTT. However RivestShapire does take a lot of
+time to get to those 9 states. This means that if counterexamples are
+easy to find, maybe L* and TTT are better, but this has to be tested.
+
 %% After that we started on automated testing.
 
 \subsection{counterexamples}
@@ -107,12 +104,15 @@ Suppose that counterexamples are hard to find, RivestShapire has a clear advanta
 \subsection{Model learning}
 We tested the reference implementations.
 
+During our testing we noticed that TTT found counterexamples that L* and
+RiverShapire did not find.
+
 We found that mutants 1,2,4 and 6 were incorrect implementations.
 However RiverShapire and L* did not find a counterexample for mutant 2
 while TTT did find an example.
-                                  
+
 \begin{center}
-\begin{tabular}{l|l}                                          
+\begin{tabular}{l|l}
 \textbf{Mutant} & \textbf{Counterexample}\\
 \hline
 1 & IREQ\_0\_0\_0 $\Rightarrow$ ITIMEOUT\\
@@ -136,4 +136,4 @@ while TTT did find an example.
 
 %%  LocalWords: tikzmark decorations pathmorphing pdfauthor pdflang
 %%  LocalWords: Retransmission SUT RiverShapire TTT RandomWalk
-%%  LocalWords: WMethod WpMethod mutant2
+%%  LocalWords: WMethod WpMethod mutant2 RivestShapire
