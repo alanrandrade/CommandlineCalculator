@@ -82,7 +82,7 @@ The counterexamples we gave are:
 The hypotheses can be found in the map basic-learning results in the map with the name of the learning method.
 
 \subsection{Why is this model complete?}
-We stated in the beginning that the highest amount of money in the machine is 45ct. This would mean that there are 10 possible states, each where we add 5ct until we have 45ct. But 45ct can not be reached by clicking only 5ct. So there has to be less states. RivestShapire has 9 states, so there can't possibly be more states. Also, from every state it seems that 5ct sends us to one state higher, 10ct sends us to two states higher and buying stuff lowers us. 
+We stated in the beginning that the highest amount of money in the machine is 45ct. This would mean that there are 10 possible states, each where we add 5ct until we have 45ct. But 45ct can not be reached by clicking only 5ct. So there has to be less states. RivestShapire has 9 states, so there can't possibly be more states. Also, from every state it seems that 5ct sends us to one state higher, 10ct sends us to two states higher and buying stuff lowers us.
 
 %% 4. Why do you think you have learned the complete model? Give an
 %% argument.
@@ -107,8 +107,13 @@ other testing methods did not finish within a reasonable time.
 
 \section{Bounded Retransmission Protocol}
 
+The Bounded Retransmission Protocol is a command line implementation
+of protocol for transmitting data over infrared. We could simulate
+action by sending strings to web socket that the program listens on.
+
 %% \subsection{Model learning}
-We tested the reference implementations.
+We tested the different implementations and compared them to the
+reference implementation.
 
 During our testing we noticed that TTT found counterexamples that L* and
 RiverShapire did not find.
