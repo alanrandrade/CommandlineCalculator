@@ -61,15 +61,11 @@ We tested the three learning methods L*, RivestShapire and TTT.
 
 After the first step, RivestShapire and TTT have just one state. L*
 has three states. As a counterexample for RivestShapire and TTT we
-added '10ct mars' which gives OK instead of NOK. A step later
-RivestShapire has 9 states, TTT three states. It is clear that
-RivestShapire needs a lot less counterexamples. L* is now 4 states. It
-had a good start, but is now slowing down.
+added '10ct mars' which gives OK instead of NOK. L* already has this example. A step later RivestShapire and TTT have 2 states.
 
-When counterexamples are hard to find RivestShapire has a clear
-advantage over L* and TTT. However RivestShapire does take a lot of
-time to get to those 9 states. This means that if counterexamples are
-easy to find, maybe L* and TTT are better.
+Our next counterexample is 9 times 5ct, since this excedes what one is allowed to put in. 
+
+After this all three models are exactly the same, except that L* has a different order.
 
 %% After that we started on automated testing.
 
@@ -101,13 +97,12 @@ All states now represent a certain amount of money. There are two states for 35c
 %% input trace is accepted multiple times as a counterexample.
 
 \subsection{Giving TTT our last counterexample}
-Our last counterexample is 10ct mars. We can provide it only once. It does not give the right model.
-We also tried giving something larger: snickers 5ct 10ct snickers 5ct 10ct 5ct 10ct twix snickers.
-Still, TTT accepts this only once. It generates 9 states, giving it a high probability of being a complete model.
+Our last counterexample is 5ct 10ct 10ct 10ct 10ct twix mars mars mars. We can provide it only once. It does not give the right model.
 
-\subsection{giving a counterexample multiple times}
-We have no idea. We did not find a counterexample that TTT accepts more than once.
+\subsection{Giving a counterexample multiple times}
+We have no idea. We tried some input, but did not find a counterexample that TTT accepts more than once.
 
+\subsection{Comparing testing methods}
 We think RandomWalk is the best testing method. This is because the
 other testing methods did not finish within a reasonable time.
 
