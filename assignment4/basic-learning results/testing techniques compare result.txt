@@ -1,0 +1,37 @@
+RandomWalk
+3:30
+
+WMethod
+50+ minutes
+
+WpMethod
+15+ minutes
+
+
+WMethod & WpMethod deden ongeveer even lang over hetzelfde aantal stappen.
+
+(9 hypothesis in 15 minuten)
+
+RandomWalk heeft binnen de 3:30 met 7 hypothesis een model geleerd. 
+
+
+vergelijking hypothesis verschillende testing techniques
+
+======= HYPO 0========
+Alles is hetzelfde
+======= HYPO 1========
+WMethod en WpMethod zijn hetzelfde, RandomWalk verschilt met counterexample 5ct 5ct mars
+======= HYPO 2========
+WMethod en WpMethod zijn hetzelfde, RandomWalk verschilt met counterexample 5ct 10ct twix
+======= HYPO 3========
+WMethod en WpMethod zijn hetzelfde, RandomWalk verschilt met counterexample 5ct 10ct 10ct snickers
+======= HYPO 4========
+"" 5ct 10ct 10ct snickers
+======= HYPO 5========
+"" 5ct 10ct 10ct 5ct 5ct
+======= HYPO 6========
+"" 5ct 10ct 10ct 10ct mars snickers
+======= HYPO 7========
+"" 10ct 10ct 10ct 10ct snickers twix
+======= HYPO 8========
+"" 5ct 10ct 10ct 10ct 10ct mars mars snickers
