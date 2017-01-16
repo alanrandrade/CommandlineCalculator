@@ -1,0 +1,20 @@
+10ct mars
+SUL output: OK OK
+simple counterexample
+
+5ct 5ct 5ct 5ct 5ct 5ct 5ct 5ct 5ct 
+SUL output: OK OK OK OK OK OK OK NOK NOK
+max monies
+
+5ct 5ct 5ct 5ct 5ct 10ct mars mars mars 5ct mars
+SUL output: OK OK OK OK OK OK OK OK OK OK OK
+30 and 35ct are not the same state
+
+10ct 10ct 10ct 5ct 10ct 5ct mars 10ct 5ct mars 10ct 5ct mars 10ct 5ct mars
+SUL output: OK OK OK OK NOK NOK OK OK OK OK OK NOK OK OK NOK OK
+infinite money loop
+
+5ct 10ct 10ct 10ct 10ct twix mars mars mars 
+SUL output: OK OK OK OK OK OK OK OK OK
+40 ne 45
+
