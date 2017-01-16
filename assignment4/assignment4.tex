@@ -107,6 +107,48 @@ We have no idea. We did not find a counterexample that TTT accepts more than onc
 We think RandomWalk is the best testing method. This is because the
 other testing methods did not finish within a reasonable time.
 
+\subsection{Automated learning}
+We have tried the different testing methods. The runtimes were  the following:
+
+\vbox{%
+\begin{itemize}
+\item RandomWalk: 3:30
+\item WMethod: 50+ minutes
+\item WpMethod: 15+ minutes
+\end{itemize}
+}
+
+We had to end the WMethod and WpMethod testing methods because they
+did not seem to terminate in a reasonable time.
+
+WMethod and WpMethod seemed to take about the same time to reach the
+same state. Both reached 9 hypotheses in about 15 minutes. The
+hypotheses used by WMethod and WpMethod were exactly the same but
+differed from the hypotheses used by RandomWalk. By comparison
+RandomWalk learned a model in 7 hypotheses in about three and a half
+minute.
+
+%% vergelijking hypothesis verschillende testing techniques
+
+%% ======= HYPO 0========
+%% Alles is hetzelfde
+%% ======= HYPO 1========
+%% WMethod en WpMethod zijn hetzelfde, RandomWalk verschilt met counterexample 5ct 5ct mars
+%% ======= HYPO 2========
+%% WMethod en WpMethod zijn hetzelfde, RandomWalk verschilt met counterexample 5ct 10ct twix
+%% ======= HYPO 3========
+%% WMethod en WpMethod zijn hetzelfde, RandomWalk verschilt met counterexample 5ct 10ct 10ct snickers
+%% ======= HYPO 4========
+%% "" 5ct 10ct 10ct snickers
+%% ======= HYPO 5========
+%% "" 5ct 10ct 10ct 5ct 5ct
+%% ======= HYPO 6========
+%% "" 5ct 10ct 10ct 10ct mars snickers
+%% ======= HYPO 7========
+%% "" 10ct 10ct 10ct 10ct snickers twix
+%% ======= HYPO 8========
+%% "" 5ct 10ct 10ct 10ct 10ct mars mars snickers
+
 \section{Bounded Retransmission Protocol}
 
 The Bounded Retransmission Protocol is a command line implementation
