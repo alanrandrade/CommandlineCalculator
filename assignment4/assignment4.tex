@@ -40,8 +40,10 @@ In this assignment we learned the models of two systems. First we
 modeled a Chocolate bar machine that ran in a web browser. Secondly we
 tested a command line implementation of the Bounded Retransmission Protocol.
 
+Our program and results are available at \url{https://github.com/Witik/CommandlineCalculator}.
+
 \section{Chocolate bar machine}
-The chocolate bar machine is a javascript web application that modeled
+The chocolate bar machine is a JavaScript web application that modeled
 a snack dispenser. We can click buttons to simulate inserting coins
 and pressing physical buttons.
 
@@ -72,7 +74,7 @@ easy to find, maybe L* and TTT are better.
 %% After that we started on automated testing.
 
 \subsection{Learning a full model}
-We chose RivestShapire, because it is huge and seems to be finished
+We chose RivestShapire. With 9 states after 1 counterexample, it grows exceptionally fast. Even better, we are convinced the generated model is already complete, meaning that we do not need to give more counterexamples.
 
 The counterexamples we gave are:
 \begin{itemize}
@@ -82,7 +84,7 @@ The counterexamples we gave are:
 The hypotheses can be found in the map basic-learning results in the map with the name of the learning method.
 
 \subsection{Why is this model complete?}
-We stated in the beginning that the highest amount of money in the machine is 45ct. This would mean that there are 10 possible states, each where we add 5ct until we have 45ct. But 45ct can not be reached by clicking only 5ct. So there has to be less states. RivestShapire has 9 states, so there can't possibly be more states. Also, from every state it seems that 5ct sends us to one state higher, 10ct sends us to two states higher and buying stuff lowers us. 
+We stated in the beginning that the highest amount of money in the machine is 45ct. This would mean that there are 10 possible states, each where we add 5ct until we have 45ct. But 45ct can not be reached by clicking only 5ct. So there has to be less states. RivestShapire has 9 states, so there can't possibly be more states. Also, from every state it seems that 5ct sends us to one state higher, 10ct sends us to two states higher and buying stuff lowers us.
 
 %% 4. Why do you think you have learned the complete model? Give an
 %% argument.
@@ -107,14 +109,19 @@ other testing methods did not finish within a reasonable time.
 
 \section{Bounded Retransmission Protocol}
 
+The Bounded Retransmission Protocol is a command line implementation
+of protocol for transmitting data over infrared. We could simulate
+action by sending strings to web socket that the program listens on.
+
 %% \subsection{Model learning}
-We tested the reference implementations.
+We tested the different implementations and compared them to the
+reference implementation.
 
 During our testing we noticed that TTT found counterexamples that L* and
-RiverShapire did not find.
+RivestShapire did not find.
 
 We found that mutants 1,2,4 and 6 were incorrect implementations.
-However RiverShapire and L* did not find a counterexample for mutant 2
+However RivestShapire and L* did not find a counterexample for mutant 2
 while TTT did find an example.
 
 \begin{center}
@@ -131,6 +138,11 @@ while TTT did find an example.
 The remaining implementations, mutant 3 and mutant 5, did not have
 counterexamples so they are equal to the reference implementation.
 
+Our tests can be found in the map ``basic-learning
+results''\footnote{\url{https://github.com/Witik/CommandlineCalculator/tree/master/assignment4/basic-learning\%20results}}
+in our git repository.
+
+
 %% \subsection{Finding out which implementation is equal to which reference implementation}
 %% find out which of the implementations of the manufacturers is equal
 %% to the reference implementation
@@ -142,5 +154,5 @@ counterexamples so they are equal to the reference implementation.
 \end{document}
 
 %%  LocalWords: tikzmark decorations pathmorphing pdfauthor pdflang
-%%  LocalWords: Retransmission SUT RiverShapire TTT RandomWalk
-%%  LocalWords: WMethod WpMethod mutant2 RivestShapire
+%%  LocalWords: Retransmission SUT RivestShapire TTT RandomWalk
+%%  LocalWords: WMethod WpMethod mutant2
