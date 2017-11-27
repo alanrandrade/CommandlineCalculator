@@ -3,6 +3,13 @@
 *.iml
 *.eml
 
+# macOS
+.DS_Store
+.texpad*
+
+# log files
+*.log
+
 # IDE
 .idea
 build
@@ -14,3 +21,19 @@ dist
 external_libs
 node_modules
 .tmp
+/TAGS
+/assignment1/assignment1.out
+/assignment1/assignment1.log
+/assignment1/assignment1.aux
+/assignment1/assignment1.toc
+/assignment1/assignment1.pdf
+/assignment1/assignment1.synctex.gz
+*.pdf
+/assignment3/assignment3.aux
+/assignment3/assignment3.out
+/assignment3/assignment3.pdf
+/assignment4/assignment3.aux
+/assignment4/assignment3.out
+/assignment4/assignment4.synctex.gz
+/assignment4/assignment4.out
+/assignment4/assignment4.aux

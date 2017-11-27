@@ -130,4 +130,40 @@ public class CalculatorProperties {
        		//assertEquals(re	sult, new BigDecimal(Math.log10(numArg)));
             	
         }
+    
+    @Property (trials = 100)public void association(double a, double b, double c)
+            throws Exception {
+        	
+        	//assumeThat(numArg,  );
+            
+            
+            
+            BigDecimal aPlusB = calc.parse(String.format("%f + (%f + %f)", a, b, c)).evaluate();
+            BigDecimal bPlusA = calc.parse(String.format("(%f + %f) + %f", a, b, c)).evaluate();
+            System.out.println("	Comutation ("+a+"+"+b+"): "+aPlusB + "\nExpected: "+ bPlusA );
+            //naturalLog = naturalLog.pow(-1);
+            //BigDecimal expected = new BigDecimal(Math.log10(numArg));
+            assertTrue((aPlusB.subtract(bPlusA).abs()).compareTo(BigDecimal.ZERO) == 0);
+            
+       		//assertEquals(re	sult, new BigDecimal(Math.log10(numArg)));
+            	
+        }
+    
+    @Property (trials = 100)public void identity(double a)
+            throws Exception {
+        	
+        	//assumeThat(numArg,  );
+            
+            
+            
+            BigDecimal aPlusB = calc.parse(String.format("%f + 0", a)).evaluate();
+            BigDecimal bPlusA = calc.parse(String.format("0 + %f", a)).evaluate();
+            System.out.println("	Comutation ("+a+"+"+b+"): "+aPlusB + "\nExpected: "+ bPlusA );
+            //naturalLog = naturalLog.pow(-1);
+            //BigDecimal expected = new BigDecimal(Math.log10(numArg));
+            assertTrue((aPlusB.subtract(bPlusA).abs()).compareTo(BigDecimal.ZERO) == 0);
+            
+       		//assertEquals(re	sult, new BigDecimal(Math.log10(numArg)));
+            	
+        }
 }
