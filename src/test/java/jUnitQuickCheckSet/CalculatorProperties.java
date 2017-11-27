@@ -178,7 +178,7 @@ public class CalculatorProperties {
     }
     
     @Property (trials = 5)
-    public void sqrtProduct(@InRange(maxDouble = 20) double a, @InRange(maxDouble = 20) double b) throws Exception {
+    public void sqrtProduct(@InRange(minDouble = 0.00) double a, @InRange(minDouble = 0.00) double b) throws Exception {
     	
     	assumeThat(a, greaterThan(0.00));
     	assumeThat(b, greaterThan(0.00));
@@ -194,9 +194,38 @@ public class CalculatorProperties {
     }
     
     @Property (trials = 5)
-    public void sqrtDivision(@InRange(maxDouble = 20) double a, @InRange(maxDouble = 20) double b) throws Exception {
+    public void sqrtDivision(@InRange(minDouble = 0.00) double a, @InRange(minDouble = 0.00) double b) throws Exception {
     	
-    	assumeThat(a, greaterThan(0.00));
+    	assumeThat(a, greaterThan(0.00));  
+    	assumeThat(b, greaterThan(0.00));
+    	
+    	BigDecimal sqrtDivTogether = calc.parse(String.format("sqrt(%f/%f)", a, b)).evaluate();
+    	BigDecimal sqrtDivSeparate = calc.parse(String.format("sqrt(%f)/sqrt(%f)", a, b)).evaluate();
+    	
+    	System.out.println("sqrt(" + a + " / " + b + "): " + sqrtDivTogether + "\n");
+    	System.out.println("sqrt(" + a + ")" + " / " + "sqrt(" + b + "): " + sqrtDivSeparate + "\n");
+    	
+    	assertTrue((sqrtDivTogether.subtract(sqrtDivSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
+    	
+    }
+    @Property (trials = 5)
+    public void sqrtMultiSeparate(@InRange(minDouble = 0.00) double a) throws Exception {
+    	
+    	assumeThat(a, greaterThan(0.00));  
+    	
+    	BigDecimal sqrtSeparate = calc.parse(String.format("sqrt(%f)^2", a)).evaluate();
+    	BigDecimal x = calc.parse(String.format("%f", a)).evaluate();
+    	
+    	System.out.println("sqrt(" + a + ")" + " * " + "sqrt(" + a + "): " + sqrtSeparate + "\n");
+    	
+    	assertTrue((sqrtSeparate.subtract(x).abs()).compareTo(BigDecimal.ZERO) == 0);
+    	
+    }
+    /*
+    @Property (trials = 5)
+    public void sqrtDivision(@InRange(minDouble = 0.00) double a, @InRange(minDouble = 0.00) double b) throws Exception {
+    	
+    	assumeThat(a, greaterThan(0.00));  
     	assumeThat(b, greaterThan(0.00));
     	
     	BigDecimal sqrtDivTogether = calc.parse(String.format("sqrt(%f/%f)", a, b)).evaluate();
@@ -209,4 +238,23 @@ public class CalculatorProperties {
     	
     }
     
+    
+    @Property (trials = 5)
+    public void nthRootProduct(double a, double b, @InRange(minInt = 1) int n) throws Exception {
+    	
+    	
+    	
+    	assumeThat(a, greaterThan(0.00));  
+    	assumeThat(b, greaterThan(0.00));
+    	
+    	BigDecimal nthRootMultiTogether = calc.parse(String.format("sqrt(%f/%f)", a, b)).evaluate();
+    	BigDecimal nthRootMultiSeparate = calc.parse(String.format("sqrt(%f)/sqrt(%f)", a, b)).evaluate();
+    	
+    	System.out.println("sqrt(" + a + " * " + b + "): " + sqrtDivTogether + "\n");
+    	System.out.println("sqrt(" + a + ")" + " * " + "sqrt(" + b + "): " + sqrtDivSeparate + "\n");
+    	
+    	assertTrue((sqrtDivTogether.subtract(sqrtDivSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
+    	
+    }
+    */
 }
