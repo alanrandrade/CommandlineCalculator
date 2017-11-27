@@ -1,21 +1,19 @@
 package jUnitQuickCheckSet;
 
-import static org.hamcrest.Matchers.both;
 import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeThat;
+import static org.junit.Assert.*;
 import static org.junit.Assume.*;
 
 import java.math.BigDecimal;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.generator.InRange;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
+import com.pholser.junit.quickcheck.generator.InRange;
 
 import eu.gillissen.commandline.calculator.Calc;
 
@@ -177,8 +175,22 @@ public class CalculatorProperties {
     	
     	assertTrue((lnex.subtract(x).abs()).compareTo(BigDecimal.ZERO) == 0);
     	
+    }
+    
+    @Property (trials = 5)
+    public void sqrtProduct(@InRange(maxDouble = 20) double a, @InRange(maxDouble = 20) double b) throws Exception {
     	
+    	assumeThat(a, greaterThan(0.00));
+    	assumeThat(b, greaterThan(0.00));
     	
+    	BigDecimal sqrtMultiTogether = calc.parse(String.format("sqrt(%f*%f)", a, b)).evaluate();
+    	BigDecimal sqrtMultiSeparate = calc.parse(String.format("sqrt(%f)*sqrt(%f)", a, b)).evaluate();
+    	
+    	System.out.println("sqrt(" + a + " * " + b + "): " + sqrtMultiTogether + "\n");
+    	System.out.println("sqrt(" + a + ")" + " * " + "sqrt(" + b + "): " + sqrtMultiSeparate + "\n");
+    	
+    	assertTrue((sqrtMultiTogether.subtract(sqrtMultiSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
     	
     }
+    
 }
