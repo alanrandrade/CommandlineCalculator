@@ -40,7 +40,7 @@ public class Memory {
         } else {
             functions.put(function.getName(), function);
             if(Calc.DEBUG) {
-                System.out.printf("added function %s to memory \n", function.getName());
+                //System.out.printf("added function %s to memory \n", function.getName());
             }
         }
     }
@@ -54,7 +54,7 @@ public class Memory {
         } else {
             variables.put(variable.getName(), variable);
             if(Calc.DEBUG) {
-                System.out.printf("added variable %s to memory \n", variable.getName());
+                //System.out.printf("added variable %s to memory \n", variable.getName());
             }
         }
     }
