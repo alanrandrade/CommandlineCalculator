@@ -1,24 +1,23 @@
 package jUnitQuickCheckSet;
 
-import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
-
-import eu.gillissen.commandline.calculator.Calc;
-
-import java.math.BigDecimal;
-
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.Matchers.both;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeThat;
+import static org.junit.Assume.*;
+
+import java.math.BigDecimal;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
 
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.generator.InRange;
+import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 
-
-import static org.hamcrest.Matchers.*;
+import eu.gillissen.commandline.calculator.Calc;
 
 
 
@@ -46,7 +45,7 @@ public class CalculatorProperties {
         
     }
     
-    @Property (trials = 100)public void RoundHasFractionalValueZero(double numArg)
+    @Property (trials = 10)public void RoundHasFractionalValueZero(double numArg)
             throws Exception {
         	
         	//assumeThat(numArg,  );
@@ -166,4 +165,20 @@ public class CalculatorProperties {
        		//assertEquals(re	sult, new BigDecimal(Math.log10(numArg)));
             	
         }
+    
+    @Property (trials = 10)
+    public void lnInverseExponent(double a) throws Exception {
+    	    	
+    	BigDecimal lnex = calc.parse(String.format("ln(e^%f)", a)).evaluate();
+    	BigDecimal x = calc.parse(String.format("%f", a)).evaluate();
+    	
+    	System.out.println("ln(e^"+a+"): "+lnex + "\nExpected: "+ x + "\n" );
+    	
+    	
+    	assertTrue((lnex.subtract(x).abs()).compareTo(BigDecimal.ZERO) == 0);
+    	
+    	
+    	
+    	
+    }
 }
