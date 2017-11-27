@@ -193,4 +193,20 @@ public class CalculatorProperties {
     	
     }
     
+    @Property (trials = 5)
+    public void sqrtDivision(@InRange(maxDouble = 20) double a, @InRange(maxDouble = 20) double b) throws Exception {
+    	
+    	assumeThat(a, greaterThan(0.00));
+    	assumeThat(b, greaterThan(0.00));
+    	
+    	BigDecimal sqrtDivTogether = calc.parse(String.format("sqrt(%f/%f)", a, b)).evaluate();
+    	BigDecimal sqrtDivSeparate = calc.parse(String.format("sqrt(%f)/sqrt(%f)", a, b)).evaluate();
+    	
+    	System.out.println("sqrt(" + a + " * " + b + "): " + sqrtDivTogether + "\n");
+    	System.out.println("sqrt(" + a + ")" + " * " + "sqrt(" + b + "): " + sqrtDivSeparate + "\n");
+    	
+    	assertTrue((sqrtDivTogether.subtract(sqrtDivSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
+    	
+    }
+    
 }
