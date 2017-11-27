@@ -178,7 +178,7 @@ public class CalculatorProperties {
     }
     
     @Property (trials = 5)
-    public void sqrtProduct(@InRange(minDouble = 0.00) double a, @InRange(minDouble = 0.00) double b) throws Exception {
+    public void sqrtProduct(@InRange(minDouble = 0) double a, @InRange(minDouble = 0) double b) throws Exception {
     	
     	assumeThat(a, greaterThan(0.00));
     	assumeThat(b, greaterThan(0.00));
@@ -194,7 +194,7 @@ public class CalculatorProperties {
     }
     
     @Property (trials = 5)
-    public void sqrtDivision(@InRange(minDouble = 0.00) double a, @InRange(minDouble = 0.00) double b) throws Exception {
+    public void sqrtDivision(@InRange(minDouble = 0) double a, @InRange(minDouble = 1) double b) throws Exception {
     	
     	assumeThat(a, greaterThan(0.00));  
     	assumeThat(b, greaterThan(0.00));
@@ -209,7 +209,7 @@ public class CalculatorProperties {
     	
     }
     @Property (trials = 5)
-    public void sqrtMultiSeparate(@InRange(minDouble = 0.00) double a) throws Exception {
+    public void sqrtPowerSeparate(@InRange(minDouble = 0.00) double a) throws Exception {
     	
     	assumeThat(a, greaterThan(0.00));  
     	
@@ -221,20 +221,41 @@ public class CalculatorProperties {
     	assertTrue((sqrtSeparate.subtract(x).abs()).compareTo(BigDecimal.ZERO) == 0);
     	
     }
-    /*
+    
     @Property (trials = 5)
-    public void sqrtDivision(@InRange(minDouble = 0.00) double a, @InRange(minDouble = 0.00) double b) throws Exception {
+    public void nthPowerSeparate(double a, @InRange(minInt = 1) int n) throws Exception {
     	
+    	assumeThat(n, greaterThan(0));
     	assumeThat(a, greaterThan(0.00));  
-    	assumeThat(b, greaterThan(0.00));
     	
-    	BigDecimal sqrtDivTogether = calc.parse(String.format("sqrt(%f/%f)", a, b)).evaluate();
-    	BigDecimal sqrtDivSeparate = calc.parse(String.format("sqrt(%f)/sqrt(%f)", a, b)).evaluate();
+    	BigDecimal nthRootSeparate = calc.parse(String.format("(sqrt(%f))^%d", a, n)).evaluate();
+    	BigDecimal x = calc.parse(String.format("%f", a)).evaluate();
     	
-    	System.out.println("sqrt(" + a + " * " + b + "): " + sqrtDivTogether + "\n");
-    	System.out.println("sqrt(" + a + ")" + " * " + "sqrt(" + b + "): " + sqrtDivSeparate + "\n");
+    	System.out.println("sqrt(" + a + ")" + " * " + "sqrt(" + a + "): " + nthRootSeparate + "\n");
     	
-    	assertTrue((sqrtDivTogether.subtract(sqrtDivSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
+    	assertTrue((nthRootSeparate.subtract(x).abs()).compareTo(BigDecimal.ZERO) == 0);
+    	
+    }
+    
+    @Property (trials = 5)
+    public void nthRootDivision(double a, double b, @InRange(minInt = 1) int n) throws Exception {
+    	
+    	assumeThat(n, greaterThan(0));
+    	
+    	if( n / 2 == 0) 
+    	{
+    		//n is even
+    		assumeThat(a, greaterThan(0.00));
+    		assumeThat(b, greaterThan(0.00));
+    	}
+    	
+    	BigDecimal nthRootDivTogether = calc.parse(String.format("root(%f/%f, %d)", a, b, n)).evaluate();
+    	BigDecimal nthRootDivSeparate = calc.parse(String.format("root(%f,%d)/root(%f,%d)", a, n, b, n)).evaluate();
+    	
+    	System.out.println("root(" + a + " / " + b + "," + n + "): " + nthRootDivTogether + "\n");
+    	System.out.println("root(" + a + "," + n + ")" + " / " + "root(" + b + "," + a + "): " + nthRootDivSeparate + "\n");
+    	
+    	assertTrue((nthRootDivTogether.subtract(nthRootDivSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
     	
     }
     
@@ -242,19 +263,23 @@ public class CalculatorProperties {
     @Property (trials = 5)
     public void nthRootProduct(double a, double b, @InRange(minInt = 1) int n) throws Exception {
     	
+    	assumeThat(n, greaterThan(0));
     	
+    	if( n / 2 == 0) 
+    	{
+    		//n is even
+    		assumeThat(a, greaterThan(0.00));
+    		assumeThat(b, greaterThan(0.00));
+    	}
     	
-    	assumeThat(a, greaterThan(0.00));  
-    	assumeThat(b, greaterThan(0.00));
+    	BigDecimal nthRootMultiTogether = calc.parse(String.format("root(%f*%f, %d)", a, b, n)).evaluate();
+    	BigDecimal nthRootMultiSeparate = calc.parse(String.format("root(%f,%d)*root(%f,%d)", a, n, b, n)).evaluate();
     	
-    	BigDecimal nthRootMultiTogether = calc.parse(String.format("sqrt(%f/%f)", a, b)).evaluate();
-    	BigDecimal nthRootMultiSeparate = calc.parse(String.format("sqrt(%f)/sqrt(%f)", a, b)).evaluate();
+    	System.out.println("root(" + a + " * " + b + "," + n + "): " + nthRootMultiTogether + "\n");
+    	System.out.println("root(" + a + "," + n + ")" + " * " + "root(" + b + "," + a + "): " + nthRootMultiSeparate + "\n");
     	
-    	System.out.println("sqrt(" + a + " * " + b + "): " + sqrtDivTogether + "\n");
-    	System.out.println("sqrt(" + a + ")" + " * " + "sqrt(" + b + "): " + sqrtDivSeparate + "\n");
-    	
-    	assertTrue((sqrtDivTogether.subtract(sqrtDivSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
+    	assertTrue((nthRootMultiTogether.subtract(nthRootMultiSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
     	
     }
-    */
+    
 }
