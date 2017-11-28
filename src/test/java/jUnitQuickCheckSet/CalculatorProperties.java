@@ -1,11 +1,10 @@
 package jUnitQuickCheckSet;
 
-import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
-
-import eu.gillissen.commandline.calculator.Calc;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.junit.Assert.*;
+import static org.junit.Assume.*;
 
 import java.math.BigDecimal;
-
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -19,9 +18,10 @@ import org.junit.runner.RunWith;
 
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.generator.InRange;
+import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
+import com.pholser.junit.quickcheck.generator.InRange;
 
-
-import static org.hamcrest.Matchers.*;
+import eu.gillissen.commandline.calculator.Calc;
 
 
 
@@ -36,19 +36,8 @@ public class CalculatorProperties {
 	}
 	
     
-	@Rule
-    public Timeout globalTimeout = Timeout.seconds(20);
-    @Property (trials = 1000)public void RoundHasFractionalValueZero(BigDecimal numArg)
-            throws Exception {
-        	
-        	
-            BigDecimal round = calc.parse(String.format("round(%s)", numArg.toString())).evaluate();
-            System.out.println("round ("+numArg.toString()+") has remainder:  "+round.remainder(BigDecimal.ONE)+"\n" );
-            assertTrue((round.remainder(BigDecimal.ONE)).compareTo(BigDecimal.ZERO) == 0); 
-       		
-        }
-    
-    @Property (trials = 1000)public void FloorHasFractionalValueZero(BigDecimal numArg)
+    @Property (trials = 10)public void RoundHasFractionalValueZero(double numArg)
+>>>>>>> 32b3536864eb54f84520ccfbf445d7de3ded9464
             throws Exception {
         	
         	//assumeThat(numArg,  );
@@ -232,6 +221,7 @@ public class CalculatorProperties {
             	
         }
     
+
     @Property (trials = 1000)public void additiveInverse(BigDecimal a)
             throws Exception {
         	
@@ -323,5 +313,100 @@ public class CalculatorProperties {
 	       		//assertEquals(re	sult, new BigDecimal(Math.log10(numArg)));
 	            	
 	        }
-	  
+	  //Brigel's Properties
+
+    @Property (trials = 10)
+    public void lnInverseExponent(double a) throws Exception {
+    	    	
+    	BigDecimal lnex = calc.parse(String.format("ln(e^%f)", a)).evaluate();
+    	BigDecimal x = calc.parse(String.format("%f", a)).evaluate();
+    	
+    	System.out.println("ln(e^"+a+"): "+lnex + "\nExpected: "+ x + "\n" );
+    	
+    	
+    	assertTrue((lnex.subtract(x).abs()).compareTo(BigDecimal.ZERO) == 0);
+    	
+    }
+    
+    @Property (trials = 5)
+    public void sqrtProduct(@InRange(minDouble = 0.00) double a, @InRange(minDouble = 0.00) double b) throws Exception {
+    	
+    	assumeThat(a, greaterThan(0.00));
+    	assumeThat(b, greaterThan(0.00));
+    	
+    	BigDecimal sqrtMultiTogether = calc.parse(String.format("sqrt(%f*%f)", a, b)).evaluate();
+    	BigDecimal sqrtMultiSeparate = calc.parse(String.format("sqrt(%f)*sqrt(%f)", a, b)).evaluate();
+    	
+    	System.out.println("sqrt(" + a + " * " + b + "): " + sqrtMultiTogether + "\n");
+    	System.out.println("sqrt(" + a + ")" + " * " + "sqrt(" + b + "): " + sqrtMultiSeparate + "\n");
+    	
+    	assertTrue((sqrtMultiTogether.subtract(sqrtMultiSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
+    	
+    }
+    
+    @Property (trials = 5)
+    public void sqrtDivision(@InRange(minDouble = 0.00) double a, @InRange(minDouble = 0.00) double b) throws Exception {
+    	
+    	assumeThat(a, greaterThan(0.00));  
+    	assumeThat(b, greaterThan(0.00));
+    	
+    	BigDecimal sqrtDivTogether = calc.parse(String.format("sqrt(%f/%f)", a, b)).evaluate();
+    	BigDecimal sqrtDivSeparate = calc.parse(String.format("sqrt(%f)/sqrt(%f)", a, b)).evaluate();
+    	
+    	System.out.println("sqrt(" + a + " / " + b + "): " + sqrtDivTogether + "\n");
+    	System.out.println("sqrt(" + a + ")" + " / " + "sqrt(" + b + "): " + sqrtDivSeparate + "\n");
+    	
+    	assertTrue((sqrtDivTogether.subtract(sqrtDivSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
+    	
+    }
+    @Property (trials = 5)
+    public void sqrtMultiSeparate(@InRange(minDouble = 0.00) double a) throws Exception {
+    	
+    	assumeThat(a, greaterThan(0.00));  
+    	
+    	BigDecimal sqrtSeparate = calc.parse(String.format("sqrt(%f)^2", a)).evaluate();
+    	BigDecimal x = calc.parse(String.format("%f", a)).evaluate();
+    	
+    	System.out.println("sqrt(" + a + ")" + " * " + "sqrt(" + a + "): " + sqrtSeparate + "\n");
+    	
+    	assertTrue((sqrtSeparate.subtract(x).abs()).compareTo(BigDecimal.ZERO) == 0);
+    	
+    }
+    /*
+    @Property (trials = 5)
+    public void sqrtDivision(@InRange(minDouble = 0.00) double a, @InRange(minDouble = 0.00) double b) throws Exception {
+    	
+    	assumeThat(a, greaterThan(0.00));  
+    	assumeThat(b, greaterThan(0.00));
+    	
+    	BigDecimal sqrtDivTogether = calc.parse(String.format("sqrt(%f/%f)", a, b)).evaluate();
+    	BigDecimal sqrtDivSeparate = calc.parse(String.format("sqrt(%f)/sqrt(%f)", a, b)).evaluate();
+    	
+    	System.out.println("sqrt(" + a + " * " + b + "): " + sqrtDivTogether + "\n");
+    	System.out.println("sqrt(" + a + ")" + " * " + "sqrt(" + b + "): " + sqrtDivSeparate + "\n");
+    	
+    	assertTrue((sqrtDivTogether.subtract(sqrtDivSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
+    	
+    }
+    
+    
+    @Property (trials = 5)
+    public void nthRootProduct(double a, double b, @InRange(minInt = 1) int n) throws Exception {
+    	
+    	
+    	
+    	assumeThat(a, greaterThan(0.00));  
+    	assumeThat(b, greaterThan(0.00));
+    	
+    	BigDecimal nthRootMultiTogether = calc.parse(String.format("sqrt(%f/%f)", a, b)).evaluate();
+    	BigDecimal nthRootMultiSeparate = calc.parse(String.format("sqrt(%f)/sqrt(%f)", a, b)).evaluate();
+    	
+    	System.out.println("sqrt(" + a + " * " + b + "): " + sqrtDivTogether + "\n");
+    	System.out.println("sqrt(" + a + ")" + " * " + "sqrt(" + b + "): " + sqrtDivSeparate + "\n");
+    	
+    	assertTrue((sqrtDivTogether.subtract(sqrtDivSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
+    	
+    }
+    */
+
 }
