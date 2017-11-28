@@ -36,22 +36,17 @@ public class CalculatorProperties {
 	}
 	
     
-    @Property (trials = 10)public void RoundHasFractionalValueZero(double numArg)
->>>>>>> 32b3536864eb54f84520ccfbf445d7de3ded9464
+	@Rule
+    public Timeout globalTimeout = Timeout.seconds(20);
+    @Property (trials = 1000)public void RoundHasFractionalValueZero(BigDecimal numArg)
             throws Exception {
-        	
-        	//assumeThat(numArg,  );
             
-            System.out.println(numArg);
             
-            BigDecimal floor = calc.parse(String.format("floor(%s)", numArg.toString())).evaluate();
-            //naturalLog = naturalLog.pow(-1);
-            System.out.println("floor ("+numArg.toString()+") has remainder: "+floor.remainder(BigDecimal.ONE) +"\n" );
-            //BigDecimal expected = new BigDecimal(Math.log10(numArg));
-            assertTrue((floor.remainder(BigDecimal.ONE)).compareTo(BigDecimal.ZERO) == 0); 
-       		//assertEquals(re	sult, new BigDecimal(Math.log10(numArg)));
+            BigDecimal round = calc.parse(String.format("round(%s)", numArg.toString())).evaluate();
+            System.out.println("round ("+numArg.toString()+") has remainder:  "+round.remainder(BigDecimal.ONE)+"\n" );
+            assertTrue((round.remainder(BigDecimal.ONE)).compareTo(BigDecimal.ZERO) == 0); 
             
-        }
+       }
     
     @Property (trials = 1000)public void CeilHasFractionalValueZero(BigDecimal numArg)
             throws Exception {
