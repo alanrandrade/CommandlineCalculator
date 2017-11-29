@@ -436,4 +436,97 @@ public class CalculatorProperties {
     	assertTrue((nthRootMultiTogether.subtract(nthRootMultiSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
     	
     }
+    @Property (trials = 10)
+    public void lnPower(BigDecimal a, BigInteger n) throws Exception{
+ 	   
+ 	   assumeThat(a, greaterThan(BigDecimal.ZERO));
+ 	   
+ 	   BigDecimal lnAPowerN = calc.parse(String.format("ln(%s^%s)", a.toString(), n.toString())).evaluate();
+ 	   BigDecimal lnAMultiplyN = calc.parse(String.format("n * ln(%s)", n.toString(), a.toString())).evaluate();
+ 	   
+ 	   System.out.println("ln(" + a.toString() + " ^ " + n.toString() + "): " + lnAPowerN + "\n");
+       System.out.println(n.toString() + " * " + "ln(" + a.toString() + "): " + lnAMultiplyN + "\n");
+    	   
+    	   assertTrue((lnAPowerN.subtract(lnAMultiplyN).abs()).compareTo(BigDecimal.ZERO) == 0);
+ 	   
+    }
+    
+   @Property (trials = 10)
+   public void lnProductAddition(BigDecimal a, BigDecimal b) throws Exception{
+	   
+	   assumeThat(a, greaterThan(BigDecimal.ZERO));
+	   assumeThat(b, greaterThan(BigDecimal.ZERO));
+	   
+	   BigDecimal lnProduct = calc.parse(String.format("ln(%s*%s)", a.toString(), b.toString())).evaluate();
+	   BigDecimal lnAddition = calc.parse(String.format("ln(%s)+ ln(%s)", a.toString(), b.toString())).evaluate();
+	   
+	   System.out.println("ln(" + a.toString() + " * " + b.toString() + "): " + lnProduct + "\n");
+   	   System.out.println("ln(" + a.toString() + "+" + "ln(" + b.toString() + "): " + lnAddition + "\n");
+   	   
+   	   assertTrue((lnProduct.subtract(lnAddition).abs()).compareTo(BigDecimal.ZERO) == 0);
+	   
+   }
+   
+   @Property (trials = 10)
+   public void lnDivSubtract(BigDecimal a, BigDecimal b) throws Exception{
+	   
+	   assumeThat(a, greaterThan(BigDecimal.ZERO));
+	   assumeThat(b, greaterThan(BigDecimal.ZERO));
+	   
+	   BigDecimal lnDivision = calc.parse(String.format("ln(%s/%s)", a.toString(), b.toString())).evaluate();
+	   BigDecimal lnSubstraction = calc.parse(String.format("ln(%s) - ln(%s)", a.toString(), b.toString())).evaluate();
+	   
+	   System.out.println("ln(" + a.toString() + " / " + b.toString() + "): " + lnDivision + "\n");
+   	   System.out.println("ln(" + a.toString() + " - " + "ln(" + b.toString() + "): " + lnSubstraction + "\n");
+   	   
+   	   assertTrue((lnDivision.subtract(lnSubstraction).abs()).compareTo(BigDecimal.ZERO) == 0);
+	   
+   }
+   
+   @Property (trials = 10)
+   public void logPower(BigDecimal a, BigInteger n) throws Exception{
+	   
+	   assumeThat(a, greaterThan(BigDecimal.ZERO));
+	   
+	   BigDecimal logAPowerN = calc.parse(String.format("log(%s^%s)", a.toString(), n.toString())).evaluate();
+	   BigDecimal logAMultiplyN = calc.parse(String.format("n * log(%s)", n.toString(), a.toString())).evaluate();
+	   
+	   System.out.println("log(" + a.toString() + " ^ " + n.toString() + "): " + logAPowerN + "\n");
+       System.out.println(n.toString() + " * " +"log(" + a.toString() + "): " + logAMultiplyN + "\n");
+   	   
+   	   assertTrue((logAPowerN.subtract(logAMultiplyN).abs()).compareTo(BigDecimal.ZERO) == 0);
+	   
+   }
+   
+   @Property (trials = 10)
+   public void logProductAddition(BigDecimal a, BigDecimal b) throws Exception{
+	   
+	   assumeThat(a, greaterThan(BigDecimal.ZERO));
+	   assumeThat(b, greaterThan(BigDecimal.ZERO));
+	   
+	   BigDecimal logProduct = calc.parse(String.format("log(%s*%s)", a.toString(), b.toString())).evaluate();
+	   BigDecimal logAddition = calc.parse(String.format("log(%s)+ ln(%s)", a.toString(), b.toString())).evaluate();
+	   
+	   System.out.println("log(" + a.toString() + " * " + b.toString() + "): " + logProduct + "\n");
+   	   System.out.println("log(" + a.toString() + "+" + "ln(" + b.toString() + "): " + logAddition + "\n");
+   	   
+   	   assertTrue((logProduct.subtract(logAddition).abs()).compareTo(BigDecimal.ZERO) == 0);
+	   
+   }
+   
+   @Property (trials = 10)
+   public void logDivSubtract(BigDecimal a, BigDecimal b) throws Exception{
+	   
+	   assumeThat(a, greaterThan(BigDecimal.ZERO));
+	   assumeThat(b, greaterThan(BigDecimal.ZERO));
+	   
+	   BigDecimal logDivision = calc.parse(String.format("log(%s/%s)", a.toString(), b.toString())).evaluate();
+	   BigDecimal logSubstraction = calc.parse(String.format("log(%s) - ln(%s)", a.toString(), b.toString())).evaluate();
+	   
+	   System.out.println("log(" + a.toString() + " / " + b.toString() + "): " + logDivision + "\n");
+   	   System.out.println("log(" + a.toString() + " - " + "ln(" + b.toString() + "): " + logSubstraction + "\n");
+   	   
+   	   assertTrue((logDivision.subtract(logSubstraction).abs()).compareTo(BigDecimal.ZERO) == 0);
+	   
+   }
 }
