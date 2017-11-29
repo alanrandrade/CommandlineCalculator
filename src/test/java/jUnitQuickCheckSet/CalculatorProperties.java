@@ -323,7 +323,7 @@ public class CalculatorProperties {
 	  //Brigel's Properties
 
     @Property (trials = 10)
-    public void lnInverseExponent(BigDecimal a) throws Exception {
+    public void lnInverseExponent(BigInteger a) throws Exception {
     	    	
     	BigDecimal lnex = calc.parse(String.format("ln(e^%s)", a.toString())).evaluate();
     	BigDecimal x = calc.parse(String.format("%s", a.toString())).evaluate();
@@ -338,8 +338,8 @@ public class CalculatorProperties {
     @Property (trials = 5)
     public void sqrtProduct(BigDecimal a, BigDecimal b) throws Exception {
 	
-    	assumeThat(a, greaterThan(BigDecimal.ZERO));
-    	assumeThat(b, greaterThan(BigDecimal.ZERO));
+    	assumeThat(a, is(either(equalTo(BigDecimal.ZERO)).or(greaterThan(BigDecimal.ZERO))));
+    	assumeThat(b, is(either(equalTo(BigDecimal.ZERO)).or(greaterThan(BigDecimal.ZERO))));
     	
     	BigDecimal sqrtMultiTogether = calc.parse(String.format("sqrt(%s*%s)", a.toString(), b.toString())).evaluate();
     	BigDecimal sqrtMultiSeparate = calc.parse(String.format("sqrt(%s)*sqrt(%s)", a.toString(), b.toString())).evaluate();
@@ -354,7 +354,7 @@ public class CalculatorProperties {
     @Property (trials = 5)
     public void sqrtDivision(BigDecimal a, BigDecimal b) throws Exception {
     	
-    	assumeThat(a, greaterThan(BigDecimal.ZERO));  
+    	assumeThat(a, is(either(equalTo(BigDecimal.ZERO)).or(greaterThan(BigDecimal.ZERO))));
     	assumeThat(b, greaterThan(BigDecimal.ZERO));
     	
     	BigDecimal sqrtDivTogether = calc.parse(String.format("sqrt(%s/%s)", a.toString(), b.toString())).evaluate();
