@@ -117,7 +117,7 @@ public class CalculatorProperties {
         }
     
         
-    @Property (trials = 1000)public void comutativePropertyOfAddition(BigDecimal a, BigDecimal b)
+    @Property (trials = 1000)public void commutativePropertyOfAddition(BigDecimal a, BigDecimal b)
             throws Exception {
         	
         	//assumeThat(numArg,  );
@@ -135,7 +135,7 @@ public class CalculatorProperties {
             	
         }
     
-    @Property (trials = 1000)public void comutativePropertyOfMultiplication(BigDecimal a, BigDecimal b)
+    @Property (trials = 1000)public void commutativePropertyOfMultiplication(BigDecimal a, BigDecimal b)
             throws Exception {
         	
         	//assumeThat(numArg,  );
