@@ -62,12 +62,8 @@ public class CalculatorProperties {
         		System.out.println("[FAIL]: Property was broke.");
         	 separator();
         }
-        
+
     };
-	
-    
-	@Rule
-    public Timeout globalTimeout = Timeout.seconds(10);
 
     @Property (trials = 1000)public void RoundHasFractionalValueZero(BigDecimal numArg)
             throws Exception {
@@ -92,20 +88,19 @@ public class CalculatorProperties {
             //BigDecimal expected = new BigDecimal(Math.log10(numArg));
             assertTrue((ceil.remainder(BigDecimal.ONE)).compareTo(BigDecimal.ZERO) == 0); 
        		//assertEquals(re	sult, new BigDecimal(Math.log10(numArg)));
-            	
+
         }
     
     
     //Change BigDecimalToInteger
     @Property (trials = 1000)public void LogOfAEqualsToTenToThePowerOfA( Integer a)
+
             throws Exception {
         	
         	//assumeThat(numArg,  );
     		assumeThat(a, is(either(greaterThan(0)).or(lessThan(0)) ) );
     	
-            
-            
-            
+           
             BigDecimal logATenA = calc.parse(String.format("log(10^%d)"	, a)).evaluate();
             
             System.out.println("log(10^"+a+")= " +logATenA+ " 	should be equals to: "+a );
@@ -115,14 +110,13 @@ public class CalculatorProperties {
        		//assertEquals(re	sult, new BigDecimal(Math.log10(numArg)));
             	
         }
-    
         
+
     @Property (trials = 1000)public void commutativePropertyOfAddition(BigDecimal a, BigDecimal b)
             throws Exception {
+
         	
         	//assumeThat(numArg,  );
-            
-            
             
             BigDecimal aPlusB = calc.parse(String.format("%s + %s", a.toString(), b.toString())).evaluate();
             BigDecimal bPlusA = calc.parse(String.format("%s + %s", b.toString(), a.toString())).evaluate();
@@ -130,18 +124,18 @@ public class CalculatorProperties {
             //naturalLog = naturalLog.pow(-1);
             //BigDecimal expected = new BigDecimal(Math.log10(numArg));
             assertTrue(aPlusB.compareTo(bPlusA) == 0);
+
             
        		//assertEquals(re	sult, new BigDecimal(Math.log10(numArg)));
             	
         }
     
+
     @Property (trials = 1000)public void commutativePropertyOfMultiplication(BigDecimal a, BigDecimal b)
+
             throws Exception {
         	
         	//assumeThat(numArg,  );
-            
-            
-            
             BigDecimal aTimesB = calc.parse(String.format("%s * %s", a.toString(), b.toString())).evaluate();
             BigDecimal bTimesA = calc.parse(String.format("%s * %s", b.toString(), a.toString())).evaluate();
             System.out.println("("+a+"*"+b+"): "+aTimesB + "should be equal to ("+b+"*"+a+"): "+ bTimesA );
@@ -154,34 +148,32 @@ public class CalculatorProperties {
         }
     
     @Property (trials = 1000)public void associativePropertyOfAddition(BigDecimal a, BigDecimal b, BigDecimal c)
+
             throws Exception {
         	
         	//assumeThat(numArg,  );
-            
-            
-            
+
             BigDecimal bPlusCPlusA = calc.parse(String.format("%s + (%s + %s)", a.toString(), b.toString(), c.toString())).evaluate();
             BigDecimal aPlusBPlusC = calc.parse(String.format("(%s + %s) + %s", a.toString(), b.toString(), c.toString())).evaluate();
             System.out.println("("+a.toString()+"+ ("+b.toString()+" + "+ c.toString()+") ): "+ bPlusCPlusA + " should be equals to ( ("+a.toString()+"+ "+b.toString()+") + "+ c.toString()+") ): "+ aPlusBPlusC);
             assertTrue(bPlusCPlusA.compareTo(aPlusBPlusC) == 0);
+
             
        		//assertEquals(re	sult, new BigDecimal(Math.log10(numArg)));
             	
         }
-    
+
     @Property (trials = 1000)public void associationMult(BigDecimal a, BigDecimal b, BigDecimal c)
             throws Exception {
         	
         	//assumeThat(numArg,  );
-            
-            
-            
+
             BigDecimal bTimesCTimesA = calc.parse(String.format("%s * (%s * %s)", a.toString(), b.toString(), c.toString())).evaluate();
             BigDecimal aTimesBTimesC = calc.parse(String.format("(%s * %s) * %s", a.toString(), b.toString(), c.toString())).evaluate();
             System.out.println("("+a.toString()+" * ("+b.toString()+" * "+c.toString() +"): "+bTimesCTimesA + "( ("+a.toString()+" * "+b.toString()+") * "+c.toString() +"): "+aTimesBTimesC);
             
             assertTrue(bTimesCTimesA.compareTo(aTimesBTimesC) == 0);
-            
+
        		//assertEquals(re	sult, new BigDecimal(Math.log10(numArg)));
             	
         }
@@ -211,9 +203,6 @@ public class CalculatorProperties {
             throws Exception {
         	
         	//assumeThat(numArg,  );
-            
-            
-            
             BigDecimal aPlusZero = calc.parse(String.format("%s + 0", a.toString())).evaluate();
             //System.out.println(aPlusZero);
             //System.out.println("      "+calc.parse(String.format("%d + 0.0", a)).evaluate());
@@ -257,11 +246,13 @@ public class CalculatorProperties {
 		
 		//assumeThat(numArg,  );
 		  assumeThat(a, is(either(greaterThan(BigDecimal.ZERO)).or(lessThan(BigDecimal.ZERO)) ) );
+
 	  
 	  
 	  
 	  BigDecimal aTimesOneDividedA = calc.parse(String.format("%s * (%s/%s)", a.toString(), BigDecimal.ONE.toString(), a.toString())).evaluate();
 	  System.out.println("("+a.toString()+" * (" +BigDecimal.ONE.toString()+" / "+a.toString()+"):" +aTimesOneDividedA + " should be equals to "+ BigDecimal.ONE.toString() );
+
 	  //naturalLog = naturalLog.pow(-1);
 	  //BigDecimal expected = new BigDecimal(Math.log10(numArg));
 	  //assertEquals(aTimesOneA, expected); 
@@ -292,12 +283,10 @@ public class CalculatorProperties {
 	  
 	  @Property (trials = 1000)public void quotientProperty(BigDecimal a, BigDecimal b)
 	            throws Exception {
-	        	
-	        	assumeThat(a, is(either(greaterThan(BigDecimal.ZERO)).or(lessThan(BigDecimal.ZERO)) ) );
+		        
+		        assumeThat(a, is(either(greaterThan(BigDecimal.ZERO)).or(lessThan(BigDecimal.ZERO)) ) );
 	        	assumeThat(b, is(either(greaterThan(BigDecimal.ZERO)).or(lessThan(BigDecimal.ZERO)) ) );
-	            
-	            
-	            
+
 	            BigDecimal aTimesOneDividedByB = calc.parse(String.format("%s * (%s / %s) )", a.toString(), BigDecimal.ONE.toString(), b.toString() )). evaluate();
 	            BigDecimal aDividedByB = calc.parse(String.format("%s / %s)", a.toString(), b.toString())). evaluate();
 	            //System.out.println(aTimesZero);
@@ -379,8 +368,8 @@ public class CalculatorProperties {
     	
     	assumeThat(a, greaterThan(BigDecimal.ZERO));  
     	
-    	BigDecimal sqrtSeparate = calc.parse(String.format("sqrt(%s)^2", a.toString())).evaluate();
-    	BigDecimal x = calc.parse(String.format("%s", a)).evaluate();
+    	BigDecimal sqrtSeparate = calc.parse(String.format("sqrt(%s)*sqrt(%s)", a.toString(), a.toString())).evaluate();
+    	BigDecimal x = calc.parse(String.format("%s", a.toString())).evaluate();
     	
     	System.out.println("sqrt(" + a.toString() + ")" + " * " + "sqrt(" + a.toString() + "): " + sqrtSeparate + "\n");
     	
@@ -394,11 +383,11 @@ public class CalculatorProperties {
     	
     	assumeThat(n, greaterThan(BigInteger.ZERO));
     	assumeThat(a, greaterThan(BigDecimal.ZERO));  
-    	
-    	BigDecimal nthRootSeparate = calc.parse(String.format("sqrt(%s)^%s", a.toString(), n.toString())).evaluate();
+
+    	BigDecimal nthRootSeparate = calc.parse(String.format("(root(%s, %s) ^ %s", a.toString(), n.toString(), n.toString())).evaluate();
     	BigDecimal x = calc.parse(String.format("%s", a.toString())).evaluate();
     	
-    	System.out.println("sqrt(" + a.toString() + ")" + " * " + "sqrt(" + a.toString() + "): " + nthRootSeparate + "\n");
+    	System.out.println("root(" + a.toString() + "," + n.toString() + ")" + "^" + n.toString() + " :" + nthRootSeparate + "\n");
     	
     	assertTrue((nthRootSeparate.subtract(x).abs()).compareTo(BigDecimal.ZERO) == 0);
     	
@@ -409,13 +398,14 @@ public class CalculatorProperties {
     	
     	assumeThat(n, greaterThan(BigInteger.ZERO));
     	
-    /*	if( n / 2 == 0) 
+
+    	if( n.divide(new BigInteger("2")).compareTo(BigInteger.ZERO) == 0) 
     	{
     		//n is even
     		assumeThat(a, greaterThan(BigDecimal.ZERO));
     		assumeThat(b, greaterThan(BigDecimal.ZERO));
     	}
-    */	
+
     	BigDecimal nthRootDivTogether = calc.parse(String.format("root(%s/%s, %s)", a.toString(), b.toString(), n.toString())).evaluate();
     	BigDecimal nthRootDivSeparate = calc.parse(String.format("root(%s,%s)/root(%s,%s)", a.toString(), n.toString(), b.toString(), n.toString())).evaluate();
     	
@@ -433,6 +423,7 @@ public class CalculatorProperties {
     	assumeThat(n, greaterThan(BigInteger.ZERO));
     	
     	if( n.divide(new BigInteger("2")).compareTo(BigInteger.ZERO) == 0) 
+
     	{
     		//n is even
     		assumeThat(a, greaterThan(BigDecimal.ZERO));
@@ -449,4 +440,98 @@ public class CalculatorProperties {
     	assertTrue((nthRootMultiTogether.subtract(nthRootMultiSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
     	
     }
+    
+    @Property (trials = 10)
+    public void lnPower(BigDecimal a, BigInteger n) throws Exception{
+ 	   
+ 	   assumeThat(a, greaterThan(BigDecimal.ZERO));
+ 	   
+ 	   BigDecimal lnAPowerN = calc.parse(String.format("ln(%s^%s)", a.toString(), n.toString())).evaluate();
+ 	   BigDecimal lnAMultiplyN = calc.parse(String.format("n * ln(%s)", n.toString(), a.toString())).evaluate();
+ 	   
+ 	   System.out.println("ln(" + a.toString() + " ^ " + n.toString() + "): " + lnAPowerN + "\n");
+       System.out.println(n.toString() + " * " + "ln(" + a.toString() + "): " + lnAMultiplyN + "\n");
+    	   
+    	   assertTrue((lnAPowerN.subtract(lnAMultiplyN).abs()).compareTo(BigDecimal.ZERO) == 0);
+ 	   
+    }
+    
+   @Property (trials = 10)
+   public void lnProductAddition(BigDecimal a, BigDecimal b) throws Exception{
+	   
+	   assumeThat(a, greaterThan(BigDecimal.ZERO));
+	   assumeThat(b, greaterThan(BigDecimal.ZERO));
+	   
+	   BigDecimal lnProduct = calc.parse(String.format("ln(%s*%s)", a.toString(), b.toString())).evaluate();
+	   BigDecimal lnAddition = calc.parse(String.format("ln(%s)+ ln(%s)", a.toString(), b.toString())).evaluate();
+	   
+	   System.out.println("ln(" + a.toString() + " * " + b.toString() + "): " + lnProduct + "\n");
+   	   System.out.println("ln(" + a.toString() + "+" + "ln(" + b.toString() + "): " + lnAddition + "\n");
+   	   
+   	   assertTrue((lnProduct.subtract(lnAddition).abs()).compareTo(BigDecimal.ZERO) == 0);
+	   
+   }
+   
+   @Property (trials = 10)
+   public void lnDivSubtract(BigDecimal a, BigDecimal b) throws Exception{
+	   
+	   assumeThat(a, greaterThan(BigDecimal.ZERO));
+	   assumeThat(b, greaterThan(BigDecimal.ZERO));
+	   
+	   BigDecimal lnDivision = calc.parse(String.format("ln(%s/%s)", a.toString(), b.toString())).evaluate();
+	   BigDecimal lnSubstraction = calc.parse(String.format("ln(%s) - ln(%s)", a.toString(), b.toString())).evaluate();
+	   
+	   System.out.println("ln(" + a.toString() + " / " + b.toString() + "): " + lnDivision + "\n");
+   	   System.out.println("ln(" + a.toString() + " - " + "ln(" + b.toString() + "): " + lnSubstraction + "\n");
+   	   
+   	   assertTrue((lnDivision.subtract(lnSubstraction).abs()).compareTo(BigDecimal.ZERO) == 0);
+	   
+   }
+   
+   @Property (trials = 10)
+   public void logPower(BigDecimal a, BigInteger n) throws Exception{
+	   
+	   assumeThat(a, greaterThan(BigDecimal.ZERO));
+	   
+	   BigDecimal logAPowerN = calc.parse(String.format("log(%s^%s)", a.toString(), n.toString())).evaluate();
+	   BigDecimal logAMultiplyN = calc.parse(String.format("n * log(%s)", n.toString(), a.toString())).evaluate();
+	   
+	   System.out.println("log(" + a.toString() + " ^ " + n.toString() + "): " + logAPowerN + "\n");
+       System.out.println(n.toString() + " * " +"log(" + a.toString() + "): " + logAMultiplyN + "\n");
+   	   
+   	   assertTrue((logAPowerN.subtract(logAMultiplyN).abs()).compareTo(BigDecimal.ZERO) == 0);
+	   
+   }
+   
+   @Property (trials = 10)
+   public void logProductAddition(BigDecimal a, BigDecimal b) throws Exception{
+	   
+	   assumeThat(a, greaterThan(BigDecimal.ZERO));
+	   assumeThat(b, greaterThan(BigDecimal.ZERO));
+	   
+	   BigDecimal logProduct = calc.parse(String.format("log(%s*%s)", a.toString(), b.toString())).evaluate();
+	   BigDecimal logAddition = calc.parse(String.format("log(%s)+ ln(%s)", a.toString(), b.toString())).evaluate();
+	   
+	   System.out.println("log(" + a.toString() + " * " + b.toString() + "): " + logProduct + "\n");
+   	   System.out.println("log(" + a.toString() + "+" + "ln(" + b.toString() + "): " + logAddition + "\n");
+   	   
+   	   assertTrue((logProduct.subtract(logAddition).abs()).compareTo(BigDecimal.ZERO) == 0);
+	   
+   }
+   
+   @Property (trials = 10)
+   public void logDivSubtract(BigDecimal a, BigDecimal b) throws Exception{
+	   
+	   assumeThat(a, greaterThan(BigDecimal.ZERO));
+	   assumeThat(b, greaterThan(BigDecimal.ZERO));
+	   
+	   BigDecimal logDivision = calc.parse(String.format("log(%s/%s)", a.toString(), b.toString())).evaluate();
+	   BigDecimal logSubstraction = calc.parse(String.format("log(%s) - ln(%s)", a.toString(), b.toString())).evaluate();
+	   
+	   System.out.println("log(" + a.toString() + " / " + b.toString() + "): " + logDivision + "\n");
+   	   System.out.println("log(" + a.toString() + " - " + "ln(" + b.toString() + "): " + logSubstraction + "\n");
+   	   
+   	   assertTrue((logDivision.subtract(logSubstraction).abs()).compareTo(BigDecimal.ZERO) == 0);
+	   
+   }
 }
