@@ -44,6 +44,9 @@ public class CalculatorProperties {
 	}
 	
 	@Rule
+    public Timeout globalTimeout = Timeout.seconds(20);
+	
+	@Rule
     public TestWatcher testWatcher = new TestWatcher() {
         @Override
         protected void starting(Description description) {
