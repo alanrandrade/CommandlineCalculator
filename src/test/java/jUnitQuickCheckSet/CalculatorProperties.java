@@ -395,7 +395,7 @@ public class CalculatorProperties {
     	assumeThat(n, greaterThan(BigInteger.ZERO));
     	assumeThat(a, greaterThan(BigDecimal.ZERO));  
     	
-    	BigDecimal nthRootSeparate = calc.parse(String.format("(sqrt(%s)^%s", a.toString(), n.toString())).evaluate();
+    	BigDecimal nthRootSeparate = calc.parse(String.format("sqrt(%s)^%s", a.toString(), n.toString())).evaluate();
     	BigDecimal x = calc.parse(String.format("%s", a.toString())).evaluate();
     	
     	System.out.println("sqrt(" + a.toString() + ")" + " * " + "sqrt(" + a.toString() + "): " + nthRootSeparate + "\n");
@@ -427,18 +427,18 @@ public class CalculatorProperties {
     }
     
     
-    @Property (trials = 5)
+    @Property (trials = 100)
     public void nthRootProduct(BigDecimal a, BigDecimal b, @InRange(minInt = 1) BigInteger n) throws Exception {
     	
     	assumeThat(n, greaterThan(BigInteger.ZERO));
     	
-    /*	if( n / 2 == 0) 
+    	if( n.divide(new BigInteger("2")).compareTo(BigInteger.ZERO) == 0) 
     	{
     		//n is even
     		assumeThat(a, greaterThan(BigDecimal.ZERO));
     		assumeThat(b, greaterThan(BigDecimal.ZERO));
     	}
-    */
+    
     	
     	BigDecimal nthRootMultiTogether = calc.parse(String.format("root(%s*%s, %s)", a.toString(), b.toString(), n.toString())).evaluate();
     	BigDecimal nthRootMultiSeparate = calc.parse(String.format("root(%s,%s)*root(%s,%s)", a.toString(), n.toString(), b.toString(), n.toString())).evaluate();
