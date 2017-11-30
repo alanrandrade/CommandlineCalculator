@@ -11,16 +11,4 @@ Installation
 
 Starting
 --
-`java -jar target/CommandlineCalculator-1.0-jar-with-dependencies.jar`
-
-or use `target/CommandlineCalculator-1.0.jar` in an existing project.
-
-Usage
---
-Evaluate expressions: `6^6+4/(5/2)`
-
-Assign variables: `x=5+2`
-
-Create functions: `f(x,y):=x^y`
-
-Combine the results: `f(x,2)/(5+12)`
+In order to run our tests, simply run the CalculatorProperties.java file located at: src\test\java\jUnitQuickCheckSet as a JUnit test

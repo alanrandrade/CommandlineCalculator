@@ -333,7 +333,7 @@ public class CalculatorProperties {
 	        }
 	  //Brigel's Properties
 
-    @Property (trials = 10)
+    @Property (trials = 1000)
     public void lnInverseExponent(BigInteger a) throws Exception {
     	    	
     	BigDecimal lnex = calc.parse(String.format("ln(e^%s)", a.toString())).evaluate();
@@ -346,7 +346,7 @@ public class CalculatorProperties {
     	
     }
     
-    @Property (trials = 5)
+    @Property (trials = 1000)
     public void sqrtProduct(BigDecimal a, BigDecimal b) throws Exception {
 	
     	assumeThat(a, is(either(equalTo(BigDecimal.ZERO)).or(greaterThan(BigDecimal.ZERO))));
@@ -362,7 +362,7 @@ public class CalculatorProperties {
     	
     }
     
-    @Property (trials = 5)
+    @Property (trials = 1000)
     public void sqrtDivision(BigDecimal a, BigDecimal b) throws Exception {
     	
     	assumeThat(a, is(either(equalTo(BigDecimal.ZERO)).or(greaterThan(BigDecimal.ZERO))));
@@ -377,7 +377,7 @@ public class CalculatorProperties {
     	assertTrue((sqrtDivTogether.subtract(sqrtDivSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
     	
     }
-    @Property (trials = 5)
+    @Property (trials = 1000)
     public void sqrtPowerSeparate(BigDecimal a) throws Exception {
     	
     	assumeThat(a, greaterThan(BigDecimal.ZERO));  
@@ -392,46 +392,46 @@ public class CalculatorProperties {
     }
     
 
-    @Property (trials = 5)
+    @Property (trials = 1000)
     public void nthPowerSeparate(BigDecimal a, @InRange(minInt = 1) BigInteger n) throws Exception {
     	
     	assumeThat(n, greaterThan(BigInteger.ZERO));
     	assumeThat(a, greaterThan(BigDecimal.ZERO));  
 
-    	BigDecimal nthRootSeparate = calc.parse(String.format("(root(%s, %s) ^ %s", a.toString(), n.toString(), n.toString())).evaluate();
-    	BigDecimal x = calc.parse(String.format("%s", a.toString())).evaluate();
+    	BigDecimal nthRootSeparate = calc.parse(String.format("root(%s, %s) ^ %s", a.toString(), n.toString(), n.toString())).evaluate();
+    	//BigDecimal x = calc.parse(String.format("%s", a.toString())).evaluate();
     	
     	System.out.println("root(" + a.toString() + "," + n.toString() + ")" + "^" + n.toString() + " :" + nthRootSeparate + "\n");
-    	
-    	assertTrue((nthRootSeparate.subtract(x).abs()).compareTo(BigDecimal.ZERO) == 0);
+    	System.out.println("expected: "+a.toString());
+    	assertTrue((nthRootSeparate.subtract(a).abs()).compareTo(BigDecimal.ZERO) == 0);
     	
     }
     
-    @Property (trials = 5)
+    @Property (trials = 1000)
     public void nthRootDivision(BigDecimal a, BigDecimal b, @InRange(minInt = 1) BigInteger n) throws Exception {
     	
     	assumeThat(n, greaterThan(BigInteger.ZERO));
     	
 
-    	if( n.divide(new BigInteger("2")).compareTo(BigInteger.ZERO) == 0) 
+    	if( n.intValue() % 2 == 0) 
     	{
     		//n is even
     		assumeThat(a, greaterThan(BigDecimal.ZERO));
     		assumeThat(b, greaterThan(BigDecimal.ZERO));
     	}
-
+    	System.out.println(a + "b "+b+ " n" +n);
     	BigDecimal nthRootDivTogether = calc.parse(String.format("root(%s/%s, %s)", a.toString(), b.toString(), n.toString())).evaluate();
     	BigDecimal nthRootDivSeparate = calc.parse(String.format("root(%s,%s)/root(%s,%s)", a.toString(), n.toString(), b.toString(), n.toString())).evaluate();
     	
     	System.out.println("root(" + a.toString() + " / " + b.toString() + "," + n.toString() + "): " + nthRootDivTogether + "\n");
-    	System.out.println("root(" + a.toString() + "," + n.toString() + ")" + " / " + "root(" + b.toString() + "," + a.toString() + "): " + nthRootDivSeparate + "\n");
+    	System.out.println("root(" + a.toString() + "," + n.toString() + ")" + " / " + "root(" + b.toString() + "," + n.toString() + "): " + nthRootDivSeparate + "\n");
     	
     	assertTrue((nthRootDivTogether.subtract(nthRootDivSeparate).abs()).compareTo(BigDecimal.ZERO) == 0);
     	
     }
     
     
-    @Property (trials = 100)
+    @Property (trials = 1000)
     public void nthRootProduct(BigDecimal a, BigDecimal b, @InRange(minInt = 1) BigInteger n) throws Exception {
     	
     	assumeThat(n, greaterThan(BigInteger.ZERO));
@@ -455,13 +455,13 @@ public class CalculatorProperties {
     	
     }
     
-    @Property (trials = 10)
+    @Property (trials = 1000)
     public void lnPower(BigDecimal a, BigInteger n) throws Exception{
  	   
  	   assumeThat(a, greaterThan(BigDecimal.ZERO));
  	   
  	   BigDecimal lnAPowerN = calc.parse(String.format("ln(%s^%s)", a.toString(), n.toString())).evaluate();
- 	   BigDecimal lnAMultiplyN = calc.parse(String.format("n * ln(%s)", n.toString(), a.toString())).evaluate();
+ 	   BigDecimal lnAMultiplyN = calc.parse(String.format("%s * ln(%s)", n.toString(), a.toString())).evaluate();
  	   
  	   System.out.println("ln(" + a.toString() + " ^ " + n.toString() + "): " + lnAPowerN + "\n");
        System.out.println(n.toString() + " * " + "ln(" + a.toString() + "): " + lnAMultiplyN + "\n");
@@ -470,7 +470,7 @@ public class CalculatorProperties {
  	   
     }
     
-   @Property (trials = 10)
+   @Property (trials = 1000)
    public void lnProductAddition(BigDecimal a, BigDecimal b) throws Exception{
 	   
 	   assumeThat(a, greaterThan(BigDecimal.ZERO));
@@ -486,7 +486,7 @@ public class CalculatorProperties {
 	   
    }
    
-   @Property (trials = 10)
+   @Property (trials = 1000)
    public void lnDivSubtract(BigDecimal a, BigDecimal b) throws Exception{
 	   
 	   assumeThat(a, greaterThan(BigDecimal.ZERO));
@@ -502,13 +502,13 @@ public class CalculatorProperties {
 	   
    }
    
-   @Property (trials = 10)
+   @Property (trials = 1000)
    public void logPower(BigDecimal a, BigInteger n) throws Exception{
 	   
 	   assumeThat(a, greaterThan(BigDecimal.ZERO));
 	   
 	   BigDecimal logAPowerN = calc.parse(String.format("log(%s^%s)", a.toString(), n.toString())).evaluate();
-	   BigDecimal logAMultiplyN = calc.parse(String.format("n * log(%s)", n.toString(), a.toString())).evaluate();
+	   BigDecimal logAMultiplyN = calc.parse(String.format("%s * log(%s)", n.toString(), a.toString())).evaluate();
 	   
 	   System.out.println("log(" + a.toString() + " ^ " + n.toString() + "): " + logAPowerN + "\n");
        System.out.println(n.toString() + " * " +"log(" + a.toString() + "): " + logAMultiplyN + "\n");
@@ -517,30 +517,30 @@ public class CalculatorProperties {
 	   
    }
    
-   @Property (trials = 10)
+   @Property (trials = 1000)
    public void logProductAddition(BigDecimal a, BigDecimal b) throws Exception{
 	   
 	   assumeThat(a, greaterThan(BigDecimal.ZERO));
 	   assumeThat(b, greaterThan(BigDecimal.ZERO));
 	   
 	   BigDecimal logProduct = calc.parse(String.format("log(%s*%s)", a.toString(), b.toString())).evaluate();
-	   BigDecimal logAddition = calc.parse(String.format("log(%s)+ ln(%s)", a.toString(), b.toString())).evaluate();
+	   BigDecimal logAddition = calc.parse(String.format("log(%s)+ log(%s)", a.toString(), b.toString())).evaluate();
 	   
 	   System.out.println("log(" + a.toString() + " * " + b.toString() + "): " + logProduct + "\n");
-   	   System.out.println("log(" + a.toString() + "+" + "ln(" + b.toString() + "): " + logAddition + "\n");
+   	   System.out.println("log(" + a.toString() + "+" + "log(" + b.toString() + "): " + logAddition + "\n");
    	   
    	   assertTrue((logProduct.subtract(logAddition).abs()).compareTo(BigDecimal.ZERO) == 0);
 	   
    }
    
-   @Property (trials = 10)
+   @Property (trials = 1000)
    public void logDivSubtract(BigDecimal a, BigDecimal b) throws Exception{
 	   
 	   assumeThat(a, greaterThan(BigDecimal.ZERO));
 	   assumeThat(b, greaterThan(BigDecimal.ZERO));
 	   
 	   BigDecimal logDivision = calc.parse(String.format("log(%s/%s)", a.toString(), b.toString())).evaluate();
-	   BigDecimal logSubstraction = calc.parse(String.format("log(%s) - ln(%s)", a.toString(), b.toString())).evaluate();
+	   BigDecimal logSubstraction = calc.parse(String.format("log(%s) - log(%s)", a.toString(), b.toString())).evaluate();
 	   
 	   System.out.println("log(" + a.toString() + " / " + b.toString() + "): " + logDivision + "\n");
    	   System.out.println("log(" + a.toString() + " - " + "ln(" + b.toString() + "): " + logSubstraction + "\n");
