@@ -67,7 +67,7 @@ public class CalculatorProperties {
         }
 
     };
-/*
+
     @Property (trials = 1000)public void RoundHasFractionalValueZero(BigDecimal numArg)
             throws Exception {
             
@@ -331,7 +331,6 @@ public class CalculatorProperties {
 	       		//assertEquals(re	sult, new BigDecimal(Math.log10(numArg)));
 	            	
 	        }
-	        */
 	  //Brigel's Properties
 
     @Property (trials = 10)
