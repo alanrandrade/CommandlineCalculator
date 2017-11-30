@@ -67,7 +67,6 @@ public class CalculatorProperties {
         }
 
     };
-
     @Property (trials = 1000)public void RoundHasFractionalValueZero(BigDecimal numArg)
             throws Exception {
             
@@ -103,7 +102,7 @@ public class CalculatorProperties {
             assertTrue((round.remainder(BigDecimal.ONE)).compareTo(BigDecimal.ZERO) == 0); 
             
        }
-    
+
     
     //Change BigDecimalToInteger
     @Property (trials = 1000)public void LogOfTenToThePowerOfAEqualsToA(@InRange (minInt = -10) Integer a)
@@ -124,7 +123,6 @@ public class CalculatorProperties {
             	
         }
     
-        
 
     @Property (trials = 1000)public void commutativePropertyOfAddition(BigDecimal a, BigDecimal b)
             throws Exception {
@@ -400,6 +398,7 @@ public class CalculatorProperties {
 
     	BigDecimal nthRootSeparate = calc.parse(String.format("root(%s, %s) ^ %s", a.toString(), n.toString(), n.toString())).evaluate();
     	//BigDecimal x = calc.parse(String.format("%s", a.toString())).evaluate();
+
     	
     	System.out.println("root(" + a.toString() + "," + n.toString() + ")" + "^" + n.toString() + " :" + nthRootSeparate + "\n");
     	System.out.println("expected: "+a.toString());
@@ -543,7 +542,7 @@ public class CalculatorProperties {
 	   BigDecimal logSubstraction = calc.parse(String.format("log(%s) - log(%s)", a.toString(), b.toString())).evaluate();
 	   
 	   System.out.println("log(" + a.toString() + " / " + b.toString() + "): " + logDivision + "\n");
-   	   System.out.println("log(" + a.toString() + " - " + "ln(" + b.toString() + "): " + logSubstraction + "\n");
+   	   System.out.println("log(" + a.toString() + " - " + "log(" + b.toString() + "): " + logSubstraction + "\n");
    	   
    	   assertTrue((logDivision.subtract(logSubstraction).abs()).compareTo(BigDecimal.ZERO) == 0);
 	   
