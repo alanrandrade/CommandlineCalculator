@@ -94,15 +94,25 @@ public class CalculatorProperties {
 
         }
     
+    @Property (trials = 1000)public void floorHasFractionalValueZero(BigDecimal numArg)
+            throws Exception {
+            
+            
+            BigDecimal round = calc.parse(String.format("floor(%s)", numArg.toString())).evaluate();
+            System.out.println("floor ("+numArg.toString()+") has remainder:  "+round.remainder(BigDecimal.ONE)+"\n" );
+            assertTrue((round.remainder(BigDecimal.ONE)).compareTo(BigDecimal.ZERO) == 0); 
+            
+       }
+    
     
     //Change BigDecimalToInteger
-    @Property (trials = 1000)public void LogOfAEqualsToTenToThePowerOfA( Integer a)
+    @Property (trials = 1000)public void LogOfTenToThePowerOfAEqualsToA(@InRange (minInt = -10) Integer a)
 
             throws Exception {
         	
         	//assumeThat(numArg,  );
     		assumeThat(a, is(either(greaterThan(0)).or(lessThan(0)) ) );
-    	
+    		System.out.println(a);
            
             BigDecimal logATenA = calc.parse(String.format("log(10^%d)"	, a)).evaluate();
             
@@ -113,6 +123,7 @@ public class CalculatorProperties {
        		//assertEquals(re	sult, new BigDecimal(Math.log10(numArg)));
             	
         }
+    
         
 
     @Property (trials = 1000)public void commutativePropertyOfAddition(BigDecimal a, BigDecimal b)
@@ -166,7 +177,7 @@ public class CalculatorProperties {
             	
         }
 
-    @Property (trials = 1000)public void associationMult(BigDecimal a, BigDecimal b, BigDecimal c)
+    @Property (trials = 1000)public void associativePropertyOfMultiplication(BigDecimal a, BigDecimal b, BigDecimal c)
             throws Exception {
         	
         	//assumeThat(numArg,  );
@@ -181,7 +192,7 @@ public class CalculatorProperties {
             	
         }
     
-    @Property (trials = 1000)public void MutiplicativeIdentityProperty(BigDecimal a)
+    @Property (trials = 1000)public void multiplicativeIdentityProperty(BigDecimal a)
 	  throws Exception {
 		
 		//assumeThat(numArg,  );
@@ -265,7 +276,7 @@ public class CalculatorProperties {
 	  	
 	}
 	  
-	  @Property (trials = 1000)public void multiplicationPropertyOfZero(BigDecimal a)
+	  @Property (trials = 1000)public void multiplicativePropertyOfZero(BigDecimal a)
 	            throws Exception {
 	        	
 	        	//assumeThat(numArg,  );
