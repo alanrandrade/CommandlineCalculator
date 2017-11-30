@@ -67,7 +67,7 @@ public class CalculatorProperties {
         }
 
     };
-
+/*
     @Property (trials = 1000)public void RoundHasFractionalValueZero(BigDecimal numArg)
             throws Exception {
             
@@ -331,6 +331,7 @@ public class CalculatorProperties {
 	       		//assertEquals(re	sult, new BigDecimal(Math.log10(numArg)));
 	            	
 	        }
+	        */
 	  //Brigel's Properties
 
     @Property (trials = 10)
@@ -393,12 +394,12 @@ public class CalculatorProperties {
     
 
     @Property (trials = 5)
-    public void nthPowerSeparate(BigDecimal a, @InRange(minInt = 1) BigInteger n) throws Exception {
+    public void nthPowerSeparate(BigDecimal a, BigInteger n) throws Exception {
     	
     	assumeThat(n, greaterThan(BigInteger.ZERO));
     	assumeThat(a, greaterThan(BigDecimal.ZERO));  
 
-    	BigDecimal nthRootSeparate = calc.parse(String.format("(root(%s, %s) ^ %s", a.toString(), n.toString(), n.toString())).evaluate();
+    	BigDecimal nthRootSeparate = calc.parse(String.format("root(%s, %s) ^ %s", a.toString(), n.toString(), n.toString())).evaluate();
     	BigDecimal x = calc.parse(String.format("%s", a.toString())).evaluate();
     	
     	System.out.println("root(" + a.toString() + "," + n.toString() + ")" + "^" + n.toString() + " :" + nthRootSeparate + "\n");
@@ -446,8 +447,7 @@ public class CalculatorProperties {
     
     	
     	BigDecimal nthRootMultiTogether = calc.parse(String.format("root(%s*%s, %s)", a.toString(), b.toString(), n.toString())).evaluate();
-    	BigDecimal nthRootMultiSeparate = calc.parse(String.format("root(%s,%s)*root(%s,%s)", a.toString(), n.toString(), b.toString(), n.toString())).evaluate();
-    	
+48    	
     	System.out.println("root(" + a.toString() + " * " + b.toString()+ "," + n.toString() + "): " + nthRootMultiTogether + "\n");
     	System.out.println("root(" + a.toString() + "," + n.toString() + ")" + " * " + "root(" + b.toString() + "," + a.toString() + "): " + nthRootMultiSeparate + "\n");
     	
@@ -543,7 +543,7 @@ public class CalculatorProperties {
 	   BigDecimal logSubstraction = calc.parse(String.format("log(%s) - log(%s)", a.toString(), b.toString())).evaluate();
 	   
 	   System.out.println("log(" + a.toString() + " / " + b.toString() + "): " + logDivision + "\n");
-   	   System.out.println("log(" + a.toString() + " - " + "ln(" + b.toString() + "): " + logSubstraction + "\n");
+   	   System.out.println("log(" + a.toString() + " - " + "log(" + b.toString() + "): " + logSubstraction + "\n");
    	   
    	   assertTrue((logDivision.subtract(logSubstraction).abs()).compareTo(BigDecimal.ZERO) == 0);
 	   
