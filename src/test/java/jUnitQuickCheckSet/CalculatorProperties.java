@@ -497,7 +497,7 @@ public class CalculatorProperties {
 	   assumeThat(a, greaterThan(BigDecimal.ZERO));
 	   
 	   BigDecimal logAPowerN = calc.parse(String.format("log(%s^%s)", a.toString(), n.toString())).evaluate();
-	   BigDecimal logAMultiplyN = calc.parse(String.format("n * log(%s)", n.toString(), a.toString())).evaluate();
+	   BigDecimal logAMultiplyN = calc.parse(String.format("%s * log(%s)", n.toString(), a.toString())).evaluate();
 	   
 	   System.out.println("log(" + a.toString() + " ^ " + n.toString() + "): " + logAPowerN + "\n");
        System.out.println(n.toString() + " * " +"log(" + a.toString() + "): " + logAMultiplyN + "\n");
@@ -529,7 +529,7 @@ public class CalculatorProperties {
 	   assumeThat(b, greaterThan(BigDecimal.ZERO));
 	   
 	   BigDecimal logDivision = calc.parse(String.format("log(%s/%s)", a.toString(), b.toString())).evaluate();
-	   BigDecimal logSubstraction = calc.parse(String.format("log(%s) - ln(%s)", a.toString(), b.toString())).evaluate();
+	   BigDecimal logSubstraction = calc.parse(String.format("log(%s) - log(%s)", a.toString(), b.toString())).evaluate();
 	   
 	   System.out.println("log(" + a.toString() + " / " + b.toString() + "): " + logDivision + "\n");
    	   System.out.println("log(" + a.toString() + " - " + "ln(" + b.toString() + "): " + logSubstraction + "\n");
