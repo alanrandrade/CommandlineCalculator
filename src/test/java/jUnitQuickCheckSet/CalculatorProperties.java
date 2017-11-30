@@ -67,7 +67,6 @@ public class CalculatorProperties {
         }
 
     };
-
     @Property (trials = 1000)public void RoundHasFractionalValueZero(BigDecimal numArg)
             throws Exception {
             
@@ -103,7 +102,7 @@ public class CalculatorProperties {
             assertTrue((round.remainder(BigDecimal.ONE)).compareTo(BigDecimal.ZERO) == 0); 
             
        }
-    
+
     
     //Change BigDecimalToInteger
     @Property (trials = 1000)public void LogOfTenToThePowerOfAEqualsToA(@InRange (minInt = -10) Integer a)
@@ -124,7 +123,6 @@ public class CalculatorProperties {
             	
         }
     
-        
 
     @Property (trials = 1000)public void commutativePropertyOfAddition(BigDecimal a, BigDecimal b)
             throws Exception {
@@ -393,7 +391,7 @@ public class CalculatorProperties {
     
 
     @Property (trials = 5)
-    public void nthPowerSeparate(BigDecimal a, BigInteger n) throws Exception {
+    public void nthPowerSeparate(BigDecimal a, @InRange(minInt = 1) BigInteger n) throws Exception {
     	
     	assumeThat(n, greaterThan(BigInteger.ZERO));
     	assumeThat(a, greaterThan(BigDecimal.ZERO));  
@@ -446,7 +444,8 @@ public class CalculatorProperties {
     
     	
     	BigDecimal nthRootMultiTogether = calc.parse(String.format("root(%s*%s, %s)", a.toString(), b.toString(), n.toString())).evaluate();
-48    	
+    	BigDecimal nthRootMultiSeparate = calc.parse(String.format("root(%s,%s)*root(%s,%s)", a.toString(), n.toString(), b.toString(), n.toString())).evaluate();
+    	
     	System.out.println("root(" + a.toString() + " * " + b.toString()+ "," + n.toString() + "): " + nthRootMultiTogether + "\n");
     	System.out.println("root(" + a.toString() + "," + n.toString() + ")" + " * " + "root(" + b.toString() + "," + a.toString() + "): " + nthRootMultiSeparate + "\n");
     	
