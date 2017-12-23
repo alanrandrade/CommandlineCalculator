@@ -9,6 +9,6 @@ Installation
 --
 `mvn install`
 
-Starting
+This command will fetch all dependecies and run all the tests.
+
 --
-In order to run our tests, simply run the CalculatorProperties.java file located at: src\test\java\jUnitQuickCheckSet as a JUnit test
