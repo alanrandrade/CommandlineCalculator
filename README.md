@@ -7,8 +7,10 @@ Requirements
 
 Installation
 --
-`mvn install`
+Using Eclipse:
 
-This command will fetch all dependecies and run all the tests.
+File > Import > Existing Maven Projects > Next > Browse > Select path/to/deriverable/CommandlineCalculator > Ok > Select /pom.xml ...CommandlineCalculator:1.0.jar > Finish
+Project will be available in Package Explorer.
+Right click on project > Run as.. > Maven install > Tests will run automatically.
 
 --
