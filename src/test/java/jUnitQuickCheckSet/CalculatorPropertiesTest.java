@@ -28,7 +28,7 @@ import eu.gillissen.commandline.calculator.Calc;
 
 
 @RunWith(JUnitQuickcheck.class)
-public class CalculatorProperties {
+public class CalculatorPropertiesTest {
 	
 	static Calc calc;
 	
