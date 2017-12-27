@@ -20,4 +20,4 @@ Right click on project > Run as.. > Maven install > Tests will run automatically
 If maven install does not run the tests automatically, you can still run the file CalculatorProperties (CalculatorPropertiesTest) as a Junit test.
 
 Right click on the test file > Run as > Junit Test
---
+
