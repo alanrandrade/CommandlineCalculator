@@ -1,0 +1,135 @@
+
+
+TYPEDEF RangeOfInputs 
+    ::= 
+        CommutativeAdd { a1, a2 :: Int }
+        | CommutativeMult {m1, m2 :: Int}
+        | AddId {aid :: Int}
+        | MultId {mid :: Int} 
+ENDDEF
+
+
+
+PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] () 
+    ::=
+        Input ? a [[ isCommutativeAdd(a)  ]]
+                >->
+            Output ! (equalityResult(a))
+                >->
+            stimResp [ Input, Output] ()
+
+        ##
+        Input ? a [[ isCommutativeMult(a)  ]]
+                >->
+            Output ! (equalityResult(a))
+                >->
+            stimResp [ Input, Output] ()
+
+        ##
+        Input ? a [[ isAddId(a)  ]]
+                >->
+            Output ! (equalityResult(a))
+                >->
+            stimResp [ Input, Output] ()
+
+        ##
+        Input ? a [[ isMultId(a)  ]]
+                >->
+            Output ! (equalityResult(a))
+                >->
+            stimResp [ Input, Output] ()
+
+ENDDEF
+
+
+FUNCDEF equalityResult(expr :: RangeOfInputs) ::Int ::=
+    LET exp1 = addMultToInt(expr); exp2 = addMultToInt(expr) IN
+        IF exp1 > exp2 THEN
+            1
+        ELSE IF exp1 < exp2 THEN
+            -1
+        ELSE 
+            0
+        FI FI
+    NI  
+ENDDEF
+
+
+-- FUNCDEF copyFirstExpToSec(inp :: RangeOfInputs) :: String ::=
+--    IF isCommutativeAddMult(inp) THEN
+--        toString(a1(inp)) ++ opToString(op(inp))++ toString(a2(inp)) ++ " = " ++ toString(a2(inp)) ++ opToString(Op(inp))++  toString(a1(inp))
+--    ELSE
+--        "exit()"
+--    FI 
+-- ENDDEF
+
+
+-- FUNCDEF copyFirstArgsToSndExp(inp :: Exp) :: Exp ::=
+--     IF isAdd(inp) THEN                                                          
+--         Add( a1(a1(exp(inp) )), a2(a2( exp(inp))), a3(a2(exp(inp))), a4(a1(exp(inp))), op(op(exp(inp))) )
+--        ELSE IF isMult(inp) THEN                                                          
+--        Mult( m1(m11(exp(inp) )), m2(m2( exp(inp))), m3(m2(exp(inp))), m4(m1(exp(inp))) )
+--        ELSE
+--            inp    
+--     FI FI
+-- ENDDEF
+
+
+ FUNCDEF inputToString(input :: RangeOfInputs) :: String ::=
+    IF isCommutativeAdd(input) THEN
+         toString(a1(input)) ++ " + " ++ toString(a2(input)) ++ " = " ++ toString(a2(input)) ++ " + " ++ toString(a1(input))
+    ELSE IF isCommutativeMult(input) THEN
+            toString(a1(input)) ++ " * " ++ toString(a2(input)) ++ " = " ++ toString(a2(input)) ++ " * " ++ toString(a1(input))
+            ELSE IF isAddId(input) THEN
+                toString(aid(input)) ++ " + 0 " ++ " = " ++ " 0 + " ++ toString(aid(input))
+                ELSE IF isMultId(input) THEN
+                    toString(mid(input)) ++ " * 1 " ++ " = " ++ " 1 * " ++ toString(mid(input))
+                    ELSE
+                        ""
+    FI FI FI FI
+ ENDDEF
+
+
+FUNCDEF addMultToInt(exp::RangeOfInputs) :: Int ::=
+    IF isCommutativeAdd(exp) THEN
+        a1(exp) + a2(exp)
+    ELSE IF isCommutativeMult(exp) THEN
+            m1(exp) * m2(exp)
+            ELSE IF isAddId(exp) THEN
+                aid(exp) * 0
+                ELSE IF isMultId(exp) THEN
+                    mid(exp) * 1
+                    ELSE
+                    0
+    FI FI FI FI
+ENDDEF
+
+
+
+
+CHANDEF MyChannels ::=
+    Input       :: RangeOfInputs ;
+    Output    :: Int
+ENDDEF
+
+MODELDEF Model ::=
+    CHAN IN    Input
+    CHAN OUT   Output
+
+    BEHAVIOUR  
+        stimResp [Input,Output] ()
+ENDDEF
+
+
+
+CNECTDEF  Sut
+    ::=
+        CLIENTSOCK
+
+        CHAN  OUT  Input            HOST "localhost"  PORT 7890
+        ENCODE     Input ? a           ->  ! inputToString(a)
+        
+        CHAN  IN   Output            HOST "localhost"  PORT 7890
+        DECODE     Output ! fromString(b)           <-   ? b
+ENDDEF
+
