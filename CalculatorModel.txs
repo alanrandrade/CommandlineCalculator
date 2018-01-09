@@ -161,7 +161,7 @@ ENDDEF
                                                 "(ln(" ++ toString(af4(input)) ++ "^" ++ toString(nf4(input)) ++ ")) = (" ++ toString(nf4(input)) ++ "* ln(" ++ toString(af4(input)) ++ "))" 
                                             ELSE
                                                 ""
-    FI FI FI FI FI FI FI FI FI FI FI
+    FI FI FI FI FI FI FI FI FI FI FI FI
  ENDDEF
 
 
