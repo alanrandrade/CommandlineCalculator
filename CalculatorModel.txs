@@ -14,6 +14,7 @@ TYPEDEF RangeOfInputs
         | Quotient {q1, q2 :: Int}
         | MultInverse {mi :: Int}
         | PropF4 { af4, nf4 :: Int }
+        | PropF5 { af5, bf5 :: Int }
 
 
 ENDDEF
@@ -98,6 +99,14 @@ PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] ()
                 >->
             stimResp [ Input, Output] ()
 
+        ##
+        Input ? a [[ isPropF5 (a) ]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+
+
 ENDDEF
 
 
@@ -159,9 +168,11 @@ ENDDEF
                                                 toString(mi(input)) ++ " * ( 1" ++  "/" ++ toString(mi(input)) ++ ") = " ++"1"
                                             ELSE IF isPropF4(input) THEN
                                                 "(ln(" ++ toString(af4(input)) ++ "^" ++ toString(nf4(input)) ++ ")) = (" ++ toString(nf4(input)) ++ "* ln(" ++ toString(af4(input)) ++ "))" 
+                                             ELSE IF isPropF4(input) THEN
+                                                "(ln(" ++ toString(af5(input)) ++ "*" ++ toString(bf5(input)) ++ ")) = (ln(" ++ toString(af5(input)) ++ "+ ln(" ++ toString(bf5(input)) ++ "))" 
                                             ELSE
                                                 ""
-    FI FI FI FI FI FI FI FI FI FI FI FI
+    FI FI FI FI FI FI FI FI FI FI FI FI FI
  ENDDEF
 
 
