@@ -5,7 +5,14 @@ TYPEDEF RangeOfInputs
         CommutativeAdd { a1, a2 :: Int }
         | CommutativeMult {m1, m2 :: Int}
         | AddId {aid :: Int}
-        | MultId {mid :: Int} 
+        | MultId {mid :: Int}
+        | AddInverse {ai :: Int}
+        | MultZero {mz :: Int}
+        | AssocMult {ascm1, ascm2, ascm3 :: Int}
+        | AssocAdd {asca1, asca2, asca3 :: Int}
+        | DistrMultOverAdd {dma1, dma2, dma3 :: Int}
+        | Quotient {q1, q2 :: Int}
+        | MultInverse {mi :: Int}
 ENDDEF
 
 
@@ -39,11 +46,54 @@ PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] ()
                 >->
             stimResp [ Input, Output] ()
 
+        ##
+        Input ? a [[ isAddInverse(a)  ]]
+                >->
+            Output ! (equalityResult(a))
+                >->
+            stimResp [ Input, Output] ()
+        ##
+        Input ? a [[ isMultZero(a)  ]]
+                >->
+            Output ! (equalityResult(a))
+                >->
+            stimResp [ Input, Output] ()
+        ##
+        Input ? a [[ isAssocMult(a)  ]]
+                >->
+            Output ! (equalityResult(a))
+                >->
+            stimResp [ Input, Output] ()
+        ##
+        Input ? a [[ isAssocAdd(a)  ]]
+                >->
+            Output ! (equalityResult(a))
+                >->
+            stimResp [ Input, Output] ()
+        ##
+        Input ? a [[ isDistrMultOverAdd(a)  ]]
+                >->
+            Output ! (equalityResult(a))
+                >->
+            stimResp [ Input, Output] ()
+        ##
+        Input ? a [[ isQuotient(a) /\  isDiffThanZero(q2(a)) ]]
+                >->
+            Output ! (equalityResult(a))
+                >->
+            stimResp [ Input, Output] ()
+        ##
+        Input ? a [[ isMultInverse(a)  /\  isDiffThanZero(mi(a)) ]]
+                >->
+            Output ! (equalityResult(a))
+                >->
+            stimResp [ Input, Output] ()
+
 ENDDEF
 
 
 FUNCDEF equalityResult(expr :: RangeOfInputs) ::Int ::=
-    LET exp1 = addMultToInt(expr); exp2 = addMultToInt(expr) IN
+    LET exp1 = expToInt(expr); exp2 = expToInt(expr) IN
         IF exp1 > exp2 THEN
             1
         ELSE IF exp1 < exp2 THEN
@@ -84,26 +134,74 @@ ENDDEF
                 toString(aid(input)) ++ " + 0 " ++ " = " ++ " 0 + " ++ toString(aid(input))
                 ELSE IF isMultId(input) THEN
                     toString(mid(input)) ++ " * 1 " ++ " = " ++ " 1 * " ++ toString(mid(input))
-                    ELSE
-                        ""
-    FI FI FI FI
+                    ELSE IF isAddInverse(input) THEN
+                        toString(ai(input)) ++  " + (" ++ addMinusSymb(ai(input))  ++ ")"++ " = 0"
+                        ELSE IF isMultZero(input) THEN
+                            toString(mz(input)) ++ " * " ++  "0" ++ " =  0 "
+                            ELSE IF isAssocAdd(input) THEN
+                                "(" ++ toString(asca1(input)) ++ " + " ++ toString(asca2(input)) ++  ") + " ++ toString(asca3(input))  ++  " = " ++ toString(asca1(input)) ++ " + (" ++ toString(asca2(input)) ++  " + " ++ toString(asca3(input)) ++ ")"
+                                ELSE IF isAssocMult(input) THEN
+                                    "(" ++ toString(ascm1(input)) ++ " + " ++ toString(ascm2(input)) ++  ") + " ++ toString(ascm3(input))  ++  " = " ++ toString(ascm1(input)) ++ " + (" ++ toString(ascm2(input)) ++  " + " ++ toString(ascm3(input)) ++ ")"
+                                    ELSE IF isDistrMultOverAdd(input) THEN
+                                        toString(dma1(input)) ++ " * (" ++ toString(dma2(input)) ++  " + " ++ toString(dma3(input))  ++  ") = " ++ toString(dma1(input)) ++ " * " ++ toString(dma2(input)) ++  " + " ++ toString(dma1(input)) ++" * " ++ toString(dma3(input))
+                                        ELSE IF isQuotient(input) THEN
+                                            toString(q1(input)) ++ " * ( 1" ++  " / " ++ toString(q2(input)) ++ ") = " ++ toString(q1(input)) ++ " / " ++ toString(q2(input))
+                                            ELSE IF isMultInverse(input) THEN
+                                                toString(mi(input)) ++ " * ( 1" ++  "/" ++ toString(mi(input)) ++ ") = " ++"1"
+                                            ELSE
+                                                ""
+    FI FI FI FI FI FI FI FI FI FI FI
  ENDDEF
 
 
-FUNCDEF addMultToInt(exp::RangeOfInputs) :: Int ::=
+
+ 
+
+FUNCDEF addMinusSymb(val::Int) :: String ::= 
+    IF val >= 0 THEN
+        "-"++toString(val)
+    ELSE
+        toString( (val*(-1)) )
+    FI
+ENDDEF
+
+
+FUNCDEF isDiffThanZero(val::Int) :: Bool ::=
+    IF val <> 0 THEN
+        True
+    ELSE
+        False
+    FI
+ENDDEF
+
+        
+FUNCDEF expToInt(exp::RangeOfInputs) :: Int ::=
     IF isCommutativeAdd(exp) THEN
         a1(exp) + a2(exp)
     ELSE IF isCommutativeMult(exp) THEN
             m1(exp) * m2(exp)
             ELSE IF isAddId(exp) THEN
-                aid(exp) * 0
+                aid(exp) + 0
                 ELSE IF isMultId(exp) THEN
                     mid(exp) * 1
-                    ELSE
-                    0
-    FI FI FI FI
+                    ELSE IF isAddInverse(exp) THEN
+                        ai(exp) * (-1)
+                    ELSE IF isMultZero(exp) THEN
+                        mz(exp) * 0
+                        ELSE IF isAssocAdd(exp) THEN
+                            asca1(exp) + asca2(exp) + asca3(exp)
+                            ELSE IF isAssocMult(exp) THEN
+                                ascm1(exp) *  ascm2(exp) * ascm3(exp)
+                                ELSE IF isDistrMultOverAdd(exp) THEN
+                                    dma1(exp) * (dma2(exp) + dma3(exp))
+                                    ELSE IF isQuotient(exp) THEN
+                                        q1(exp) * (1/q2(exp))
+                                        ELSE IF isMultInverse(exp) THEN
+                                            q1(exp) * (1/q1(exp))
+                                        ELSE
+                                        0
+    FI FI FI FI FI FI FI FI FI FI FI  
 ENDDEF
-
 
 
 
