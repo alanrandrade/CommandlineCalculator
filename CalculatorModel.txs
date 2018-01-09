@@ -15,7 +15,9 @@ TYPEDEF RangeOfInputs
         | MultInverse {mi :: Int}
         | PropertyF2 {nf2 :: Int}
         | PropertyF3 {nf3 :: Int}
-        
+        | PropF4 { af4, nf4 :: Int }
+
+
 ENDDEF
 
 
@@ -93,17 +95,24 @@ PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] ()
             stimResp [ Input, Output] ()
         ##
         Input ? a [[ isPropertyF2(a) ]]
-                >->
+            >->
             Output ! (0)
                 >->
             stimResp [ Input, Output] ()
-
         ##
         Input ? a [[ isPropertyF3(a) ]]
                 >->
             Output ! (0)
                 >->
             stimResp [ Input, Output] ()
+        ##
+        Input ? a [[ isPropF4 (a) ]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+
+        
 
 ENDDEF
 
@@ -157,9 +166,13 @@ ENDDEF
                                                     "(log(10^" ++ toString(nf2(input)) ++ ")) =" ++ toString(nf2(input))
                                                     ELSE IF isPropertyF3(input) THEN
                                                         "(ln(e^" ++ toString(nf3(input)) ++ ")) =" ++ toString(nf3(input))
+                                                        ELSE IF isPropF4(input) THEN
+                                                            "(ln(" ++ toString(af4(input)) ++ "^" ++ toString(nf4(input)) ++ ")) = (" ++ toString(nf4(input)) ++ "* ln(" ++ toString(af4(input)) ++ "))" 
                                                         ELSE
                                                             ""
-    FI FI FI FI FI FI FI FI FI FI FI FI FI
+    FI FI FI FI FI FI FI FI FI FI FI FI FI FI
+
+    
  ENDDEF
 
 
