@@ -16,7 +16,12 @@ TYPEDEF RangeOfInputs
         | PropertyF2 {nf2 :: Int}
         | PropertyF3 {nf3 :: Int}
         | PropF4 { af4, nf4 :: Int }
-
+        | PropF5 { af5, bf5 :: Int }
+        | PropF6 {af6, bf6 :: Int}
+        | PropF8 {af8, bf8 :: Int}
+        | PropF10 {af10, bf10 :: Int}
+        | PropF12 {af12 :: Int}
+        --| PropF14 {af14, bf14, nf14 :: Int}
 
 ENDDEF
 
@@ -106,15 +111,53 @@ PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] ()
                 >->
             stimResp [ Input, Output] ()
         ##
-        Input ? a [[ isPropF4 (a) ]]
+        Input ? a [[ isPropF4 (a) /\  (af4(a) > 0)]]
                 >->
             Output ! (0)
                 >->
             stimResp [ Input, Output] ()
 
+
+        ##
+        Input ? a [[ isPropF5 (a) /\  (af5(a)> 0) /\ (bf5(a) > 0)]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+        ##
+        Input ? a [[ isPropF6 (a) /\  (af6(a)> 0) /\ (bf6(a) > 0) ]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+        ##
+        Input ? a [[ isPropF8 (a) /\  ((af8(a)> 0) /\ (bf8(a) > 0))]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+        ##
+        Input ? a [[ isPropF10 (a) /\  (af10(a) >= 0) /\ (bf10(a) >= 0)]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+            ##
+        Input ? a [[ isPropF12 (a) /\  (af12(a) >= 0) ]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+        
+        
         
 
+
 ENDDEF
+
+ 
+
+ 
 
 
 
@@ -168,16 +211,23 @@ ENDDEF
                                                         "(ln(e^" ++ toString(nf3(input)) ++ ")) =" ++ toString(nf3(input))
                                                         ELSE IF isPropF4(input) THEN
                                                             "(ln(" ++ toString(af4(input)) ++ "^" ++ toString(nf4(input)) ++ ")) = (" ++ toString(nf4(input)) ++ "* ln(" ++ toString(af4(input)) ++ "))" 
-                                                        ELSE
-                                                            ""
-    FI FI FI FI FI FI FI FI FI FI FI FI FI FI
+                                                            ELSE IF isPropF5(input) THEN
+                                                                "(ln(" ++ toString(af5(input)) ++ "*" ++ toString(bf5(input)) ++ ")) = (ln(" ++ toString(af5(input)) ++ ")+ ln(" ++ toString(bf5(input)) ++ "))" 
+                                                                ELSE IF isPropF6(input) THEN
+                                                                    "(ln(" ++ toString(af6(input)) ++ "/" ++ toString(bf6(input)) ++ ")) = (ln(" ++ toString(af6(input)) ++ ")) - (ln(" ++ toString(bf5(input)) ++ "))" 
+                                                                    ELSE IF isPropF8(input) THEN
+                                                                        "(log(" ++ toString(af5(input)) ++ "*" ++ toString(bf5(input)) ++ ")) = (log(" ++ toString(af8(input)) ++ "))+ (log(" ++ toString(bf8(input)) ++ "))" 
+                                                                        ELSE IF isPropF10(input) THEN
+                                                                            "(sqrt(" ++ toString(af10(input)) ++ "*" ++ toString(bf10(input)) ++ ")) = (sqrt(" ++ toString(af10(input)) ++ ")) * (sqrt(" ++ toString(bf10(input)) ++ "))"
+                                                                            ELSE IF isPropF12(input) THEN
+                                                                                "(sqrt(" ++ toString(af12(input)) ++ ")) * (sqrt(" ++ toString(af12(input)) ++ ")) = "++ toString(af12(input)) 
 
-    
+                                                                            ELSE
+                                                                                ""
+    FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI
+
  ENDDEF
 
-
-
- 
 
 FUNCDEF addMinusSymb(val::Int) :: String ::= 
     IF val >= 0 THEN
@@ -197,35 +247,6 @@ FUNCDEF isDiffThanZero(val::Int) :: Bool ::=
 ENDDEF
 
         
-FUNCDEF expToInt(exp::RangeOfInputs) :: Int ::=
-    IF isCommutativeAdd(exp) THEN
-        a1(exp) + a2(exp)
-    ELSE IF isCommutativeMult(exp) THEN
-            m1(exp) * m2(exp)
-            ELSE IF isAddId(exp) THEN
-                aid(exp) + 0
-                ELSE IF isMultId(exp) THEN
-                    mid(exp) * 1
-                    ELSE IF isAddInverse(exp) THEN
-                        ai(exp) * (-1)
-                    ELSE IF isMultZero(exp) THEN
-                        mz(exp) * 0
-                        ELSE IF isAssocAdd(exp) THEN
-                            asca1(exp) + asca2(exp) + asca3(exp)
-                            ELSE IF isAssocMult(exp) THEN
-                                ascm1(exp) *  ascm2(exp) * ascm3(exp)
-                                ELSE IF isDistrMultOverAdd(exp) THEN
-                                    dma1(exp) * (dma2(exp) + dma3(exp))
-                                    ELSE IF isQuotient(exp) THEN
-                                        q1(exp) * (1/q2(exp))
-                                        ELSE IF isMultInverse(exp) THEN
-                                            q1(exp) * (1/q1(exp))
-                                        ELSE
-                                        0
-    FI FI FI FI FI FI FI FI FI FI FI  
-ENDDEF
-
-
 
 CHANDEF MyChannels ::=
     Input       :: RangeOfInputs ;
