@@ -15,7 +15,11 @@ TYPEDEF RangeOfInputs
         | MultInverse {mi :: Int}
         | PropF4 { af4, nf4 :: Int }
         | PropF5 { af5, bf5 :: Int }
-
+        | PropF7 { af7, nf7 :: Int }
+        | PropF9 { af9, bf9 :: Int }
+        | PropF11 { af11, bf11 :: Int }
+        | PropF13 { af13, bf13, nf13 :: Int }
+        | PropF15 { af15, nf15 :: Int }
 
 ENDDEF
 
@@ -93,14 +97,49 @@ PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] ()
                 >->
             stimResp [ Input, Output] ()
         ##
-        Input ? a [[ isPropF4 (a) ]]
+        Input ? a [[ isPropF4 (a) /\ af4(a) >= 0]]
                 >->
             Output ! (0)
                 >->
             stimResp [ Input, Output] ()
 
         ##
-        Input ? a [[ isPropF5 (a) ]]
+        Input ? a [[ isPropF5 (a) /\ af5(a) > 0 /\ bf5(a) > 0]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+        
+        ##
+        Input ? a [[ isPropF7 (a) /\ af7(a) > 0]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+        
+        ##
+        Input ? a [[ isPropF9 (a) /\ af9(a) > 0 /\ bf9(a) > 0]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+
+        ##
+        Input ? a [[ isPropF11 (a) /\ af11(a) >= 0 /\ bf11(a) > 0]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+
+         ##
+        Input ? a [[ isPropF13 (a) /\ ((nf13 % 2 == 0 /\ af13(a) >= 0 /\ bf13(a) >= 0) \/ (nf13 % 2 == 1))]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+
+         ##
+        Input ? a [[ isPropF15 (a) /\ ((nf15 % 2 == 0 /\ af15(a) >= 0 /\ bf15(a) >= 0) \/ (nf15 % 2 == 1))]]
                 >->
             Output ! (0)
                 >->
@@ -168,11 +207,21 @@ ENDDEF
                                                 toString(mi(input)) ++ " * ( 1" ++  "/" ++ toString(mi(input)) ++ ") = " ++"1"
                                             ELSE IF isPropF4(input) THEN
                                                 "(ln(" ++ toString(af4(input)) ++ "^" ++ toString(nf4(input)) ++ ")) = (" ++ toString(nf4(input)) ++ "* ln(" ++ toString(af4(input)) ++ "))" 
-                                             ELSE IF isPropF4(input) THEN
-                                                "(ln(" ++ toString(af5(input)) ++ "*" ++ toString(bf5(input)) ++ ")) = (ln(" ++ toString(af5(input)) ++ "+ ln(" ++ toString(bf5(input)) ++ "))" 
+                                            ELSE IF isPropF5(input) THEN
+                                                "(ln(" ++ toString(af5(input)) ++ "*" ++ toString(bf5(input)) ++ ")) = (ln(" ++ toString(af5(input)) ++ "+ ln(" ++ toString(bf5(input)) ++ "))"
+                                            ELSE IF isPropF7(input) THEN
+                                                "(log(" ++ toString(af7(input)) ++ "^" ++ toString(nf7(input)) ++ ")) = " ++ toString(nf7(input)) ++ "* log(" ++ toString(af7(input)) ++ "))"
+                                            ELSE IF isPropF9(input) THEN
+                                                "(log(" ++ toString(af9(input)) ++ "/" ++ toString(bf9(input)) ++ ")) = (log(" ++ toString(af9(input)) ++ ") - log(" ++ toString(bf9(input)) ++ "))"
+                                            ELSE IF isPropF11(input) THEN
+                                                "(sqrt(" ++ toString(af11(input)) ++ "/" ++ toString(bf11(input)) ++ ")) = (sqrt(" ++ toString(af11(input)) ++ ") / sqrt(" ++ toString(bf11(input)) ++ "))"
+                                            ELSE IF isPropF13(input) THEN
+                                                "(root(" ++ toString(af13(input)) ++ "*" ++ toString(bf13(input)) ++ "," ++ toString(nf13(input)) ++ ")) = (root(" ++ toString(af13(input)) ++ "," ++ toString(nf13(input)) ++ ") * root(" ++ toString(bf13(input)) ++ "," ++ toString(nf13(input)) ++ "))"
+                                            ELSE IF isPropF15(input) THEN
+                                                "(root(" ++ toString(af15(input)) ++ "," ++ toString(nf15(input)) ++ ") ^ " ++ toString(nf15(input))) ++ " = (" ++ toString(af15(input)) ++ ")"
                                             ELSE
                                                 ""
-    FI FI FI FI FI FI FI FI FI FI FI FI FI
+    FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI
  ENDDEF
 
 
@@ -195,6 +244,7 @@ FUNCDEF isDiffThanZero(val::Int) :: Bool ::=
         False
     FI
 ENDDEF
+
 
         
 FUNCDEF expToInt(exp::RangeOfInputs) :: Int ::=
