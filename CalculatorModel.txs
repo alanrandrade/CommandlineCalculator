@@ -13,6 +13,9 @@ TYPEDEF RangeOfInputs
         | DistrMultOverAdd {dma1, dma2, dma3 :: Int}
         | Quotient {q1, q2 :: Int}
         | MultInverse {mi :: Int}
+        | PropertyF2 {nf2 :: Int}
+        | PropertyF3 {nf3 :: Int}
+        
 ENDDEF
 
 
@@ -21,88 +24,89 @@ PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] ()
     ::=
         Input ? a [[ isCommutativeAdd(a)  ]]
                 >->
-            Output ! (equalityResult(a))
+            Output ! (0)
                 >->
             stimResp [ Input, Output] ()
 
         ##
         Input ? a [[ isCommutativeMult(a)  ]]
                 >->
-            Output ! (equalityResult(a))
+            Output ! (0)
                 >->
             stimResp [ Input, Output] ()
 
         ##
         Input ? a [[ isAddId(a)  ]]
                 >->
-            Output ! (equalityResult(a))
+            Output ! (0)
                 >->
             stimResp [ Input, Output] ()
 
         ##
         Input ? a [[ isMultId(a)  ]]
                 >->
-            Output ! (equalityResult(a))
+            Output ! (0)
                 >->
             stimResp [ Input, Output] ()
 
         ##
         Input ? a [[ isAddInverse(a)  ]]
                 >->
-            Output ! (equalityResult(a))
+            Output ! (0)
                 >->
             stimResp [ Input, Output] ()
         ##
         Input ? a [[ isMultZero(a)  ]]
                 >->
-            Output ! (equalityResult(a))
+            Output ! (0)
                 >->
             stimResp [ Input, Output] ()
         ##
         Input ? a [[ isAssocMult(a)  ]]
                 >->
-            Output ! (equalityResult(a))
+            Output ! (0)
                 >->
             stimResp [ Input, Output] ()
         ##
         Input ? a [[ isAssocAdd(a)  ]]
                 >->
-            Output ! (equalityResult(a))
+            Output ! (0)
                 >->
             stimResp [ Input, Output] ()
         ##
         Input ? a [[ isDistrMultOverAdd(a)  ]]
                 >->
-            Output ! (equalityResult(a))
+            Output ! (0)
                 >->
             stimResp [ Input, Output] ()
         ##
         Input ? a [[ isQuotient(a) /\  isDiffThanZero(q2(a)) ]]
                 >->
-            Output ! (equalityResult(a))
+            Output ! (0)
                 >->
             stimResp [ Input, Output] ()
         ##
         Input ? a [[ isMultInverse(a)  /\  isDiffThanZero(mi(a)) ]]
                 >->
-            Output ! (equalityResult(a))
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+        ##
+        Input ? a [[ isPropertyF2(a) ]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+
+        ##
+        Input ? a [[ isPropertyF3(a) ]]
+                >->
+            Output ! (0)
                 >->
             stimResp [ Input, Output] ()
 
 ENDDEF
 
-
-FUNCDEF equalityResult(expr :: RangeOfInputs) ::Int ::=
-    LET exp1 = expToInt(expr); exp2 = expToInt(expr) IN
-        IF exp1 > exp2 THEN
-            1
-        ELSE IF exp1 < exp2 THEN
-            -1
-        ELSE 
-            0
-        FI FI
-    NI  
-ENDDEF
 
 
 -- FUNCDEF copyFirstExpToSec(inp :: RangeOfInputs) :: String ::=
@@ -123,6 +127,7 @@ ENDDEF
 --            inp    
 --     FI FI
 -- ENDDEF
+
 
 
  FUNCDEF inputToString(input :: RangeOfInputs) :: String ::=
@@ -148,9 +153,13 @@ ENDDEF
                                             toString(q1(input)) ++ " * ( 1" ++  " / " ++ toString(q2(input)) ++ ") = " ++ toString(q1(input)) ++ " / " ++ toString(q2(input))
                                             ELSE IF isMultInverse(input) THEN
                                                 toString(mi(input)) ++ " * ( 1" ++  "/" ++ toString(mi(input)) ++ ") = " ++"1"
-                                            ELSE
-                                                ""
-    FI FI FI FI FI FI FI FI FI FI FI
+                                                ELSE IF isPropertyF2(input) THEN
+                                                    "(log(10^" ++ toString(nf2(input)) ++ ")) =" ++ toString(nf2(input))
+                                                    ELSE IF isPropertyF3(input) THEN
+                                                        "(ln(e^" ++ toString(nf3(input)) ++ ")) =" ++ toString(nf3(input))
+                                                        ELSE
+                                                            ""
+    FI FI FI FI FI FI FI FI FI FI FI FI FI
  ENDDEF
 
 
