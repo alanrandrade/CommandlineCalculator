@@ -13,15 +13,20 @@ TYPEDEF RangeOfInputs
         | DistrMultOverAdd {dma1, dma2, dma3 :: Int}
         | Quotient {q1, q2 :: Int}
         | MultInverse {mi :: Int}
-        | PropertyF2 {nf2 :: Int}
-        | PropertyF3 {nf3 :: Int}
+        | PropF2 {nf2 :: Int}
+        | PropF3 {nf3 :: Int}
         | PropF4 { af4, nf4 :: Int }
         | PropF5 { af5, bf5 :: Int }
         | PropF6 {af6, bf6 :: Int}
+        | PropF7 { af7, nf7 :: Int }
         | PropF8 {af8, bf8 :: Int}
+        | PropF9 { af9, bf9 :: Int }
         | PropF10 {af10, bf10 :: Int}
+        | PropF11 { af11, bf11 :: Int }
         | PropF12 {af12 :: Int}
+        | PropF13 { af13, bf13, nf13 :: Int }
         --| PropF14 {af14, bf14, nf14 :: Int}
+        | PropF15 { af15, nf15 :: Int }
 
 ENDDEF
 
@@ -99,13 +104,13 @@ PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] ()
                 >->
             stimResp [ Input, Output] ()
         ##
-        Input ? a [[ isPropertyF2(a) ]]
+        Input ? a [[ isPropF2(a) ]]
             >->
             Output ! (0)
                 >->
             stimResp [ Input, Output] ()
         ##
-        Input ? a [[ isPropertyF3(a) ]]
+        Input ? a [[ isPropF3(a) ]]
                 >->
             Output ! (0)
                 >->
@@ -116,16 +121,21 @@ PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] ()
             Output ! (0)
                 >->
             stimResp [ Input, Output] ()
-
-
         ##
         Input ? a [[ isPropF5 (a) /\  (af5(a)> 0) /\ (bf5(a) > 0)]]
                 >->
             Output ! (0)
                 >->
             stimResp [ Input, Output] ()
+        
         ##
         Input ? a [[ isPropF6 (a) /\  (af6(a)> 0) /\ (bf6(a) > 0) ]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+            ##
+        Input ? a [[ isPropF7 (a) /\ (af7(a) > 0) ]]
                 >->
             Output ! (0)
                 >->
@@ -137,17 +147,42 @@ PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] ()
                 >->
             stimResp [ Input, Output] ()
         ##
+        Input ? a [[ isPropF9 (a) /\ (af9(a) > 0) /\ (bf9(a) > 0)]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+        ##
         Input ? a [[ isPropF10 (a) /\  (af10(a) >= 0) /\ (bf10(a) >= 0)]]
                 >->
             Output ! (0)
                 >->
             stimResp [ Input, Output] ()
-            ##
+        ##
+        Input ? a [[ isPropF11 (a) /\ (af11(a) >= 0) /\ (bf11(a) > 0) ]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+        ##
         Input ? a [[ isPropF12 (a) /\  (af12(a) >= 0) ]]
                 >->
             Output ! (0)
                 >->
             stimResp [ Input, Output] ()
+        ##
+        Input ? a [[ isPropF13 (a) /\ ( ( ( (nf13(a) % 2) == 0) /\ (nf13(a) <> 0) /\ (af13(a) >= 0)) /\ (bf13(a) >= 0) ) ]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+         ##
+        Input ? a [[ isPropF15 (a) /\ ( ((nf15(a) % 2 == 0) /\ (nf15(a) <> 0) /\ (af15(a) >= 0) ) \/ (nf15(a) % 2 == 1))]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+        
         
         
         
@@ -195,36 +230,45 @@ ENDDEF
                         toString(ai(input)) ++  " + (" ++ addMinusSymb(ai(input))  ++ ")"++ " = 0"
                         ELSE IF isMultZero(input) THEN
                             toString(mz(input)) ++ " * " ++  "0" ++ " =  0 "
-                            ELSE IF isAssocAdd(input) THEN
-                                "(" ++ toString(asca1(input)) ++ " + " ++ toString(asca2(input)) ++  ") + " ++ toString(asca3(input))  ++  " = " ++ toString(asca1(input)) ++ " + (" ++ toString(asca2(input)) ++  " + " ++ toString(asca3(input)) ++ ")"
-                                ELSE IF isAssocMult(input) THEN
-                                    "(" ++ toString(ascm1(input)) ++ " + " ++ toString(ascm2(input)) ++  ") + " ++ toString(ascm3(input))  ++  " = " ++ toString(ascm1(input)) ++ " + (" ++ toString(ascm2(input)) ++  " + " ++ toString(ascm3(input)) ++ ")"
-                                    ELSE IF isDistrMultOverAdd(input) THEN
-                                        toString(dma1(input)) ++ " * (" ++ toString(dma2(input)) ++  " + " ++ toString(dma3(input))  ++  ") = " ++ toString(dma1(input)) ++ " * " ++ toString(dma2(input)) ++  " + " ++ toString(dma1(input)) ++" * " ++ toString(dma3(input))
-                                        ELSE IF isQuotient(input) THEN
-                                            toString(q1(input)) ++ " * ( 1" ++  " / " ++ toString(q2(input)) ++ ") = " ++ toString(q1(input)) ++ " / " ++ toString(q2(input))
-                                            ELSE IF isMultInverse(input) THEN
-                                                toString(mi(input)) ++ " * ( 1" ++  "/" ++ toString(mi(input)) ++ ") = " ++"1"
-                                                ELSE IF isPropertyF2(input) THEN
-                                                    "(log(10^" ++ toString(nf2(input)) ++ ")) =" ++ toString(nf2(input))
-                                                    ELSE IF isPropertyF3(input) THEN
-                                                        "(ln(e^" ++ toString(nf3(input)) ++ ")) =" ++ toString(nf3(input))
-                                                        ELSE IF isPropF4(input) THEN
-                                                            "(ln(" ++ toString(af4(input)) ++ "^" ++ toString(nf4(input)) ++ ")) = (" ++ toString(nf4(input)) ++ "* ln(" ++ toString(af4(input)) ++ "))" 
-                                                            ELSE IF isPropF5(input) THEN
-                                                                "(ln(" ++ toString(af5(input)) ++ "*" ++ toString(bf5(input)) ++ ")) = (ln(" ++ toString(af5(input)) ++ ")+ ln(" ++ toString(bf5(input)) ++ "))" 
-                                                                ELSE IF isPropF6(input) THEN
-                                                                    "(ln(" ++ toString(af6(input)) ++ "/" ++ toString(bf6(input)) ++ ")) = (ln(" ++ toString(af6(input)) ++ ")) - (ln(" ++ toString(bf5(input)) ++ "))" 
-                                                                    ELSE IF isPropF8(input) THEN
-                                                                        "(log(" ++ toString(af5(input)) ++ "*" ++ toString(bf5(input)) ++ ")) = (log(" ++ toString(af8(input)) ++ "))+ (log(" ++ toString(bf8(input)) ++ "))" 
-                                                                        ELSE IF isPropF10(input) THEN
-                                                                            "(sqrt(" ++ toString(af10(input)) ++ "*" ++ toString(bf10(input)) ++ ")) = (sqrt(" ++ toString(af10(input)) ++ ")) * (sqrt(" ++ toString(bf10(input)) ++ "))"
-                                                                            ELSE IF isPropF12(input) THEN
-                                                                                "(sqrt(" ++ toString(af12(input)) ++ ")) * (sqrt(" ++ toString(af12(input)) ++ ")) = "++ toString(af12(input)) 
-
-                                                                            ELSE
-                                                                                ""
-    FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI
+                        ELSE IF isAssocAdd(input) THEN
+                            "(" ++ toString(asca1(input)) ++ " + " ++ toString(asca2(input)) ++  ") + " ++ toString(asca3(input))  ++  " = " ++ toString(asca1(input)) ++ " + (" ++ toString(asca2(input)) ++  " + " ++ toString(asca3(input)) ++ ")"
+                        ELSE IF isAssocMult(input) THEN
+                            "(" ++ toString(ascm1(input)) ++ " + " ++ toString(ascm2(input)) ++  ") + " ++ toString(ascm3(input))  ++  " = " ++ toString(ascm1(input)) ++ " + (" ++ toString(ascm2(input)) ++  " + " ++ toString(ascm3(input)) ++ ")"
+                            ELSE IF isDistrMultOverAdd(input) THEN
+                                toString(dma1(input)) ++ " * (" ++ toString(dma2(input)) ++  " + " ++ toString(dma3(input))  ++  ") = " ++ toString(dma1(input)) ++ " * " ++ toString(dma2(input)) ++  " + " ++ toString(dma1(input)) ++" * " ++ toString(dma3(input))
+                            ELSE IF isQuotient(input) THEN
+                                toString(q1(input)) ++ " * ( 1" ++  " / " ++ toString(q2(input)) ++ ") = " ++ toString(q1(input)) ++ " / " ++ toString(q2(input))
+                            ELSE IF isMultInverse(input) THEN
+                                toString(mi(input)) ++ " * ( 1" ++  "/" ++ toString(mi(input)) ++ ") = " ++"1"
+                                ELSE IF isPropF2(input) THEN
+                                    "(log(10^" ++ toString(nf2(input)) ++ ")) =" ++ toString(nf2(input))
+                                ELSE IF isPropF3(input) THEN
+                                    "(ln(e^" ++ toString(nf3(input)) ++ ")) =" ++ toString(nf3(input))
+                                ELSE IF isPropF4(input) THEN
+                                    "(ln(" ++ toString(af4(input)) ++ "^" ++ toString(nf4(input)) ++ ")) = (" ++ toString(nf4(input)) ++ "* ln(" ++ toString(af4(input)) ++ "))" 
+                                ELSE IF isPropF5(input) THEN
+                                    "(ln(" ++ toString(af5(input)) ++ "*" ++ toString(bf5(input)) ++ ")) = (ln(" ++ toString(af5(input)) ++ ")+ ln(" ++ toString(bf5(input)) ++ "))" 
+                                ELSE IF isPropF6(input) THEN
+                                    "(ln(" ++ toString(af6(input)) ++ "/" ++ toString(bf6(input)) ++ ")) = (ln(" ++ toString(af6(input)) ++ ")) - (ln(" ++ toString(bf5(input)) ++ "))" 
+                                    ELSE IF isPropF7(input) THEN
+                                    "(log(" ++ toString(af7(input)) ++ "^" ++ toString(nf7(input)) ++ ")) = " ++ toString(nf7(input)) ++ "* log(" ++ toString(af7(input)) ++ "))"
+                                    ELSE IF isPropF8(input) THEN
+                                        "(log(" ++ toString(af5(input)) ++ "*" ++ toString(bf5(input)) ++ ")) = (log(" ++ toString(af8(input)) ++ "))+ (log(" ++ toString(bf8(input)) ++ "))" 
+                                         ELSE IF isPropF9(input) THEN
+                                            "(log(" ++ toString(af9(input)) ++ "/" ++ toString(bf9(input)) ++ ")) = (log(" ++ toString(af9(input)) ++ ") - log(" ++ toString(bf9(input)) ++ "))"
+                                        ELSE IF isPropF10(input) THEN
+                                            "(sqrt(" ++ toString(af10(input)) ++ "*" ++ toString(bf10(input)) ++ ")) = (sqrt(" ++ toString(af10(input)) ++ ")) * (sqrt(" ++ toString(bf10(input)) ++ "))"
+                                        ELSE IF isPropF11(input) THEN
+                                            "(sqrt(" ++ toString(af11(input)) ++ "/" ++ toString(bf11(input)) ++ ")) = (sqrt(" ++ toString(af11(input)) ++ ") / sqrt(" ++ toString(bf11(input)) ++ "))"
+                                        ELSE IF isPropF12(input) THEN
+                                            "(sqrt(" ++ toString(af12(input)) ++ ")) * (sqrt(" ++ toString(af12(input)) ++ ")) = "++ toString(af12(input)) 
+                                        ELSE IF isPropF13(input) THEN
+                                            "(root(" ++ toString(af13(input)) ++ "*" ++ toString(bf13(input)) ++ "," ++ toString(nf13(input)) ++ ")) = (root(" ++ toString(af13(input)) ++ "," ++ toString(nf13(input)) ++ ") * root(" ++ toString(bf13(input)) ++ "," ++ toString(nf13(input)) ++ "))"
+                                        ELSE IF isPropF15(input) THEN
+                                            "(root("++ toString(af15(input)) ++ "," ++ toString(nf15(input)) ++ ") ^ "++ toString(nf15(input))  ++ ") = " ++ toString(af15(input))
+                                        ELSE
+                                            ""
+    FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI
 
  ENDDEF
 
