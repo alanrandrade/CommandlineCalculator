@@ -25,7 +25,7 @@ TYPEDEF RangeOfInputs
         | PropF11 { af11, bf11 :: Int }
         | PropF12 {af12 :: Int}
         | PropF13 { af13, bf13, nf13 :: Int }
-        --| PropF14 {af14, bf14, nf14 :: Int}
+        | PropF14 {af14, bf14, nf14 :: Int}
         | PropF15 { af15, nf15 :: Int }
 
 ENDDEF
@@ -34,6 +34,7 @@ ENDDEF
 
 PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] () 
     ::=
+        
         Input ? a [[ isCommutativeAdd(a)  ]]
                 >->
             Output ! (0)
@@ -134,7 +135,7 @@ PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] ()
             Output ! (0)
                 >->
             stimResp [ Input, Output] ()
-            ##
+        ##
         Input ? a [[ isPropF7 (a) /\ (af7(a) > 0) ]]
                 >->
             Output ! (0)
@@ -171,7 +172,15 @@ PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] ()
                 >->
             stimResp [ Input, Output] ()
         ##
-        Input ? a [[ isPropF13 (a) /\ ( ( ( (nf13(a) % 2) == 0) /\ (nf13(a) <> 0) /\ (af13(a) >= 0)) /\ (bf13(a) >= 0) ) ]]
+        
+        Input ? a [[ isPropF13 (a) /\ ( ( ( (nf13(a) % 2) == 0)  /\ (af13(a) >= 0)) /\ (bf13(a) >= 0) ) ]]
+                >->
+            Output ! (0)
+                >->
+            stimResp [ Input, Output] ()
+        
+        ##
+        Input ? a [[ isPropF14 (a) /\ ( ( ( (nf14(a) % 2) == 0) /\ (af14(a) >= 0)) /\ (bf14(a) >= 0) ) ]]
                 >->
             Output ! (0)
                 >->
@@ -182,6 +191,7 @@ PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] ()
             Output ! (0)
                 >->
             stimResp [ Input, Output] ()
+            
         
         
         
@@ -264,11 +274,13 @@ ENDDEF
                                             "(sqrt(" ++ toString(af12(input)) ++ ")) * (sqrt(" ++ toString(af12(input)) ++ ")) = "++ toString(af12(input)) 
                                         ELSE IF isPropF13(input) THEN
                                             "(root(" ++ toString(af13(input)) ++ "*" ++ toString(bf13(input)) ++ "," ++ toString(nf13(input)) ++ ")) = (root(" ++ toString(af13(input)) ++ "," ++ toString(nf13(input)) ++ ") * root(" ++ toString(bf13(input)) ++ "," ++ toString(nf13(input)) ++ "))"
+                                        ELSE IF isPropF14(input) THEN
+                                            "(root(" ++ toString(af14(input)) ++ "/" ++ toString(bf14(input)) ++ "," ++ toString(nf14(input)) ++ ")) = (root(" ++ toString(af14(input)) ++ "," ++ toString(nf14(input)) ++ ") / root(" ++ toString(bf14(input)) ++ "," ++ toString(nf14(input)) ++ "))"
                                         ELSE IF isPropF15(input) THEN
                                             "(root("++ toString(af15(input)) ++ "," ++ toString(nf15(input)) ++ ") ^ "++ toString(nf15(input))  ++ ") = " ++ toString(af15(input))
                                         ELSE
                                             ""
-    FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI
+    FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI FI
 
  ENDDEF
 
