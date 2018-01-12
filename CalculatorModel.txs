@@ -34,7 +34,7 @@ ENDDEF
 
 PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] () 
     ::=
-        
+
         Input ? a [[ isCommutativeAdd(a)  ]]
                 >->
             Output ! (0)
@@ -173,20 +173,20 @@ PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] ()
             stimResp [ Input, Output] ()
         ##
         
-        Input ? a [[ isPropF13 (a) /\ ( ( ( (nf13(a) % 2) == 0)  /\ (af13(a) >= 0)) /\ (bf13(a) >= 0) ) ]]
+        Input ? a [[ isPropF13 (a) /\ (( ( ( (nf13(a) % 2) == 0)  /\ (af13(a) >= 0)) /\ (bf13(a) >= 0) ) \/ ((nf13(a) %2 == 1) )) /\ ( ((nf13(a) > 0)) \/ (((nf13(a) < 0)) /\  (af13(a) <> 0)  /\  (bf13(a) <> 0))) /\  ((nf13(a) % 2) <> 0) ]]
                 >->
             Output ! (0)
                 >->
             stimResp [ Input, Output] ()
         
         ##
-        Input ? a [[ isPropF14 (a) /\ ( ( ( (nf14(a) % 2) == 0) /\ (af14(a) >= 0)) /\ (bf14(a) >= 0) ) ]]
+        Input ? a [[ isPropF14 (a) /\ (( ( ( (nf14(a) % 2) == 0)  /\ (af14(a) >= 0)) /\ (bf14(a) >= 0) ) \/ ((nf14(a) %2 == 1) )) /\ ( ((nf14(a) > 0)) \/ (((nf14(a) < 0)) /\  (af14(a) <> 0)  /\  (bf14(a) <> 0))) /\  ((nf14(a) % 2) <> 0) ]]
                 >->
             Output ! (0)
                 >->
             stimResp [ Input, Output] ()
          ##
-        Input ? a [[ isPropF15 (a) /\ ( ((nf15(a) % 2 == 0) /\ (nf15(a) <> 0) /\ (af15(a) >= 0) ) \/ (nf15(a) % 2 == 1))]]
+        Input ? a [[ isPropF15 (a) /\ ( ((nf15(a) % 2 == 0) /\ (nf15(a) <> 0) /\ (af15(a) >= 0) ) \/ (nf15(a) % 2 == 1)) /\  (nf15(a) <> 0)]]
                 >->
             Output ! (0)
                 >->
