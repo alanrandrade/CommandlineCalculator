@@ -32,177 +32,53 @@ ENDDEF
 
 
 
-PROCDEF stimResp [ Input :: RangeOfInputs; Output :: Int] () 
+PROCDEF calc [ Input :: RangeOfInputs; Output :: Int] () 
     ::=
 
-        Input ? a [[ isCommutativeAdd(a)  ]]
+        Input ? a [[ isValidInput(a)  ]]
                 >->
             Output ! (0)
                 >->
-            stimResp [ Input, Output] ()
-
-        ##
-        Input ? a [[ isCommutativeMult(a)  ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-
-        ##
-        Input ? a [[ isAddId(a)  ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-
-        ##
-        Input ? a [[ isMultId(a)  ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-
-        ##
-        Input ? a [[ isAddInverse(a)  ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isMultZero(a)  ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isAssocMult(a)  ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isAssocAdd(a)  ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isDistrMultOverAdd(a)  ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isQuotient(a) /\  isDiffThanZero(q2(a)) ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isMultInverse(a)  /\  isDiffThanZero(mi(a)) ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isPropF2(a) ]]
-            >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isPropF3(a) ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isPropF4 (a) /\  (af4(a) > 0)]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isPropF5 (a) /\  (af5(a)> 0) /\ (bf5(a) > 0)]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        
-        ##
-        Input ? a [[ isPropF6 (a) /\  (af6(a)> 0) /\ (bf6(a) > 0) ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isPropF7 (a) /\ (af7(a) > 0) ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isPropF8 (a) /\  ((af8(a)> 0) /\ (bf8(a) > 0))]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isPropF9 (a) /\ (af9(a) > 0) /\ (bf9(a) > 0)]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isPropF10 (a) /\  (af10(a) >= 0) /\ (bf10(a) >= 0)]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isPropF11 (a) /\ (af11(a) >= 0) /\ (bf11(a) > 0) ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        Input ? a [[ isPropF12 (a) /\  (af12(a) >= 0) ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        ##
-        
-        Input ? a [[ isPropF13 (a) /\ (( ( ( (nf13(a) % 2) == 0)  /\ (af13(a) >= 0)) /\ (bf13(a) >= 0) ) \/ ((nf13(a) %2 == 1) )) /\ ( ((nf13(a) > 0)) \/ (((nf13(a) < 0)) /\  (af13(a) <> 0)  /\  (bf13(a) <> 0))) /\  ((nf13(a) % 2) <> 0) ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-        
-        ##
-        Input ? a [[ isPropF14 (a) /\ (( ( ( (nf14(a) % 2) == 0)  /\ (af14(a) >= 0)) /\ (bf14(a) >= 0) ) \/ ((nf14(a) %2 == 1) )) /\ ( ((nf14(a) > 0)) \/ (((nf14(a) < 0)) /\  (af14(a) <> 0)  /\  (bf14(a) <> 0))) /\  ((nf14(a) % 2) <> 0) ]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-         ##
-        Input ? a [[ isPropF15 (a) /\ ( ((nf15(a) % 2 == 0) /\ (nf15(a) <> 0) /\ (af15(a) >= 0) ) \/ (nf15(a) % 2 == 1)) /\  (nf15(a) <> 0)]]
-                >->
-            Output ! (0)
-                >->
-            stimResp [ Input, Output] ()
-            
-        
-        
-        
+            calc [ Input, Output] ()
         
 
 
 ENDDEF
 
- 
 
+FUNCDEF isValidInput(inp::RangeOfInputs) :: Bool ::=
  
+    IF (isCommutativeAdd(inp) \/
+        isCommutativeMult(inp) \/
+        isAddId(inp) \/
+        isMultId(inp) \/ 
+        isAddInverse(inp) \/ 
+        isMultZero(inp) \/ 
+        isAssocMult(inp) \/
+        isAssocAdd(inp) \/
+        isDistrMultOverAdd(inp) \/ 
+        (isQuotient(inp) /\  isDiffThanZero(q2(inp))) \/ 
+        (isMultInverse(inp)  /\  isDiffThanZero(mi(inp))) \/
+        isPropF2(inp) \/
+        isPropF3(inp) \/
+        (isPropF4 (inp) /\  (af4(inp) > 0)) \/
+        (isPropF5 (inp) /\  (af5(inp)> 0) /\ (bf5(inp) > 0)) \/
+        (isPropF6 (inp) /\  (af6(inp)> 0) /\ (bf6(inp) > 0) ) \/
+        (isPropF7 (inp) /\ (af7(inp) > 0) ) \/
+        (isPropF8 (inp) /\  ((af8(inp)> 0) /\ (bf8(inp) > 0))) \/
+        (isPropF9 (inp) /\ (af9(inp) > 0) /\ (bf9(inp) > 0)) \/
+        (isPropF10 (inp) /\  (af10(inp) >= 0) /\ (bf10(inp) >= 0)) \/
+        (isPropF11 (inp) /\ (af11(inp) >= 0) /\ (bf11(inp) > 0)) \/
+        (isPropF12 (inp) /\  (af12(inp) >= 0)) \/
+        (isPropF13 (inp) /\ (( ( ( (nf13(inp) % 2) == 0)  /\ (af13(inp) >= 0)) /\ (bf13(inp) >= 0) ) \/ ((nf13(inp) %2 == 1) )) /\ ( ((nf13(inp) > 0)) \/ (((nf13(inp) < 0)) /\  (af13(inp) <> 0)  /\  (bf13(inp) <> 0))) /\  ((nf13(inp) % 2) <> 0)) \/
+        (isPropF14 (inp) /\ (( ( ( (nf14(inp) % 2) == 0)  /\ (af14(inp) >= 0)) /\ (bf14(inp) >= 0) ) \/ ((nf14(inp) %2 == 1) )) /\ ( ((nf14(inp) > 0)) \/ (((nf14(inp) < 0)) /\  (af14(inp) <> 0)  /\  (bf14(inp) <> 0))) /\  ((nf14(inp) % 2) <> 0)) \/
+        (isPropF15 (inp) /\ ( ((nf15(inp) % 2 == 0) /\ (nf15(inp) <> 0) /\ (af15(inp) >= 0) ) \/ (nf15(inp) % 2 == 1)) /\  (nf15(inp) <> 0))) THEN
+        True
+    ELSE
+        False
+    FI
+
+ENDDEF
 
 
 
@@ -314,7 +190,7 @@ MODELDEF Model ::=
     CHAN OUT   Output
 
     BEHAVIOUR  
-        stimResp [Input,Output] ()
+        calc [Input,Output] ()
 ENDDEF
 
 

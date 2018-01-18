@@ -1,5 +1,18 @@
 Commandline Calculator
-==
+=================================================
+Torxakis
+
+In order to run the Command Line Calculator within the wrapper:
+> Open a Command Line (cmd);
+> Navigate to the project's folder;
+> Execute the following command: "java -jar .\SockServImproved.jar 7890 java -jar .\target\Comman
+dlineCalculator-1.0-jar-with-dependencies.jar";
+> Open another Command Line, navigate to the folder and load "torxakis CalculatorModel.txs";
+> "tester Model Sut";
+> "test 100" (for example);
+> Tests will start being executed.
+
+===================================================
 Requirements
 --
 * Java
@@ -20,4 +33,6 @@ Right click on project > Run as.. > Maven install > Tests will run automatically
 If maven install does not run the tests automatically, you can still run the file CalculatorProperties (CalculatorPropertiesTest) as a Junit test.
 
 Right click on the test file > Run as > Junit Test
+
+
 
